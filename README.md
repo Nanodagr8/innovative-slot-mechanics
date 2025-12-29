@@ -11,6 +11,8 @@ Four mathematically-sound, patentable slot game mechanics using advanced mathema
 
 ## 💖 Support This Project
 
+[![PLAY DEMO](https://img.shields.io/badge/🎮_Play-Live_Demo-success?style=for-the-badge)](https://nanodagr8.github.io/innovative-slot-mechanics/play/)
+
 If you find these mechanics useful, please consider supporting:
 
 [![Sponsor](https://img.shields.io/badge/GitHub_Sponsors-❤️_Sponsor-ea4aaa?style=for-the-badge&logo=github)](https://github.com/sponsors/nanostudios)

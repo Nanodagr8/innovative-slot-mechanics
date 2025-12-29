@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Innovative Slot Mechanics Demo</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <h1>INNOVATIVE SLOT MECHANICS</h1>
+            <nav class="mechanic-tabs">
+                <button class="tab-btn active" data-mechanic="transform">⚡ Transform</button>
+                <button class="tab-btn" data-mechanic="evolution">🧬 Evolution</button>
+                <button class="tab-btn" data-mechanic="timetravel">⏰ Time Travel</button>
+                <button class="tab-btn" data-mechanic="morphing">🔄 Morphing</button>
+            </nav>
+        </header>
+
+        <main class="game-area">
+            <div class="slot-machine">
+                <div class="reels-container" id="reels">
+                    <!-- Reels will be injected here -->
+                </div>
+                <div class="payline-indicators"></div>
+            </div>
+
+            <div class="info-panel">
+                <h2 id="mechanic-title">Transform Mechanic</h2>
+                <div id="mechanic-visualization">
+                    <!-- Mechanic specific visualization goes here -->
+                    <div class="placeholder-vis">Select a mechanic to see details</div>
+                </div>
+                <div class="stats-panel">
+                    <div class="stat-box">
+                        <span class="label">RTP Contribution</span>
+                        <span class="value" id="rtp-value">10-12%</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="label">Trigger Rate</span>
+                        <span class="value" id="trigger-value">20%</span>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <section class="controls-area">
+            <div class="balance-display">
+                <span class="label">BALANCE</span>
+                <span class="value">$<span id="balance">1000.00</span></span>
+            </div>
+            
+            <div class="bet-controls">
+                <button class="control-btn" id="decrease-bet">-</button>
+                <div class="bet-display">
+                    <span class="label">BET</span>
+                    <span class="value">$<span id="bet">1.00</span></span>
+                </div>
+                <button class="control-btn" id="increase-bet">+</button>
+            </div>
+
+            <div class="win-display">
+                <span class="label">WIN</span>
+                <span class="value">$<span id="win">0.00</span></span>
+            </div>
+
+            <button class="spin-btn" id="spin-btn">SPIN</button>
+        </section>
+
+        <section class="log-area">
+            <h3>Game Log</h3>
+            <div class="log-container" id="game-log">
+                <div class="log-entry">Welcome to the Innovative Mechanics Demo!</div>
+            </div>
+        </section>
+        
+        <div class="patent-notice">
+            Patent Pending • NANOSTUDIOS • © 2025
+        </div>
+    </div>
+
+    <script src="js/slot_engine.js"></script>
+    <script src="js/mechanics/transform.js"></script>
+    <script src="js/mechanics/evolution.js"></script>
+    <script src="js/mechanics/timetravel.js"></script>
+    <script src="js/mechanics/morphing.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
