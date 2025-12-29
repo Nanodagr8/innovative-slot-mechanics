@@ -271,7 +271,7 @@ See [LICENSE](LICENSE) for details.
 
 ## 📞 Contact
 
-- **Licensing:** kevin@nanostudios.com
+- **Licensing:** Contact:** kevinINTHAVONG15@GMAIL.COM
 - **Support:** [Open an Issue](https://github.com/nanostudios/innovative-slot-mechanics/issues)
 
 ---
