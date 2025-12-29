@@ -230,7 +230,7 @@ python -m pytest --cov=mechanics tests/
 | Large      | >$10M   | $100,000    | 5%             |
 | Enterprise | Custom  | Negotiable  | Negotiable     |
 
-**Contact:** kevin@nanostudios.com
+**Contact:** kevinINTHAVONG15@GMAIL.COM
 
 ---
 
