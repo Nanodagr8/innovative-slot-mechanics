@@ -1,0 +1,94 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>03_Appendix.html</title>
+        <style>
+            body {
+                font-family: 'Times New Roman', Times, serif;
+                font-size: 12pt;
+                line-height: 2.0; /* USPTO prefers double spacing for Spec */
+                margin: 40px;
+                max-width: 800px;
+            }
+            h1 { font-size: 16pt; font-weight: bold; text-align: center; text-transform: uppercase; margin-top: 50px; }
+            h2 { font-size: 14pt; font-weight: bold; margin-top: 30px; border-bottom: 1px solid #ccc; }
+            h3 { font-size: 12pt; font-weight: bold; font-style: italic; margin-top: 20px; }
+            p { margin-bottom: 15px; text-align: justify; }
+            li { margin-bottom: 10px; }
+            pre { 
+                background: #fff; 
+                padding: 15px; 
+                border: 2px solid #000; 
+                font-family: 'Courier New', monospace; 
+                font-weight: bold;
+                font-size: 10pt; 
+                line-height: 1.2;
+                white-space: pre-wrap;
+            }
+            .page-break { page-break-before: always; }
+        </style>
+    </head>
+    <body>
+    <h1>Appendix A: Mathematical Proofs of Algorithm Stability</h1>
+<p><b>REFERENCE:</b> Patent Application Docket # [TO BE ASSIGNED]</p>
+<p><b>SUBJECT:</b> SYSTEM AND METHOD FOR STOCHASTIC AND TEMPORAL SYMBOL TRANSFORMATION</p>
+<hr>
+<h2>1. Proof of Transform System Stability (Markov Chain Convergence)</h2>
+<p><b>Proposition:</b></p>
+<p>The symbol state transition system defined by matrix P converges to a unique steady-state distribution \pi, ensuring a calculable and finite Return to Player (RTP).</p>
+<p><b>Proof:</b></p>
+<p>Let S = \{S_1, S_2, ..., S_n\} be the finite set of symbol states.</p>
+<p>Let P be the n \times n transition matrix where P_{ij} = Pr(X_{t+1} = S_j | X_t = S_i).</p>
+<p>1.  <b>Irreducibility:</b> The matrix P allows transition from any state S_i to the "reset" state (usually S_1 via a spin reset or loss) and from S_1 to any other state S_j over k steps. Thus, the chain is irreducible.</p>
+<p>2.  <b>Aperiodicity:</b> Since P_{ii} > 0 for at least one state (symbols can remain unchanged), the chain is aperiodic.</p>
+<p>3.  <b>Regularity:</b> A finite markov chain that is irreducible and aperiodic is <b>regular</b>.</p>
+<p><b>Theorem (Fundamental Theorem of Markov Chains):</b></p>
+<p>If P is regular, then there exists a unique probability vector \pi such that:</p>
+<p> \lim\_{k \to \infty} P^k = \mathbf{1}\pi </p>
+<p>and</p>
+<p> \pi P = \pi </p>
+<p><b>Conclusion:</b></p>
+<p>The logic produces a strictly deterministic long-term average frequency for each symbol state, allowing precise RTP calculation:</p>
+<p> RTP = \sum\_{i=1}^{n} (\pi_i \times Payout(S_i)) </p>
+<hr>
+<h2>2. Proof of Evolution System Convergence (Fibonacci Decay)</h2>
+<p><b>Proposition:</b></p>
+<p>The "Evolution" mechanic, which increases multipliers according to the Fibonacci sequence F_n, has a finite Expected Value (EV) because the probability of survival decays faster than the value growth.</p>
+<p><b>Proof:</b></p>
+<p>Let V_n = F_n (Value at level n).</p>
+<p>Approximation for large n: F_n \approx \frac{\phi^n}{\sqrt{5}}.</p>
+<p>Let P_n be the probability of reaching level n given level n-1.</p>
+<p>Disclosed Formula: P_{survive} = \frac{k}{\phi^2}.</p>
+<p>Thus, the cumulative probability of reaching level n is:</p>
+<p> P(Level=n) \approx ( \frac{1}{\phi^2} )^n = \frac{1}{\phi^{2n}} </p>
+<p><b>Expected Value Summation:</b></p>
+<p> EV = \sum*{n=1}^{\infty} (Value_n \times Probability_n) </p>
+<p> EV \approx \sum*{n=1}^{\infty} ( \phi^n \times \frac{1}{\phi^{2n}} ) </p>
+<p> EV \approx \sum\_{n=1}^{\infty} \frac{1}{\phi^n} </p>
+<p><b>Geometric Series Convergence:</b></p>
+<p>This is a geometric series with ratio r = \frac{1}{\phi} \approx 0.618.</p>
+<p>Since |r| < 1, the series converges to a finite sum:</p>
+<p> Sum = \frac{a}{1-r} </p>
+<p><b>Conclusion:</b></p>
+<p>Because 1/\phi < 1, the payout multipliers (growing at \phi) are outpaced by the decay probability (decaying at \phi^2), ensuring the total RTP is finite and mathematically bounded. The game cannot "explode" into infinite payouts.</p>
+<hr>
+<h2>3. Proof of Time Travel Wave Boundedness</h2>
+<p><b>Proposition:</b></p>
+<p>The retrieval probability function P(k) yields strictly valid probabilities 0 \le P(k) \le 1 for all historical steps k \ge 0.</p>
+<p><b>Formula:</b></p>
+<p> P(k) = 1.0 \cdot e^{-\lambda k} \cdot |\cos(\omega k)| </p>
+<p><b>Proof:</b></p>
+<p>1.  <b>Non-Negativity:</b></p>
+<li>The exponential term $e^{-\lambda k}$ is strictly positive for all real $\lambda, k$.</li>
+<li>The absolute value $|\cos(\omega k)|$ is $\ge 0$.</li>
+<li>Therefore, $P(k) \ge 0$.</li>
+<p>2.  <b>Upper Bound:</b></p>
+<li>The maximum value of $|\cos(x)|$ is 1.</li>
+<li>The maximum value of $e^{-\lambda k}$ for $k \ge 0$ (assuming $\lambda > 0$) occurs at $k=0$, where $e^0 = 1$.</li>
+<li>At $k=0$: $P(0) = 1 \cdot 1 \cdot 1 = 1$.</li>
+<li>For $k > 0$: $e^{-\lambda k} < 1$.</li>
+<li>Therefore, $P(k) \le 1$.</li>
+<p><b>Conclusion:</b></p>
+<p>The function strictly maps to the domain [0, 1], making it a valid probability measure for any spin history index.</p>
+</body></html>

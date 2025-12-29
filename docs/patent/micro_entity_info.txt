@@ -1,0 +1,15 @@
+# Info for Form SB/15A (Micro Entity Certification)
+
+**Purpose:** To qualify for 80% fee reduction.
+
+**You must be able to certify the following:**
+
+1.  **Small Entity Basis:** You qualify as a "Small Entity" (individual, small business < 500 employees, or non-profit).
+2.  **Application Limit:** You have not been named as an inventor on more than 4 previously filed patent applications.
+3.  **Income Limit:** Your "Gross Income" for the preceding calendar year did not exceed the "Maximum Qualifying Gross Income" (Approx $212,352 - subject to change, check current USPTO instructions).
+4.  **Assignment:** You have not assigned or licensed the rights to an entity that exceeds the income limit.
+
+**Filing Instructions:**
+- If the online system asks for "Entity Status", select **Micro Entity**.
+- You may be prompted to upload or sign a "Certification of Micro Entity Status" form.
+- Use the data above to confirm your eligibility.

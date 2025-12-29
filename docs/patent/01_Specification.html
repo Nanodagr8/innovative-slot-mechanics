@@ -1,0 +1,90 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>01_Specification.html</title>
+        <style>
+            body {
+                font-family: 'Times New Roman', Times, serif;
+                font-size: 12pt;
+                line-height: 2.0; /* USPTO prefers double spacing for Spec */
+                margin: 40px;
+                max-width: 800px;
+            }
+            h1 { font-size: 16pt; font-weight: bold; text-align: center; text-transform: uppercase; margin-top: 50px; }
+            h2 { font-size: 14pt; font-weight: bold; margin-top: 30px; border-bottom: 1px solid #ccc; }
+            h3 { font-size: 12pt; font-weight: bold; font-style: italic; margin-top: 20px; }
+            p { margin-bottom: 15px; text-align: justify; }
+            li { margin-bottom: 10px; }
+            pre { 
+                background: #fff; 
+                padding: 15px; 
+                border: 2px solid #000; 
+                font-family: 'Courier New', monospace; 
+                font-weight: bold;
+                font-size: 10pt; 
+                line-height: 1.2;
+                white-space: pre-wrap;
+            }
+            .page-break { page-break-before: always; }
+        </style>
+    </head>
+    <body>
+    <h1>PROVISIONAL PATENT APPLICATION</h1>
+<p><b>TITLE OF INVENTION:</b></p>
+<p>SYSTEM AND METHOD FOR STOCHASTIC AND TEMPORAL SYMBOL TRANSFORMATION IN CHANCE-BASED GAMING</p>
+<p><b>INVENTOR:</b></p>
+<p>Kevin Inthavong, NANOSTUDIOS</p>
+<p><b>ATTORNEY DOCKET NO:</b> [TO BE ASSIGNED]</p>
+<p><b>FILING DATE:</b> December 29, 2025</p>
+<hr>
+<h2>CROSS-REFERENCE TO RELATED APPLICATIONS</h2>
+<p>This application claims priority to the internal development records and technical specifications entitled "Innovative Mechanics Whitepaper" dated December 29, 2025.</p>
+<hr>
+<h2>FIELD OF THE INVENTION</h2>
+<p>The present disclosure generally relates to electronic gaming machines and chance-based wagering systems. More specifically, the invention relates to algorithmic methods for symbol state determination using Markov chains, Fibonacci sequence evolution, temporal probability wave functions, and cellular automata logic.</p>
+<hr>
+<h2>BACKGROUND OF THE INVENTION</h2>
+<p>Traditional slot machines operate on "reel strip" logic, where outcomes are determined by selecting a random stop position on a virtual reel. While effective, this method is static and lacks varying internal states for individual symbols. Existing "cascading" or "tumbling" mechanics merely replace symbols without altering their fundamental properties.</p>
+<p>There remains a need for a gaming system where symbols possess persistent internal states that evolve based on specific mathematical rules (probability matrices, growth sequences, or temporal history), providing a deeper and more engaging player experience while maintaining a mathematically verifiable Return to Player (RTP).</p>
+<hr>
+<h2>SUMMARY OF THE INVENTION</h2>
+<p>The present invention solves the limitations of static reel strips by introducing four novel subsystems for symbol state determination:</p>
+<p>1.  <b>Transform System:</b> Utilizes a stochastic transition matrix (Markov Chain) to upgrade symbol tiers dynamically during a spin event.</p>
+<p>2.  <b>Evolution System:</b> Utilizes a Fibonacci-based growth sequence where winning symbols persist and increment in value, subject to a decay probability governed by the Golden Ratio (\phi).</p>
+<p>3.  <b>Time Travel System:</b> Utilizes a temporal history buffer and a damped sine wave function to allow retrieval of past game states (wins) and prediction of future outcomes.</p>
+<p>4.  <b>Morphing System:</b> Utilizes neighbor-dependent cellular automata rules to trigger fluid symbol transformations modeled by logic similar to Bezier curve interpolation.</p>
+<hr>
+<h2>DETAILED DESCRIPTION OF THE INVENTION</h2>
+<h3>Embodiment 1: The Transform Logic (Markov Chains)</h3>
+<p>In one embodiment, the gaming controller defines a plurality of symbol states (S_{1}...S_{n}). Upon a trigger event, the controller applies a Transition Matrix (P) to the current symbol state S_{t} to determine S_{t+1}.</p>
+<p>The matrix is configured such that the probability of transition to a higher value state increases or decreases based on the specific volatility profile desired. A "Singularity" event is defined where the system forces a convergence to the highest absorbing state if a specific threshold of high-tier symbols is detected.</p>
+<p><b>Formula:</b> S_{t+1} = T(S_t, P)</p>
+<h3>Embodiment 2: The Evolution Logic (Fibonacci)</h3>
+<p>In another embodiment, symbols possess a "Level" property (L). Upon a winning event, the symbol is retained (held) for the subsequent game cycle. The value of the symbol at Level L is determined by the Fibonacci sequence (F(L) = F(L-1) + F(L-2)).</p>
+<p>The probability of a symbol surviving to the next level is inversely proportional to the square of the Golden Ratio (\phi \approx 1.618), creating a mathematically natural decay curve ("Survival of the Fittest").</p>
+<p><b>Formula:</b> P_{survival} = \frac{k}{\phi^2}</p>
+<h3>Embodiment 3: The Time Travel Logic (Wave Functions)</h3>
+<p>In another embodiment, the system maintains a circular buffer of the past N spin outcomes. A "Retrieval" probability is calculated for each historical index k using a damped sine wave function, creating non-linear "echoes" of past events that are more likely to be retrieved at specific intervals (peaks of the wave). A "Paradox" multiplier is applied if the same historical index is retrieved multiple times within a session.</p>
+<p><b>Formula:</b> P(k) = A \cdot e^{-\lambda k} \cdot |\cos(\omega k)|</p>
+<h3>Embodiment 4: Morphing Logic (Cellular Automata)</h3>
+<p>In another embodiment, a symbol's state is determined by the aggregate state of its adjacent neighbors (Moore Neighborhood). If the sum of neighbor values exceeds a threshold, the central symbol transforms. The transformation is visualized using Cubic Bezier interpolation to smoothly blend parameters between the initial and final states.</p>
+<hr>
+<h2>CLAIMS</h2>
+<p><b>What is claimed is:</b></p>
+<p>1.  A method for operating a gaming machine comprising:</p>
+<p>a) display means for presenting a grid of symbols;</p>
+<p>b) a processor configured to execute a state transition algorithm;</p>
+<p>c) wherein said processor applies a stochastic transition matrix to at least one symbol on the grid to transform it from a first state to a second state independent of reel strip positions.</p>
+<p>2.  The method of claim 1, wherein the transition probabilities are derived from non-absorbent Markov Chains.</p>
+<p>3.  A gaming system comprising a memory storing a sequence of values defined by F_n = F_{n-1} + F_{n-2} (Fibonacci sequence), wherein a symbol's payout multiplier corresponds to said sequence, and the probability of advancing to the next sequence index is inversely proportional to the Golden Ratio (\phi).</p>
+<p>4.  A method for determining a game outcome comprising:</p>
+<p>a) recording a history of past game outcomes;</p>
+<p>b) calculating a retrieval probability for each past outcome using a periodic decay function (damped wave);</p>
+<p>c) awarding a payout based on a retrieved past outcome if said probability check is successful.</p>
+<p>5.  The method of claim 4, further comprising applying a multiplier ("Paradox Bonus") if a specific past outcome is retrieved more than once.</p>
+<p>6.  A non-transitory computer-readable medium storing instructions that, when executed, cause a processor to determine a symbol's state based on the states of its adjacent geometric neighbors (Cellular Automata), rendering the transition via Bezier curve interpolation.</p>
+<hr>
+<p><b>ABSTRACT</b></p>
+<p>A gaming system and method providing dynamic symbol states. The system includes a Transform engine using Markov chains for symbol upgrades, an Evolution engine using Fibonacci sequences for progressive multipliers with Golden Ratio decay, a Time Travel engine using wave functions for historical win retrieval, and a Morphing engine using cellular automata. The system provides mathematically verifiable volatility and return-to-player (RTP) profiles while enabling novel gameplay mechanics not possible with traditional reel strips.</p>
+</body></html>

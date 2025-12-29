@@ -1,0 +1,1071 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Patent Drawings - Innovative Slot Mechanics</title>
+    <style>
+      body {
+        font-family: "Times New Roman", Times, serif;
+        font-size: 12pt;
+        margin: 40px;
+        background: white;
+      }
+      h1 {
+        text-align: center;
+        font-size: 16pt;
+        text-transform: uppercase;
+        margin-bottom: 10px;
+      }
+      h2 {
+        font-size: 14pt;
+        margin-top: 40px;
+        border-bottom: 2px solid black;
+        padding-bottom: 5px;
+      }
+      .figure-container {
+        margin: 30px 0;
+        text-align: center;
+      }
+      svg {
+        border: 1px solid #ccc;
+        background: white;
+      }
+      .page-break {
+        page-break-before: always;
+      }
+      @media print {
+        .page-break {
+          page-break-before: always;
+        }
+        svg {
+          border: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Drawings</h1>
+    <p style="text-align: center">
+      Application: SYSTEM AND METHOD FOR STOCHASTIC AND TEMPORAL SYMBOL
+      TRANSFORMATION
+    </p>
+
+    <h2>FIG. 1 - Transform Mechanic (Markov Chain)</h2>
+    <div class="figure-container">
+      <svg width="600" height="500" xmlns="http://www.w3.org/2000/svg">
+        <!-- Styles -->
+        <defs>
+          <marker
+            id="arrow1"
+            markerWidth="10"
+            markerHeight="10"
+            refX="9"
+            refY="3"
+            orient="auto"
+          >
+            <path d="M0,0 L0,6 L9,3 z" fill="black" />
+          </marker>
+        </defs>
+
+        <!-- Start -->
+        <rect
+          x="250"
+          y="10"
+          width="100"
+          height="40"
+          rx="20"
+          fill="white"
+          stroke="black"
+          stroke-width="2"
+        />
+        <text x="300" y="35" text-anchor="middle" font-size="12">START</text>
+
+        <!-- Arrow to Trigger -->
+        <line
+          x1="300"
+          y1="50"
+          x2="300"
+          y2="70"
+          stroke="black"
+          stroke-width="2"
+          marker-end="url(#arrow1)"
+        />
+
+        <!-- Trigger Check Diamond -->
+        <polygon
+          points="300,80 370,120 300,160 230,120"
+          fill="white"
+          stroke="black"
+          stroke-width="2"
+        />
+        <text x="300" y="115" text-anchor="middle" font-size="10">Trigger</text>
+        <text x="300" y="130" text-anchor="middle" font-size="10">20%?</text>
+
+        <!-- NO Branch -->
+        <line
+          x1="230"
+          y1="120"
+          x2="130"
+          y2="120"
+          stroke="black"
+          stroke-width="2"
+          marker-end="url(#arrow1)"
+        />
+        <text x="180" y="110" text-anchor="middle" font-size="10">NO</text>
+        <rect
+          x="30"
+          y="100"
+          width="90"
+          height="40"
+          fill="white"
+          stroke="black"
+          stroke-width="2"
+        />
+        <text x="75" y="125" text-anchor="middle" font-size="10">Standard</text>
+
+        <!-- YES Branch -->
+        <line
+          x1="300"
+          y1="160"
+          x2="300"
+          y2="190"
+          stroke="black"
+          stroke-width="2"
+          marker-end="url(#arrow1)"
+        />
+        <text x="315" y="180" font-size="10">YES</text>
+
+        <!-- Apply Matrix -->
+        <rect
+          x="220"
+          y="200"
+          width="160"
+          height="50"
+          fill="white"
+          stroke="black"
+          stroke-width="2"
+        />
+        <text x="300" y="220" text-anchor="middle" font-size="11">
+          Apply Transition
+        </text>
+        <text x="300" y="235" text-anchor="middle" font-size="11">
+          Matrix P[i,j]
+        </text>
+
+        <!-- Arrow down -->
+        <line
+          x1="300"
+          y1="250"
+          x2="300"
+          y2="280"
+          stroke="black"
+          stroke-width="2"
+          marker-end="url(#arrow1)"
+        />
+
+        <!-- Three outcomes -->
+        <rect
+          x="80"
+          y="290"
+          width="100"
+          height="40"
+          fill="white"
+          stroke="black"
+          stroke-width="2"
+        />
+        <text x="130" y="315" text-anchor="middle" font-size="10">UPGRADE</text>
+
+        <rect
+          x="250"
+          y="290"
+          width="100"
+          height="40"
+          fill="white"
+          stroke="black"
+          stroke-width="2"
+        />
+        <text x="300" y="315" text-anchor="middle" font-size="10">SUSTAIN</text>
+
+        <rect
+          x="420"
+          y="290"
+          width="100"
+          height="40"
+          fill="white"
+          stroke="black"
+          stroke-width="2"
+        />
+        <text x="470" y="315" text-anchor="middle" font-size="10">ABSORB</text>
+
+        <!-- Lines to outcomes -->
+        <line
+          x1="250"
+          y1="280"
+          x2="130"
+          y2="290"
+          stroke="black"
+          stroke-width="2"
+        />
+        <line
+          x1="300"
+          y1="280"
+          x2="300"
+          y2="290"
+          stroke="black"
+          stroke-width="2"
+        />
+        <line
+          x1="350"
+          y1="280"
+          x2="470"
+          y2="290"
+          stroke="black"
+          stroke-width="2"
+        />
+
+        <!-- Merge -->
+        <line
+          x1="130"
+          y1="330"
+          x2="130"
+          y2="370"
+          stroke="black"
+          stroke-width="2"
+        />
+        <line
+          x1="300"
+          y1="330"
+          x2="300"
+          y2="370"
+          stroke="black"
+          stroke-width="2"
+        />
+        <line
+          x1="470"
+          y1="330"
+          x2="470"
+          y2="370"
+          stroke="black"
+          stroke-width="2"
+        />
+        <line
+          x1="130"
+          y1="370"
+          x2="470"
+          y2="370"
+          stroke="black"
+          stroke-width="2"
+        />
+        <line
+          x1="300"
+          y1="370"
+          x2="300"
+          y2="390"
+          stroke="black"
+          stroke-width="2"
+          marker-end="url(#arrow1)"
+        />
+
+        <!-- Calculate Win -->
+        <rect
+          x="220"
+          y="400"
+          width="160"
+          height="40"
+          fill="white"
+          stroke="black"
+          stroke-width="2"
+        />
+        <text x="300" y="420" text-anchor="middle" font-size="11">
+          Calculate Win
+        </text>
+        <text x="300" y="435" text-anchor="middle" font-size="10">
+          Check Steady State π
+        </text>
+
+        <!-- End -->
+        <line
+          x1="300"
+          y1="440"
+          x2="300"
+          y2="460"
+          stroke="black"
+          stroke-width="2"
+          marker-end="url(#arrow1)"
+        />
+        <rect
+          x="250"
+          y="465"
+          width="100"
+          height="30"
+          rx="15"
+          fill="white"
+          stroke="black"
+          stroke-width="2"
+        />
+        <text x="300" y="485" text-anchor="middle" font-size="12">END</text>
+      </svg>
+    </div>
+
+    <div class="page-break"></div>
+
+    <h2>FIG. 2 - Evolution Mechanic (Fibonacci)</h2>
+    <div class="figure-container">
+      <svg width="600" height="520" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <marker
+            id="arrow2"
+            markerWidth="10"
+            markerHeight="10"
+            refX="9"
+            refY="3"
+            orient="auto"
+          >
+            <path d="M0,0 L0,6 L9,3 z" fill="black" />
+          </marker>
+        </defs>
+
+        <!-- Start -->
+        <rect
+          x="250"
+          y="10"
+          width="100"
+          height="40"
+          rx="20"
+          fill="white"
+          stroke="black"
+          stroke-width="2"
+        />
+        <text x="300" y="35" text-anchor="middle" font-size="12">START</text>
+
+        <line
+          x1="300"
+          y1="50"
+          x2="300"
+          y2="70"
+          stroke="black"
+          stroke-width="2"
+          marker-end="url(#arrow2)"
+        />
+
+        <!-- Identify Wins -->
+        <rect
+          x="220"
+          y="80"
+          width="160"
+          height="40"
+          fill="white"
+          stroke="black"
+          stroke-width="2"
+        />
+        <text x="300" y="105" text-anchor="middle" font-size="11">
+          Identify Clusters
+        </text>
+
+        <line
+          x1="300"
+          y1="120"
+          x2="300"
+          y2="140"
+          stroke="black"
+          stroke-width="2"
+          marker-end="url(#arrow2)"
+        />
+
+        <!-- Decision -->
+        <polygon
+          points="300,150 380,190 300,230 220,190"
+          fill="white"
+          stroke="black"
+          stroke-width="2"
+        />
+        <text x="300" y="195" text-anchor="middle" font-size="10">
+          Count > 0?
+        </text>
+
+        <!-- NO -->
+        <line
+          x1="220"
+          y1="190"
+          x2="100"
+          y2="190"
+          stroke="black"
+          stroke-width="2"
+          marker-end="url(#arrow2)"
+        />
+        <text x="160" y="180" font-size="10">NO</text>
+        <rect
+          x="20"
+          y="170"
+          width="80"
+          height="40"
+          fill="white"
+          stroke="black"
+          stroke-width="2"
+        />
+        <text x="60" y="195" text-anchor="middle" font-size="10">Reset</text>
+
+        <!-- YES -->
+        <line
+          x1="300"
+          y1="230"
+          x2="300"
+          y2="260"
+          stroke="black"
+          stroke-width="2"
+          marker-end="url(#arrow2)"
+        />
+        <text x="315" y="250" font-size="10">YES</text>
+
+        <!-- Hold & Respin -->
+        <rect
+          x="220"
+          y="270"
+          width="160"
+          height="40"
+          fill="white"
+          stroke="black"
+          stroke-width="2"
+        />
+        <text x="300" y="295" text-anchor="middle" font-size="11">
+          HOLD → RESPIN
+        </text>
+
+        <line
+          x1="300"
+          y1="310"
+          x2="300"
+          y2="330"
+          stroke="black"
+          stroke-width="2"
+          marker-end="url(#arrow2)"
+        />
+
+        <!-- Evolution Probability -->
+        <rect
+          x="200"
+          y="340"
+          width="200"
+          height="50"
+          fill="white"
+          stroke="black"
+          stroke-width="2"
+        />
+        <text x="300" y="360" text-anchor="middle" font-size="11">
+          Evolution Check
+        </text>
+        <text x="300" y="380" text-anchor="middle" font-size="10">
+          P = k / φ² (Golden Ratio)
+        </text>
+
+        <line
+          x1="300"
+          y1="390"
+          x2="300"
+          y2="410"
+          stroke="black"
+          stroke-width="2"
+          marker-end="url(#arrow2)"
+        />
+
+        <!-- Success/Fail -->
+        <polygon
+          points="300,420 370,450 300,480 230,450"
+          fill="white"
+          stroke="black"
+          stroke-width="2"
+        />
+        <text x="300" y="455" text-anchor="middle" font-size="10">
+          Success?
+        </text>
+
+        <!-- Success path -->
+        <line
+          x1="300"
+          y1="480"
+          x2="300"
+          y2="510"
+          stroke="black"
+          stroke-width="2"
+          marker-end="url(#arrow2)"
+        />
+        <text x="315" y="500" font-size="10">YES</text>
+
+        <!-- Fail path -->
+        <line
+          x1="370"
+          y1="450"
+          x2="470"
+          y2="450"
+          stroke="black"
+          stroke-width="2"
+          marker-end="url(#arrow2)"
+        />
+        <text x="420" y="440" font-size="10">NO</text>
+        <rect
+          x="480"
+          y="430"
+          width="100"
+          height="40"
+          fill="white"
+          stroke="black"
+          stroke-width="2"
+        />
+        <text x="530" y="455" text-anchor="middle" font-size="10">
+          Maintain
+        </text>
+
+        <!-- Level Up Box (at bottom) -->
+        <rect
+          x="200"
+          y="515"
+          width="200"
+          height="50"
+          fill="#f0f0f0"
+          stroke="black"
+          stroke-width="2"
+        />
+        <text
+          x="300"
+          y="535"
+          text-anchor="middle"
+          font-size="11"
+          font-weight="bold"
+        >
+          LEVEL UP
+        </text>
+        <text x="300" y="555" text-anchor="middle" font-size="10">
+          Apply F(L) = [1,1,2,3,5,8...]
+        </text>
+      </svg>
+    </div>
+
+    <div class="page-break"></div>
+
+    <h2>FIG. 3 - Time Travel Mechanic (Wave Function)</h2>
+    <div class="figure-container">
+      <svg width="650" height="500" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <marker
+            id="arrow3"
+            markerWidth="10"
+            markerHeight="10"
+            refX="9"
+            refY="3"
+            orient="auto"
+          >
+            <path d="M0,0 L0,6 L9,3 z" fill="black" />
+          </marker>
+        </defs>
+
+        <!-- Start -->
+        <rect
+          x="275"
+          y="10"
+          width="100"
+          height="40"
+          rx="20"
+          fill="white"
+          stroke="black"
+          stroke-width="2"
+        />
+        <text x="325" y="35" text-anchor="middle" font-size="12">START</text>
+
+        <line
+          x1="325"
+          y1="50"
+          x2="325"
+          y2="70"
+          stroke="black"
+          stroke-width="2"
+          marker-end="url(#arrow3)"
+        />
+
+        <!-- Store History -->
+        <rect
+          x="245"
+          y="80"
+          width="160"
+          height="40"
+          fill="white"
+          stroke="black"
+          stroke-width="2"
+        />
+        <text x="325" y="105" text-anchor="middle" font-size="11">
+          Store in History H
+        </text>
+
+        <line
+          x1="325"
+          y1="120"
+          x2="325"
+          y2="150"
+          stroke="black"
+          stroke-width="2"
+        />
+
+        <!-- Split into two paths -->
+        <line
+          x1="325"
+          y1="150"
+          x2="150"
+          y2="150"
+          stroke="black"
+          stroke-width="2"
+        />
+        <line
+          x1="325"
+          y1="150"
+          x2="500"
+          y2="150"
+          stroke="black"
+          stroke-width="2"
+        />
+        <line
+          x1="150"
+          y1="150"
+          x2="150"
+          y2="180"
+          stroke="black"
+          stroke-width="2"
+          marker-end="url(#arrow3)"
+        />
+        <line
+          x1="500"
+          y1="150"
+          x2="500"
+          y2="180"
+          stroke="black"
+          stroke-width="2"
+          marker-end="url(#arrow3)"
+        />
+
+        <!-- PAST Path -->
+        <rect
+          x="75"
+          y="190"
+          width="150"
+          height="40"
+          fill="white"
+          stroke="black"
+          stroke-width="2"
+        />
+        <text x="150" y="210" text-anchor="middle" font-size="10">
+          PAST RETRIEVAL
+        </text>
+        <text x="150" y="225" text-anchor="middle" font-size="9">Rate: 8%</text>
+
+        <line
+          x1="150"
+          y1="230"
+          x2="150"
+          y2="260"
+          stroke="black"
+          stroke-width="2"
+          marker-end="url(#arrow3)"
+        />
+
+        <rect
+          x="50"
+          y="270"
+          width="200"
+          height="50"
+          fill="white"
+          stroke="black"
+          stroke-width="2"
+        />
+        <text x="150" y="290" text-anchor="middle" font-size="10">
+          Wave Function
+        </text>
+        <text x="150" y="310" text-anchor="middle" font-size="9">
+          P = A·e^(-λk)·|cos(ωk)|
+        </text>
+
+        <line
+          x1="150"
+          y1="320"
+          x2="150"
+          y2="350"
+          stroke="black"
+          stroke-width="2"
+          marker-end="url(#arrow3)"
+        />
+
+        <rect
+          x="75"
+          y="360"
+          width="150"
+          height="40"
+          fill="white"
+          stroke="black"
+          stroke-width="2"
+        />
+        <text x="150" y="385" text-anchor="middle" font-size="10">
+          Fetch Past Win
+        </text>
+
+        <line
+          x1="150"
+          y1="400"
+          x2="150"
+          y2="430"
+          stroke="black"
+          stroke-width="2"
+          marker-end="url(#arrow3)"
+        />
+
+        <rect
+          x="50"
+          y="440"
+          width="200"
+          height="40"
+          fill="#f0f0f0"
+          stroke="black"
+          stroke-width="2"
+        />
+        <text
+          x="150"
+          y="460"
+          text-anchor="middle"
+          font-size="10"
+          font-weight="bold"
+        >
+          TIME PARADOX
+        </text>
+        <text x="150" y="475" text-anchor="middle" font-size="9">
+          (if retrieved ≥2x)
+        </text>
+
+        <!-- FUTURE Path -->
+        <rect
+          x="425"
+          y="190"
+          width="150"
+          height="40"
+          fill="white"
+          stroke="black"
+          stroke-width="2"
+        />
+        <text x="500" y="210" text-anchor="middle" font-size="10">
+          FUTURE PREDICT
+        </text>
+        <text x="500" y="225" text-anchor="middle" font-size="9">Rate: 4%</text>
+
+        <line
+          x1="500"
+          y1="230"
+          x2="500"
+          y2="280"
+          stroke="black"
+          stroke-width="2"
+          marker-end="url(#arrow3)"
+        />
+
+        <rect
+          x="425"
+          y="290"
+          width="150"
+          height="40"
+          fill="white"
+          stroke="black"
+          stroke-width="2"
+        />
+        <text x="500" y="315" text-anchor="middle" font-size="10">
+          Simulate t+k
+        </text>
+
+        <line
+          x1="500"
+          y1="330"
+          x2="500"
+          y2="380"
+          stroke="black"
+          stroke-width="2"
+          marker-end="url(#arrow3)"
+        />
+
+        <rect
+          x="425"
+          y="390"
+          width="150"
+          height="40"
+          fill="white"
+          stroke="black"
+          stroke-width="2"
+        />
+        <text x="500" y="415" text-anchor="middle" font-size="10">
+          Award Predicted
+        </text>
+      </svg>
+    </div>
+
+    <div class="page-break"></div>
+
+    <h2>FIG. 4 - Morphing Mechanic (Cellular Automata)</h2>
+    <div class="figure-container">
+      <svg width="600" height="550" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <marker
+            id="arrow4"
+            markerWidth="10"
+            markerHeight="10"
+            refX="9"
+            refY="3"
+            orient="auto"
+          >
+            <path d="M0,0 L0,6 L9,3 z" fill="black" />
+          </marker>
+        </defs>
+
+        <!-- Start -->
+        <rect
+          x="250"
+          y="10"
+          width="100"
+          height="40"
+          rx="20"
+          fill="white"
+          stroke="black"
+          stroke-width="2"
+        />
+        <text x="300" y="35" text-anchor="middle" font-size="12">START</text>
+
+        <line
+          x1="300"
+          y1="50"
+          x2="300"
+          y2="70"
+          stroke="black"
+          stroke-width="2"
+          marker-end="url(#arrow4)"
+        />
+
+        <!-- Moore Neighborhood Visual -->
+        <rect
+          x="200"
+          y="80"
+          width="200"
+          height="120"
+          fill="white"
+          stroke="black"
+          stroke-width="2"
+        />
+        <text x="300" y="100" text-anchor="middle" font-size="11">
+          Moore Neighborhood
+        </text>
+
+        <!-- 3x3 Grid -->
+        <rect
+          x="255"
+          y="110"
+          width="30"
+          height="25"
+          fill="#ddd"
+          stroke="black"
+        />
+        <rect
+          x="285"
+          y="110"
+          width="30"
+          height="25"
+          fill="#ddd"
+          stroke="black"
+        />
+        <rect
+          x="315"
+          y="110"
+          width="30"
+          height="25"
+          fill="#ddd"
+          stroke="black"
+        />
+        <rect
+          x="255"
+          y="135"
+          width="30"
+          height="25"
+          fill="#ddd"
+          stroke="black"
+        />
+        <rect
+          x="285"
+          y="135"
+          width="30"
+          height="25"
+          fill="#333"
+          stroke="black"
+        />
+        <text x="300" y="152" text-anchor="middle" font-size="10" fill="white">
+          X
+        </text>
+        <rect
+          x="315"
+          y="135"
+          width="30"
+          height="25"
+          fill="#ddd"
+          stroke="black"
+        />
+        <rect
+          x="255"
+          y="160"
+          width="30"
+          height="25"
+          fill="#ddd"
+          stroke="black"
+        />
+        <rect
+          x="285"
+          y="160"
+          width="30"
+          height="25"
+          fill="#ddd"
+          stroke="black"
+        />
+        <rect
+          x="315"
+          y="160"
+          width="30"
+          height="25"
+          fill="#ddd"
+          stroke="black"
+        />
+
+        <text x="300" y="195" text-anchor="middle" font-size="9">
+          Sum = Σ neighbors
+        </text>
+
+        <line
+          x1="300"
+          y1="200"
+          x2="300"
+          y2="230"
+          stroke="black"
+          stroke-width="2"
+          marker-end="url(#arrow4)"
+        />
+
+        <!-- Decision -->
+        <polygon
+          points="300,240 380,280 300,320 220,280"
+          fill="white"
+          stroke="black"
+          stroke-width="2"
+        />
+        <text x="300" y="275" text-anchor="middle" font-size="10">Sum ≥</text>
+        <text x="300" y="290" text-anchor="middle" font-size="10">
+          Threshold?
+        </text>
+
+        <!-- NO -->
+        <line
+          x1="220"
+          y1="280"
+          x2="100"
+          y2="280"
+          stroke="black"
+          stroke-width="2"
+          marker-end="url(#arrow4)"
+        />
+        <text x="160" y="270" font-size="10">NO</text>
+        <rect
+          x="20"
+          y="260"
+          width="80"
+          height="40"
+          fill="white"
+          stroke="black"
+          stroke-width="2"
+        />
+        <text x="60" y="285" text-anchor="middle" font-size="10">Standard</text>
+
+        <!-- YES -->
+        <line
+          x1="300"
+          y1="320"
+          x2="300"
+          y2="350"
+          stroke="black"
+          stroke-width="2"
+          marker-end="url(#arrow4)"
+        />
+        <text x="315" y="340" font-size="10">YES</text>
+
+        <!-- Morph -->
+        <rect
+          x="220"
+          y="360"
+          width="160"
+          height="40"
+          fill="white"
+          stroke="black"
+          stroke-width="2"
+        />
+        <text x="300" y="385" text-anchor="middle" font-size="11">
+          MORPH TRIGGER
+        </text>
+
+        <line
+          x1="300"
+          y1="400"
+          x2="300"
+          y2="430"
+          stroke="black"
+          stroke-width="2"
+          marker-end="url(#arrow4)"
+        />
+
+        <!-- Bezier -->
+        <rect
+          x="200"
+          y="440"
+          width="200"
+          height="50"
+          fill="white"
+          stroke="black"
+          stroke-width="2"
+        />
+        <text x="300" y="460" text-anchor="middle" font-size="10">
+          Bezier Interpolation
+        </text>
+        <text x="300" y="480" text-anchor="middle" font-size="9">
+          B(t) = cubic curve
+        </text>
+
+        <line
+          x1="300"
+          y1="490"
+          x2="300"
+          y2="520"
+          stroke="black"
+          stroke-width="2"
+          marker-end="url(#arrow4)"
+        />
+
+        <!-- Bonus -->
+        <rect
+          x="200"
+          y="525"
+          width="200"
+          height="40"
+          fill="#f0f0f0"
+          stroke="black"
+          stroke-width="2"
+        />
+        <text
+          x="300"
+          y="545"
+          text-anchor="middle"
+          font-size="10"
+          font-weight="bold"
+        >
+          FLUID DYNAMICS
+        </text>
+        <text x="300" y="560" text-anchor="middle" font-size="9">
+          (if Morphs > 5)
+        </text>
+      </svg>
+    </div>
+
+    <p style="text-align: center; margin-top: 40px"><b>END OF DRAWINGS</b></p>
+  </body>
+</html>
