@@ -1,103 +1,109 @@
 /**
- * Morphing Mechanic (Bezier Curves) for Web Demo
+ * Morphing Mechanic - Enhanced (Neighbor Influence)
+ * Winning lines cause NEIGHBORS to morph into matching symbols, creating larger wins.
  */
 
 class MorphingMechanic {
     constructor() {
         this.states = ['BASIC', 'ENHANCED', 'PREMIUM', 'ELITE', 'LEGENDARY'];
-        this.stateMultipliers = {
-            'BASIC': 1.0,
-            'ENHANCED': 2.0,
-            'PREMIUM': 5.0,
-            'ELITE': 15.0,
-            'LEGENDARY': 50.0
-        };
-
-        this.triggerRate = 0.08;
-        this.morphPerSymbolRate = 0.30;
+        this.triggerRate = 0.30;
+        // Assuming board dimensions are consistent, these can be set dynamically or passed
+        this.numRows = 5; // Example value, adjust as needed
+        this.numReels = 3; // Example value, adjust as needed
     }
 
-    processSpin(board, bet) {
-        // Trigger check
-        if (Math.random() > this.triggerRate) {
+    processSpin(board, bet, engine) {
+        // Line wins trigger morphing of neighbors
+        const winResult = engine.calculateWin(board, bet, 'line');
+        const wins = winResult.winningLines;
+
+        if (wins.length === 0) {
             return { triggered: false };
         }
 
-        const events = [];
-        let totalMultiplier = 1.0;
-
-        board.forEach((row, rIdx) => {
-            row.forEach((symbol, cIdx) => {
-                // Only morph non-scatter symbols
-                if (symbol !== 'SCATTER' && Math.random() < this.morphPerSymbolRate) {
-                    const currentState = 'BASIC'; // Assume start at basic for non-tracked symbols
-                    const nextState = this.selectNextState(currentState);
-
-                    if (nextState !== currentState) {
-                        const mult = this.stateMultipliers[nextState];
-                        totalMultiplier *= (1 + (mult * 0.05)); // Demo balance tweak
-
-                        events.push({
-                            r: rIdx, c: cIdx,
-                            symbol: symbol,
-                            from: currentState,
-                            to: nextState,
-                            mult: mult
-                        });
-                    }
-                }
-            });
+        const winningSymbols = [];
+        wins.forEach(win => {
+            win.coords.forEach(c => winningSymbols.push({ r: c.r, c: c.c, symbol: win.symbol }));
         });
 
-        if (events.length === 0) return { triggered: false };
+        const newBoard = board.map(row => [...row]);        // Initialize new board
+        const events = [];
+        let morphCount = 0;
+        let bonusTriggered = false;
+
+        // Cellular Automata Rule Application
+        // Iterate through every cell (except borders for simplicity in demo)
+        for (let r = 0; r < board.length; r++) {
+            for (let c = 0; c < board[0].length; c++) {
+                const currentSym = board[r][c];
+                const neighbors = this.getNeighbors(r, c, board);
+                const winningNeighbors = neighbors.filter(n =>
+                    winningSymbols.some(ws => ws.r === n.r && ws.c === n.c)
+                );
+
+                // Rule 1 (Growth): 3+ Winning Neighbors -> Morph to Winner
+                // Rule 2 (Stability): 2 Winning Neighbors -> Unchanged (omitted as it's default)
+                // Rule 3 (Fluid Dynamics Interaction): 4 identical neighbors in loop (Bonus)
+
+                if (winningNeighbors.length >= 2) { // Relaxed to 2 for demo playability
+                    // Find dominant neighbor symbol
+                    // For simplicity, taking the symbol of the first winning neighbor found
+                    const targetSymbol = winningNeighbors[0].symbol;
+
+                    if (currentSym !== targetSymbol && currentSym !== 'SCATTER') { // Don't morph scatters
+                        newBoard[r][c] = targetSymbol;
+                        morphCount++;
+                        events.push({ r, c, from: currentSym, to: targetSymbol });
+                    }
+                }
+            }
+        }
+
+        // Bonus Check: Fluid Dynamics
+        // If 4 identical symbols form a 2x2 square anywhere
+        if (morphCount > 5) { // Example condition for bonus trigger
+            bonusTriggered = true;
+        }
+
+        if (morphCount === 0) return { triggered: false };
 
         return {
             triggered: true,
-            multiplier: Math.max(1, totalMultiplier),
-            logMessage: `Morphing Active! ${events.length} symbols transformed.`,
-            visualization: this.createVisualization(events)
+            board: newBoard,
+            multiplier: 1.0,
+            logMessage: `MORPH: ${morphCount} neighbors morphed! ${bonusTriggered ? '💧 FLUID DYNAMICS BONUS!' : ''}`,
+            visualization: this.createVisualization(events),
+            animation: {
+                type: 'morph',
+                subtype: bonusTriggered ? 'singularity' : 'normal', // Reuse singularity anim for now or create distinct one
+                coords: events.map(e => ({ r: e.r, c: e.c }))
+            }
         };
     }
 
-    selectNextState(current) {
-        const idx = this.states.indexOf(current);
-        // Simple forward progression probability for demo
-        const rand = Math.random();
-        if (rand < 0.60) return this.states[Math.min(idx + 1, 4)];
-        if (rand < 0.85) return this.states[Math.min(idx + 2, 4)];
-        return current;
+    getNeighbors(r, c, board) {
+        const maxR = board.length;
+        const maxC = board[0].length;
+        const dirs = [
+            [-1, -1], [-1, 0], [-1, 1],
+            [0, -1], [0, 1],
+            [1, -1], [1, 0], [1, 1]
+        ];
+        const neighbors = [];
+        for (const [dr, dc] of dirs) {
+            const nr = r + dr, nc = c + dc;
+            if (nr >= 0 && nr < maxR && nc >= 0 && nc < maxC) {
+                neighbors.push({ r: nr, c: nc });
+            }
+        }
+        return neighbors;
     }
 
     createVisualization(events) {
         let html = '<div class="mech-log">';
-        html += '<p><strong>Active Morphs:</strong></p>';
-        html += '<div style="display:flex; flex-wrap:wrap; gap:5px;">';
-
-        events.forEach(e => {
-            const progressColor = this.getStateColor(e.to);
-            html += `<div style="background:#222; padding:5px; border-radius:4px; border:1px solid ${progressColor}; width:45%;">
-                <div style="font-size:0.75em; text-align:center;">${e.symbol} @ [${e.r},${e.c}]</div>
-                <div style="font-size:0.7em; color:#aaa; display:flex; justify-content:space-between;">
-                   <span>${e.from}</span> ➔ <span style="color:${progressColor}">${e.to}</span>
-                </div>
-                <div style="margin-top:2px; height:3px; background:#444;">
-                    <div style="width:100%; height:100%; background:${progressColor}; box-shadow:0 0 5px ${progressColor};"></div>
-                </div>
-            </div>`;
-        });
-
-        html += '</div></div>';
+        html += '<p><strong>Neighbor Morphing:</strong></p>';
+        html += `<div>${events.length} symbols morphed to extend lines!</div>`;
+        html += '</div>';
         return html;
-    }
-
-    getStateColor(state) {
-        const colors = {
-            'BASIC': '#ccc',
-            'ENHANCED': '#4CAF50',
-            'PREMIUM': '#2196F3',
-            'ELITE': '#9C27B0',
-            'LEGENDARY': '#FFD700'
-        };
-        return colors[state] || '#fff';
     }
 }

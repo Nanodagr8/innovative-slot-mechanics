@@ -64,22 +64,36 @@ class TimeTravelMechanic {
     }
 
     retrievePastWin() {
-        // Pick random win
-        const pastWin = this.winHistory[Math.floor(Math.random() * this.winHistory.length)];
-        const spinsAgo = this.currentSpin - pastWin.spin;
+        // Pick specific historical point based on Wave Function probability
+        // |Ψ(t)|^2 = A * e^(-λt) * cos^2(ωt)
 
-        // Probability Decay: P = e^(-0.2 * t)
-        const prob = Math.exp(-0.2 * spinsAgo);
+        for (const pastWin of this.winHistory) {
+            const t = this.currentSpin - pastWin.spin;
+            if (t <= 0) continue;
 
-        if (Math.random() < prob) {
-            // Decay amount: Amount * e^(-0.05 * t)
-            const decayMult = Math.exp(-0.05 * spinsAgo);
-            return {
-                amount: pastWin.amount,
-                retrievedAmount: pastWin.amount * decayMult,
-                spin: pastWin.spin,
-                spinsAgo: spinsAgo
-            };
+            const lambda = 0.05; // Decay
+            const omega = 0.5;   // Frequency (echoes every ~6 spins)
+
+            // Calculate probability density
+            const prob = 1.0 * Math.exp(-lambda * t) * Math.pow(Math.cos(omega * t), 2);
+
+            // Normalize primarily by a base factor for game balance
+            if (Math.random() < (prob * 0.5)) {
+                // Check for Paradox (Double Retrieval)
+                const isParadox = pastWin.retrievedCount > 0;
+                if (isParadox) pastWin.retrievedCount++;
+                else pastWin.retrievedCount = 1;
+
+                // Decay amount slightly on retrieval to simulate entropy
+                const entropy = 0.9;
+                return {
+                    amount: pastWin.amount,
+                    retrievedAmount: pastWin.amount * entropy,
+                    spin: pastWin.spin,
+                    spinsAgo: t,
+                    isParadox: isParadox
+                };
+            }
         }
         return null;
     }

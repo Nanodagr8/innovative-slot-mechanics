@@ -36,12 +36,13 @@ class EvolutionManager(BaseMechanic):
         """
         super().__init__(config)
         
-        self.points_per_win = config.get('points_per_win', 0.1)
-        self.points_per_cascade = config.get('points_per_cascade', 5)
-        self.points_per_wild = config.get('points_per_wild', 10)
+        self.points_per_win = config.get('points_per_win', 0.5) # Was 0.1
+        self.points_per_cascade = config.get('points_per_cascade', 15) # Was 5
+        self.points_per_wild = config.get('points_per_wild', 30) # Was 10
         
-        # Golden ratio
-        self.golden_ratio = (1 + math.sqrt(5)) / 2  # φ ≈ 1.618
+        # Golden ratio (Adjusted for Demo Playability)
+        # Real Phi is 1.618. We use 1.2 to make evolution more frequent and fun.
+        self.golden_ratio = 1.2 # (1 + math.sqrt(5)) / 2  # φ ≈ 1.618
         
         # Fibonacci sequence for multipliers
         self.fibonacci = [1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89]
@@ -148,17 +149,34 @@ class EvolutionManager(BaseMechanic):
             return {
                 'evolved': False,
                 'symbols': {},
-                'events': []
+                'events': [],
+                'darwin_bonus': False
             }
         
         events = []
         evolved_symbols = {}
+        darwin_triggered = False
         
         # Award base points
         base_points = 10
+        
+        # Golden Ratio Probability Check (Global dampener)
+        # P(Success) = 1 / phi^2 ~= 0.38 per evolution attempt
+        # Tuned: Applied 1.5x 'Catalyst' multiplier, capped at 1.0
+        base_prob = (1.0 / (self.golden_ratio ** 2)) * 1.5
+        success_prob = min(base_prob, 1.0)
+
         for row in board:
             for symbol in row:
+                if random.random() > success_prob:
+                    continue # Evolution failed
+
                 old_level = self.get_level(symbol)
+                
+                # Bonus check: If pushing Level 7 -> 8 (21x -> 34x)
+                if old_level == 7:
+                    darwin_triggered = True
+
                 self.add_points(symbol, base_points)
                 new_level = self.get_level(symbol)
                 
@@ -183,7 +201,8 @@ class EvolutionManager(BaseMechanic):
         return {
             'evolved': len(events) > 0,
             'symbols': evolved_symbols,
-            'events': events
+            'events': events,
+            'darwin_bonus': darwin_triggered
         }
     
     def calculate_rtp_contribution(self, base_rtp: float) -> float:

@@ -1,58 +1,80 @@
 /**
- * Evolution Mechanic (Fibonacci) for Web Demo
+ * Evolution Mechanic - Enhanced (Cluster-Based)
+ * Winning CLUSTERS evolve their symbols to higher Fibonacci levels.
  */
 
 class EvolutionMechanic {
     constructor() {
         this.fibonacci = [1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89];
-        this.triggerRate = 0.10;
-        // In this demo, we'll simulate persistent levels for a session
-        this.symbolLevels = {}; // symbol -> level
+        this.symbolLevels = {}; // Persistent level tracking
     }
 
-    processSpin(board, bet) {
-        // Trigger check
-        if (Math.random() > this.triggerRate) {
+    processSpin(board, bet, engine) {
+        // Use CLUSTER evaluation for Evolution
+        const winResult = engine.calculateWin(board, bet, 'cluster');
+        const clusters = winResult.winningLines;
+
+        if (clusters.length === 0) {
             return { triggered: false };
         }
 
         const events = [];
         let totalMultiplier = 1.0;
 
-        // Evolve random symbols present on board
-        const uniqueSymbols = [...new Set(board.flat())].filter(s => s !== 'SCATTER');
+        clusters.forEach(cluster => {
+            cluster.coords.forEach(coord => {
+                const { r, c } = coord;
+                const sym = board[r][c];
 
-        uniqueSymbols.forEach(sym => {
-            if (!this.symbolLevels[sym]) this.symbolLevels[sym] = 0;
+                if (sym === 'SCATTER') return;
 
-            // Evolution chance based on Golden Ratio decay
-            const currentLevel = this.symbolLevels[sym];
-            const prob = 0.50 / Math.pow(1.618, currentLevel);
+                if (!this.symbolLevels[sym]) this.symbolLevels[sym] = 0;
 
-            if (Math.random() < prob && currentLevel < 10) {
-                this.symbolLevels[sym]++;
-                const newLevel = this.symbolLevels[sym];
-                const multiplier = this.fibonacci[newLevel];
+                // Golden Ratio Probability Calculation
+                // P(Evolve) = 1 / (phi^2) approx 0.381, decayed by level
+                const phi = 1.61803398875;
+                const baseProb = 1 / (phi * phi);
 
-                events.push({ symbol: sym, level: newLevel, mult: multiplier });
-                totalMultiplier += (multiplier * 0.1); // Additive bonus for demo balance
-            }
+                // Bonus Check: Level 8 (21x) implies "Darwin's Ladder" potential
+                const isBonusLevel = this.symbolLevels[sym] >= 7; // Level 7 -> 8
+
+                if (Math.random() < (baseProb / (this.symbolLevels[sym] || 1))) {
+                    if (this.symbolLevels[sym] < 10) {
+                        this.symbolLevels[sym]++;
+                        const level = this.symbolLevels[sym];
+
+                        // Golden Ratio Multiplier: Round(phi^n)
+                        const rawMult = Math.pow(phi, level);
+                        const mult = Math.round(rawMult); // 2, 3, 4, 7, 11... approx
+
+                        events.push({ symbol: sym, level: level, mult: mult, r: r, c: c, isBonus: isBonusLevel });
+                        totalMultiplier += (mult * 0.05);
+                    }
+                }
+            });
         });
 
         if (events.length === 0) return { triggered: false };
 
+        const darwinBonus = events.some(e => e.isBonus);
+        const uniqueEvents = [...new Map(events.map(item => [item.symbol, item])).values()];
+
         return {
             triggered: true,
             multiplier: Math.max(1, totalMultiplier),
-            logMessage: `Evolution! ${events.length} symbols evolved to higher Fibonacci levels.`,
-            visualization: this.createVisualization(events)
+            logMessage: `EVOLUTION: Winning clusters evolved! ${darwinBonus ? '🧬 DARWIN BONUS UNLOCKED!' : ''}`,
+            visualization: this.createVisualization(uniqueEvents),
+            animation: {
+                type: 'evolution',
+                subtype: darwinBonus ? 'darwin' : 'normal',
+                coords: events.map(e => ({ r: e.r, c: e.c }))
+            }
         };
     }
 
     createVisualization(events) {
         let html = '<div class="mech-log">';
-        html += '<p><strong>Evolution Progress:</strong></p>';
-
+        html += '<p><strong>Cluster Evolution:</strong></p>';
         events.forEach(e => {
             const width = (e.level / 10) * 100;
             html += `<div style="margin-bottom: 5px;">
@@ -65,7 +87,6 @@ class EvolutionMechanic {
                 </div>
             </div>`;
         });
-
         html += '</div>';
         return html;
     }

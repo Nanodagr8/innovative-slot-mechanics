@@ -1,0 +1,19 @@
+Running Simulation: 100000 spins per mechanic
+
+--- Testing Transform Mechanic (Markov Chains) ---
+Spins: 100000
+RTP: 25.45%
+Singularity Bonuses: 1 (1 in 100000)
+Time: 3.50s
+
+--- Testing Evolution Mechanic (Golden Ratio) ---
+RTP: 23.73%
+Darwin Bonuses: 2 (1 in 50000)
+
+--- Testing Time Travel Mechanic (Wave Functions) ---
+RTP: 252.94%
+Paradox Bonuses: 7596 (1 in 13)
+
+--- Testing Morphing Mechanic (Cellular Automata) ---
+RTP: 89.17%
+Fluid Bonuses: 6410 (1 in 16)

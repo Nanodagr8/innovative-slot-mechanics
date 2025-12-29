@@ -39,12 +39,12 @@ class MorphingManager(BaseMechanic):
         Args:
             config: Configuration dict with:
                 - enabled: bool
-                - trigger_rate: float (default 0.08)
-                - morph_per_symbol_rate: float (default 0.30)
+                - trigger_rate: float (default 0.15)
+                - morph_per_symbol_rate: float (default 0.60)
         """
         super().__init__(config)
         
-        self.morph_per_symbol_rate = config.get('morph_per_symbol_rate', 0.30)
+        self.morph_per_symbol_rate = config.get('morph_per_symbol_rate', 0.60)
         
         # State multipliers
         self.state_multipliers = {
@@ -250,7 +250,8 @@ class MorphingManager(BaseMechanic):
         return {
             'morphed': len(morph_events) > 0,
             'events': morph_events,
-            'active_morphs': len(self.active_morphs)
+            'active_morphs': len(self.active_morphs),
+            'fluid_bonus': len(morph_events) > 5 # Trigger Fluid Dynamics if > 5 morphs occur at once
         }
     
     def calculate_rtp_contribution(self, base_rtp: float) -> float:

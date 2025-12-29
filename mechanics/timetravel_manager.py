@@ -33,14 +33,14 @@ class TimeTravelManager(BaseMechanic):
             config: Configuration dict with:
                 - enabled: bool
                 - trigger_rate: float (default 0.08)
-                - past_trigger_rate: float (default 0.08)
-                - future_trigger_rate: float (default 0.04)
+                - past_trigger_rate: float (default 0.10)
+                - future_trigger_rate: float (default 0.05)
                 - history_size: int (default 50)
         """
         super().__init__(config)
         
-        self.past_trigger_rate = config.get('past_trigger_rate', 0.08)
-        self.future_trigger_rate = config.get('future_trigger_rate', 0.04)
+        self.past_trigger_rate = config.get('past_trigger_rate', 0.10)
+        self.future_trigger_rate = config.get('future_trigger_rate', 0.05)
         self.history_size = config.get('history_size', 50)
         
         # Decay constants
@@ -221,7 +221,8 @@ class TimeTravelManager(BaseMechanic):
         result = {
             'past_retrieval': None,
             'future_boost': None,
-            'wave_value': self.time_wave_function(self.current_spin)
+            'wave_value': self.time_wave_function(self.current_spin),
+            'paradox_bonus': False
         }
         
         # Past retrieval (8% chance)
@@ -229,6 +230,16 @@ class TimeTravelManager(BaseMechanic):
             retrieval = self.retrieve_past_win()
             if retrieval['success']:
                 result['past_retrieval'] = retrieval
+                
+                # Update history to mark as retrieved (for Paradox Check)
+                for entry in self.win_history:
+                    if entry['spin'] == self.current_spin - retrieval['spins_ago']:
+                        entry['retrieved_count'] = entry.get('retrieved_count', 0) + 1
+                        if entry['retrieved_count'] >= 2:
+                            result['paradox_bonus'] = True
+                            # Cap paradox at 1.5x instead of 2.0x to prevent exponential explosion
+                            retrieval['retrieved_amount'] *= 1.2 
+                        break
         
         # Future boost (4% chance)
         if random.random() < self.future_trigger_rate:

@@ -120,17 +120,31 @@ document.addEventListener('DOMContentLoaded', () => {
         state.board = engine.spin();
         let currentBoard = JSON.parse(JSON.stringify(state.board)); // Deep copy
 
-        // 3. Process Active Mechanic
+        // 3. Process Active Mechanic (Passing Engine for Win Detection)
         const activeMech = mechanics[state.currentMechanic];
         let mechanicResult = null;
         let mechanicMultiplier = 1.0;
         let bonusWin = 0;
 
+        // Determine Game Mode based on Mechanic
+        // Evolution = Cluster Pays
+        // Transform/Morphing = Line Pays
+        // Time Travel = Any
+        const gameType = state.currentMechanic === 'evolution' ? 'cluster' : 'line';
+
+        // Pre-Calculation for Log (Base State)
+        const preWin = engine.calculateWin(currentBoard, state.bet, gameType);
+
         if (activeMech) {
-            mechanicResult = activeMech.processSpin(currentBoard, state.bet);
+            // Mechanics now take the ENTIRE engine to self-evaluate wins
+            mechanicResult = activeMech.processSpin(currentBoard, state.bet, engine);
 
             // Apply updates from mechanic
             if (mechanicResult.board) {
+                // If mechanic changed board, play ANIMATION first, then update
+                if (mechanicResult.animation) {
+                    await playMechanicAnimation(mechanicResult.animation);
+                }
                 currentBoard = mechanicResult.board;
             }
             if (mechanicResult.multiplier) {
@@ -141,8 +155,9 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        // 4. Calculate Base Wins on Final Board
-        const winResult = engine.calculateWin(currentBoard, state.bet);
+        // 4. Calculate Final Wins on (Potentially Modified) Board
+        // If board changed, wins might have changed!
+        const winResult = engine.calculateWin(currentBoard, state.bet, gameType);
 
         // 5. Total Calculation
         const totalWin = (winResult.totalWin * mechanicMultiplier) + bonusWin;
@@ -153,17 +168,17 @@ document.addEventListener('DOMContentLoaded', () => {
         ui.win.textContent = totalWin.toFixed(2);
 
         // 7. Logging
-        if (winResult.totalWin > 0) {
-            log(`Base Win: $${winResult.totalWin.toFixed(2)}`);
-        }
-
+        // Show mechanic activation logic
         if (mechanicResult && mechanicResult.triggered) {
             log(`ACTIVATE: ${mechanicResult.logMessage}`);
             updateMechanicVis(mechanicResult);
+        } else if (preWin.totalWin > 0) {
+            // If we had a win but mechanic didn't trigger (or just passive)
         }
 
         if (totalWin > 0) {
-            log(`💰 TOTAL WIN: $${totalWin.toFixed(2)}`);
+            const winType = gameType === 'cluster' ? 'Cluster Win' : 'Line Win';
+            log(`💰 ${winType}: $${totalWin.toFixed(2)}`);
             // Trigger Time Travel History Recording
             if (state.currentMechanic === 'timetravel' && mechanics.timetravel) {
                 mechanics.timetravel.recordWin(totalWin);
@@ -206,6 +221,56 @@ document.addEventListener('DOMContentLoaded', () => {
     function updateMechanicVis(result) {
         if (!result.visualization) return;
         ui.mechanicVis.innerHTML = result.visualization;
+    }
+
+    async function playMechanicAnimation(animData) {
+        const { type, subtype, coords } = animData;
+
+        // Map type to CSS class
+        const animClasses = {
+            'transform': 'anim-transform',
+            'evolution': 'anim-evolve',
+            'morph': 'anim-morph'
+        };
+
+        let cssClass = animClasses[type];
+
+        // Handle Subtypes/Bonuses
+        if (subtype === 'singularity') cssClass = 'anim-singularity';
+        if (subtype === 'darwin') cssClass = 'anim-darwin';
+        if (subtype === 'paradox') cssClass = 'anim-paradox';
+
+        if (!cssClass) return;
+
+        // Apply class to specific cells
+        // Note: ui.reels children are flat list of cells
+        // Index = r * numCols + c
+        const cells = Array.from(ui.reels.children);
+        const numCols = 5; // Hardcoded for demo
+
+        coords.forEach(coord => {
+            const index = coord.r * numCols + coord.c;
+            const cell = cells[index];
+            if (cell) {
+                const symbolEl = cell.querySelector('.symbol');
+                if (symbolEl) {
+                    symbolEl.classList.add(cssClass);
+                }
+            }
+        });
+
+        // Wait for animation to finish (approx 1.2s)
+        await new Promise(r => setTimeout(r, 1200));
+
+        // Cleanup classes (though board re-render clears them anyway)
+        coords.forEach(coord => {
+            const index = coord.r * numCols + coord.c;
+            const cell = cells[index];
+            if (cell) {
+                const symbolEl = cell.querySelector('.symbol');
+                if (symbolEl) symbolEl.classList.remove(cssClass);
+            }
+        });
     }
 
     // --- Event Listeners ---

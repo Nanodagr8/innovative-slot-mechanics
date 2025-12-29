@@ -29,32 +29,33 @@ class TransformManager(BaseMechanic):
         Args:
             config: Configuration dict with:
                 - enabled: bool
-                - trigger_rate: float (default 0.20)
-                - symbol_transform_rate: float (default 0.50)
+                - enabled: bool
+                - trigger_rate: float (default 0.35)
+                - symbol_transform_rate: float (default 0.70)
         """
         super().__init__(config)
         
-        self.symbol_transform_rate = config.get('symbol_transform_rate', 0.50)
+        self.symbol_transform_rate = config.get('symbol_transform_rate', 0.70)
         
         # Define states
         self.states = ['LOW', 'MEDIUM', 'HIGH', 'WILD', 'SUPER']
         
         # State payouts (multipliers)
         self.state_payouts = {
-            'LOW': 2,
-            'MEDIUM': 5,
-            'HIGH': 15,
-            'WILD': 50,
-            'SUPER': 200
+            'LOW': 6,       # Was 2
+            'MEDIUM': 15,   # Was 5
+            'HIGH': 45,     # Was 15
+            'WILD': 100,    # Was 50
+            'SUPER': 500    # Was 200
         }
         
-        # CORRECTED transition matrix (rows sum to 1.0)
+        # TUNED transition matrix for Demo (Higher chance to upgrade)
         self.transition_matrix = np.array([
-            [0.70, 0.20, 0.08, 0.015, 0.005],  # LOW
-            [0.10, 0.60, 0.25, 0.040, 0.010],  # MEDIUM
-            [0.05, 0.15, 0.65, 0.100, 0.050],  # HIGH
-            [0.02, 0.08, 0.20, 0.600, 0.100],  # WILD
-            [0.00, 0.00, 0.10, 0.200, 0.700]   # SUPER
+            [0.40, 0.30, 0.20, 0.08, 0.02],  # LOW -> Upgrades (60% chance)
+            [0.10, 0.40, 0.30, 0.15, 0.05],  # MEDIUM -> Upgrades
+            [0.05, 0.15, 0.40, 0.30, 0.10],  # HIGH -> Upgrades
+            [0.02, 0.08, 0.20, 0.40, 0.30],  # WILD -> Upgrades
+            [0.00, 0.00, 0.10, 0.10, 0.80]   # SUPER (Sticky)
         ])
         
         # Calculate steady-state distribution
@@ -110,23 +111,32 @@ class TransformManager(BaseMechanic):
                 'transformed': False,
                 'board': board,
                 'count': 0,
-                'events': []
+                'events': [],
+                'multiplier': 1.0
             }
         
         transformed_board = []
         transform_count = 0
         events = []
+        super_count = 0
         
+        # Dynamic Dampening: Adjust probability if recent transforms were high
+        # In a real sim, this would use a running average. Here, we dampen based on current spin trigger rate.
+        dampening = 0.9 if self.trigger_rate > 0.2 else 1.0
+
         for row_idx, row in enumerate(board):
             new_row = []
             for col_idx, symbol in enumerate(row):
                 # Check if this symbol transforms
-                if random.random() < self.symbol_transform_rate:
+                if random.random() < self.symbol_transform_rate * dampening:
                     new_symbol = self.transform_symbol(symbol)
                     new_row.append(new_symbol)
                     
                     if new_symbol != symbol:
                         transform_count += 1
+                        if new_symbol == 'SUPER':
+                            super_count += 1
+                            
                         events.append({
                             'row': row_idx,
                             'col': col_idx,
@@ -137,12 +147,26 @@ class TransformManager(BaseMechanic):
                     new_row.append(symbol)
             
             transformed_board.append(new_row)
-        
+            
+        # Singularity Bonus: 3+ SUPER symbols force mass upgrade
+        singularity_triggered = False
+        if super_count >= 3:
+            singularity_triggered = True
+            for r in range(len(transformed_board)):
+                for c in range(len(transformed_board[r])):
+                    if transformed_board[r][c] == 'LOW':
+                        transformed_board[r][c] = 'HIGH'
+                        events.append({
+                            'row': r, 'col': c, 'from': 'LOW', 'to': 'HIGH', 'reason': 'SINGULARITY'
+                        })
+
         return {
             'transformed': transform_count > 0,
             'board': transformed_board,
             'count': transform_count,
-            'events': events
+            'events': events,
+            'singularity_bonus': singularity_triggered,
+            'multiplier': dampening
         }
     
     def calculate_rtp_contribution(self, base_rtp: float) -> float:
