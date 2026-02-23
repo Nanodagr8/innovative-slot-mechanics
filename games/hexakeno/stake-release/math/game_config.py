@@ -11,7 +11,7 @@ class GameConfig(Config):
     def __init__(self):
         super().__init__()
         self.game_id = "hexakeno"
-        self.provider_numer = 0
+        self.provider_number = 0
         self.working_name = "hexakeno"
         self.wincap = 1000000 # Max Multiplier
         self.win_type = "other"

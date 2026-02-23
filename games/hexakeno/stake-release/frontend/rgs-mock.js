@@ -256,6 +256,9 @@ const CONFIG_PAYTABLES_DISPLAY = {
 };
 
 if (typeof window.RGSClient === 'undefined') {
+    // Track balance persistently across rounds
+    let mockBalance = 1000.00;
+
     window.RGSClient = function (config) {
         console.log('[MockRGS] Initialized with config:', config);
 
@@ -264,7 +267,7 @@ if (typeof window.RGSClient === 'undefined') {
                 console.log('[MockRGS] Authenticate called');
                 return {
                     success: true,
-                    balance: { amount: 1000.00, currency: 'USD' },
+                    balance: { amount: mockBalance, currency: 'USD' },
                     config: {
                         minBet: 0.10,
                         maxBet: 500.00,
@@ -290,7 +293,7 @@ if (typeof window.RGSClient === 'undefined') {
                 const lastBall = drawn[9];
                 const isSuperballHit = req.use_superball && picks.includes(lastBall);
 
-                const currentRisk = req.risk || 'medium';
+                const currentRisk = req.mode || req.risk || 'medium';
                 const riskTable = CONFIG_PAYTABLES_DISPLAY[currentRisk] || CONFIG_PAYTABLES_DISPLAY['classic'];
                 const paytable = riskTable[picks.length] || {};
                 let multiplier = paytable[hitCount] || 0;
@@ -303,9 +306,12 @@ if (typeof window.RGSClient === 'undefined') {
                 const betAmount = req.amount || 1;
                 const finalPayout = multiplier * betAmount;
 
+                // Update persistent balance
+                mockBalance = mockBalance - betAmount + finalPayout;
+
                 return {
                     success: true,
-                    balance: { amount: 1000 - betAmount + finalPayout, currency: 'USD' },
+                    balance: { amount: mockBalance, currency: 'USD' },
                     round: {
                         id: 'mock-round-' + Date.now(),
                         state: {
@@ -324,7 +330,7 @@ if (typeof window.RGSClient === 'undefined') {
                 console.log('[MockRGS] EndRound called');
                 return {
                     success: true,
-                    balance: { amount: 1005.00, currency: 'USD' }
+                    balance: { amount: mockBalance, currency: 'USD' }
                 };
             }
         };

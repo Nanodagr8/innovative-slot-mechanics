@@ -471,7 +471,6 @@ const AssetLoader = {
                         AssetLoader.spineBoy.state.setAnimation(0, 'run', true);
                     }
                     AssetLoader.app.stage.addChild(AssetLoader.spineBoy);
-                    AssetLoader.app.stage.addChild(AssetLoader.spineBoy);
                 }
             }
         } catch (e) {
@@ -587,13 +586,7 @@ async function init() {
     if (DOM.superToggle) DOM.superToggle.addEventListener('click', saveState);
     if (DOM.turboToggle) DOM.turboToggle.addEventListener('click', saveState);
 
-    // Jurisdiction Clock
-    setInterval(() => {
-        if (DOM.gameClock) {
-            const now = new Date();
-            DOM.gameClock.innerText = now.toLocaleTimeString();
-        }
-    }, 1000);
+    // Note: Clock is initialized once at the bottom of the file via updateClock()
 
     initGrid();
     updateSeeds();
@@ -1592,4 +1585,4 @@ function updateClock() {
 setInterval(updateClock, 1000);
 updateClock();
 
-console.log('[HexaKeno] Version 1.0.45 Loaded (Stake Release)');
+console.log('[HexaKeno] Version 1.0.46 Loaded (Stake Release)');
