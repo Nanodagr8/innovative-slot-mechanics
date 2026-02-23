@@ -650,12 +650,12 @@ function triggerEnergy(intensity = 1.0) {
 }
 
 // Listen for RGS Balance Updates
+// IMPORTANT: Only cache the server balance here. Never apply it mid-round.
+// The balance is synced with the server at the START of each new round (in runRound)
+// to prevent visual desync where the RGS outcome differs from the frontend's visual result.
 window.onBalanceUpdate = (floatAmount) => {
     game.serverBalance = floatAmount;
-    if (!game.running) {
-        game.balance = floatAmount;
-        updateStats();
-    }
+    console.log('[HexaKeno] Server balance cached:', floatAmount, 'running:', game.running);
 };
 
 function formatCurrency(amount) {
@@ -1028,6 +1028,15 @@ async function runRound() {
     }
 
     game.running = true;
+
+    // Sync balance with server truth BEFORE deducting this bet.
+    // This corrects any drift from prior rounds without disrupting the current visual flow.
+    if (game.serverBalance !== undefined) {
+        game.balance = game.serverBalance;
+        game.serverBalance = undefined;
+        console.log('[HexaKeno] Balance synced with server at round start:', game.balance);
+    }
+
     game.balance -= cost;
     game.wagered += cost;
     updateStats();
@@ -1045,11 +1054,11 @@ async function runRound() {
     try {
         // Integration: Play via Adapter
         const risk = DOM.riskLevel ? DOM.riskLevel.value : 'classic';
-        // Sanitize Picks (Safety for grid range and ensure integers for strict Python backend)
-        const numericPicks = game.picks.map(Number).filter(p => p >= 1 && p <= 40);
+        // Sanitize Picks (Safety for grid range)
+        game.picks = game.picks.filter(p => Number(p) >= 1 && Number(p) <= 40);
 
         const playRes = await adapter.play(currentBet, risk, game.nonce, {
-            picks: numericPicks,
+            picks: game.picks,
             superball: game.super
         });
 
@@ -1284,15 +1293,10 @@ async function finalize(hits, sHitNum, currentBet) {
 
     const winAmount = currentBet * winM;
 
-    // Apply official server balance (cached during spin) if available to sync with actual RGS state
-    if (game.serverBalance !== undefined) {
-        // We know the ultimate balance the RGS replied with
-        game.balance = game.serverBalance;
-        game.serverBalance = undefined; // consume it
-    } else {
-        // Fallback to local match
-        game.balance += winAmount;
-    }
+    // Always compute balance locally based on visual outcome.
+    // The server balance is synced at the START of the next round (in runRound).
+    // This prevents the RGS server's independent outcome from overriding what the player sees.
+    game.balance += winAmount;
 
     // Note: endRound() is now called in runRound() after finalize() to properly await it
 

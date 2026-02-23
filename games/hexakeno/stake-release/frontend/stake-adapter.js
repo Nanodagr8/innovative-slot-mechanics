@@ -286,13 +286,10 @@ class StakeEngineAdapter {
                     await this.authenticate();
 
                     console.log('[StakeAdapter] Recovery successful. Retrying Play...');
-                    // Retry Play ONCE with full metadata payload
+                    // Retry Play ONCE
                     const retryResponse = await this.rgsClient.Play({
                         amount: Math.round(this.snapToBetLevel(amount) * API_MULTIPLIER),
-                        mode: risk,
-                        picks: metadata.picks,
-                        superball: metadata.superball,
-                        use_superball: metadata.superball
+                        mode: risk
                     });
 
                     if (retryResponse.round_id) {
