@@ -1045,11 +1045,11 @@ async function runRound() {
     try {
         // Integration: Play via Adapter
         const risk = DOM.riskLevel ? DOM.riskLevel.value : 'classic';
-        // Sanitize Picks (Safety for grid range)
-        game.picks = game.picks.filter(p => Number(p) >= 1 && Number(p) <= 40);
+        // Sanitize Picks (Safety for grid range and ensure integers for strict Python backend)
+        const numericPicks = game.picks.map(Number).filter(p => p >= 1 && p <= 40);
 
         const playRes = await adapter.play(currentBet, risk, game.nonce, {
-            picks: game.picks,
+            picks: numericPicks,
             superball: game.super
         });
 
@@ -1588,4 +1588,4 @@ function updateClock() {
 setInterval(updateClock, 1000);
 updateClock();
 
-console.log('[HexaKeno] Version 1.0.44 Loaded (Stake Release)');
+console.log('[HexaKeno] Version 1.0.45 Loaded (Stake Release)');
