@@ -1114,7 +1114,8 @@ async function runRound() {
             await launchSuperball(ball, hex, isHit);
         } else {
             handleBallLand(ball, hex, isHit, isSuper);
-            if (!game.turbo) await new Promise(r => setTimeout(r, ballDelay));
+            // Always yield to the browser rendering engine to prevent frame drops in Turbo mode
+            await new Promise(r => setTimeout(r, ballDelay));
         }
 
         if (isHit) {
@@ -1364,6 +1365,7 @@ function updateStats(noAnim = false) {
 
     if (noAnim) {
         balEl.innerText = formatCurrency(game.balance);
+        balEl.dataset.currentRawValue = game.balance;
         wagEl.innerText = formatCurrency(game.wagered);
         return;
     }
@@ -1374,8 +1376,13 @@ function updateStats(noAnim = false) {
 }
 
 function animateValue(el, target) {
-    const current = parseFloat(el.innerText.replace(/[$,]/g, '')) || 0;
-    if (current === target) return;
+    // Rely on a stored float value to prevent currency symbol parsing errors (e.g. 'GC 1,000.00' -> NaN)
+    const current = parseFloat(el.dataset.currentRawValue) || parseFloat(el.innerText.replace(/[^0-9.-]+/g, '')) || 0;
+    if (Math.abs(current - target) < 0.001) {
+        el.innerText = formatCurrency(target);
+        el.dataset.currentRawValue = target;
+        return;
+    }
 
     // Cancel existing animation on this element
     if (el.dataset.rafId) {
@@ -1392,11 +1399,13 @@ function animateValue(el, target) {
         const ease = 1 - Math.pow(1 - progress, 3); // easeOutCubic
         const value = current + (target - current) * ease;
         el.innerText = formatCurrency(value);
+        el.dataset.currentRawValue = value;
 
         if (progress < 1) {
             el.dataset.rafId = requestAnimationFrame(update);
         } else {
             el.innerText = formatCurrency(target);
+            el.dataset.currentRawValue = target;
             delete el.dataset.rafId;
         }
     }
@@ -1579,4 +1588,4 @@ function updateClock() {
 setInterval(updateClock, 1000);
 updateClock();
 
-console.log('[HexaKeno] Version 1.0.42 Loaded (Stake Release)');
+console.log('[HexaKeno] Version 1.0.43 Loaded (Stake Release)');
