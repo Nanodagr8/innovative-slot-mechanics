@@ -1,0 +1,99 @@
+{
+  "skeleton": {
+    "hash": "uranus-spins-v1",
+    "spine": "4.0.0",
+    "x": 0,
+    "y": 0,
+    "width": 100,
+    "height": 100
+  },
+  "bones": [{ "name": "root" }, { "name": "body", "parent": "root", "y": 50 }],
+  "slots": [{ "name": "body", "bone": "body", "attachment": "body" }],
+  "skins": [
+    {
+      "name": "default",
+      "attachments": {
+        "body": {
+          "body": { "x": 0, "y": 0, "width": 100, "height": 100 }
+        }
+      }
+    }
+  ],
+  "animations": {
+    "idle_hover": {
+      "bones": {
+        "body": {
+          "translate": [
+            { "time": 0, "y": 0 },
+            { "time": 0.5, "y": 10 },
+            { "time": 1, "y": 0 }
+          ]
+        }
+      }
+    },
+    "idle_breathe": {
+      "bones": {
+        "body": {
+          "scale": [
+            { "time": 0, "x": 1, "y": 1 },
+            { "time": 0.5, "x": 1.05, "y": 0.95 },
+            { "time": 1, "x": 1, "y": 1 }
+          ]
+        }
+      }
+    },
+    "Hit": {
+      "bones": {
+        "body": {
+          "scale": [
+            { "time": 0, "x": 1, "y": 1 },
+            { "time": 0.05, "x": 1.3, "y": 0.8 },
+            { "time": 0.15, "x": 1, "y": 1 }
+          ],
+          "color": [
+            { "time": 0, "color": "ffffffff" },
+            { "time": 0.05, "color": "ff0000ff" },
+            { "time": 0.15, "color": "ffffffff" }
+          ]
+        }
+      }
+    },
+    "death": {
+      "bones": {
+        "body": {
+          "scale": [
+            { "time": 0, "x": 1, "y": 1 },
+            { "time": 0.2, "x": 1.5, "y": 1.5 },
+            { "time": 0.45, "x": 0, "y": 0 }
+          ],
+          "rotate": [
+            { "time": 0, "angle": 0 },
+            { "time": 0.45, "angle": 360 }
+          ]
+        }
+      }
+    },
+    "death_big": {
+      "bones": {
+        "body": {
+          "scale": [
+            { "time": 0, "x": 1, "y": 1 },
+            { "time": 0.3, "x": 2.5, "y": 2.5 },
+            { "time": 0.6, "x": 0, "y": 0 }
+          ]
+        }
+      }
+    },
+    "shoot": {
+      "bones": {
+        "body": {
+          "scale": [
+            { "time": 0, "x": 1, "y": 1 },
+            { "time": 0.1, "x": 1.2, "y": 1.2 },
+            { "time": 0.2, "x": 1, "y": 1 }
+          ]
+        }
+      }
+    }
+  }
+}

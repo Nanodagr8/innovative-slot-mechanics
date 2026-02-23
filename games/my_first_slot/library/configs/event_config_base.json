@@ -1,0 +1,33 @@
+{
+    "winInfo": {
+        "type": "winInfo",
+        "stops": [
+            21,
+            33,
+            34
+        ],
+        "board": [
+            [
+                "3",
+                "4",
+                "5"
+            ],
+            [
+                "2",
+                "3",
+                "4"
+            ],
+            [
+                "2",
+                "3",
+                "0"
+            ]
+        ],
+        "hits": [],
+        "totalWin": 0
+    },
+    "finalWin": {
+        "type": "finalWin",
+        "amount": 0
+    }
+}

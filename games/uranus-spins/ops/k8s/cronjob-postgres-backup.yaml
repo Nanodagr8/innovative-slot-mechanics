@@ -1,0 +1,50 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: postgres-backup
+  namespace: uranus-spins
+spec:
+  schedule: "0 2 * * *" # daily 02:00
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: pg-backup
+              image: bitnami/postgresql:15
+              env:
+                - name: PGPASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: postgres-credentials
+                      key: POSTGRES_PASSWORD
+                - name: AWS_ACCESS_KEY_ID
+                  valueFrom:
+                    secretKeyRef:
+                      name: aws-credentials
+                      key: AWS_ACCESS_KEY_ID
+                - name: AWS_SECRET_ACCESS_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      name: aws-credentials
+                      key: AWS_SECRET_ACCESS_KEY
+                - name: AWS_DEFAULT_REGION
+                  valueFrom:
+                    secretKeyRef:
+                      name: aws-credentials
+                      key: AWS_DEFAULT_REGION
+              command:
+                - /bin/sh
+                - -c
+                - |
+                  export FILE=/tmp/uranus_$(date +%F).sql.gz
+                  pg_dump -h postgres -U uranus uranus | gzip > ${FILE}
+                  if [ -s ${FILE} ]; then
+                    apk add --no-cache curl python3 py3-pip && pip3 install awscli --no-cache-dir
+                    aws s3 cp ${FILE} s3://uranus-backups/$(date +%F)/$(hostname)-uranus.sql.gz
+                  else
+                    echo "dump empty or failed"
+                    exit 1
+                  fi
+          restartPolicy: OnFailure
+          serviceAccountName: backup-runner

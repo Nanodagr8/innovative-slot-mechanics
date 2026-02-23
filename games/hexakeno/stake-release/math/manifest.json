@@ -1,0 +1,10 @@
+{
+  "code": "hexa-keno-super-ball",
+  "name": "Hexa Keno Super Ball",
+  "version": 13,
+  "changed": true,
+  "message": "v0.0.2 Hotfix: Fix RGS 404 Loop",
+  "vendor": "nanostudios",
+  "platform": "stake-engine",
+  "type": "game"
+}

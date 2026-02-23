@@ -1,0 +1,4 @@
+classic: count=50000, total_win=4725605, total_cost=1000000000000, RTP=0.0005%
+low: count=50000, total_win=5052397, total_cost=1000000000000, RTP=0.0005%
+medium: count=50000, total_win=4781343, total_cost=1000000000000, RTP=0.0005%
+high: count=50000, total_win=3728554, total_cost=1000000000000, RTP=0.0004%

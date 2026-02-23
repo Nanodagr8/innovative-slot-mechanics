@@ -1,0 +1,4 @@
+classic: 50000 rounds, avg_payoutMult=94.51, RTP=94.51%
+low: 50000 rounds, avg_payoutMult=101.05, RTP=101.05%
+medium: 50000 rounds, avg_payoutMult=95.63, RTP=95.63%
+high: 50000 rounds, avg_payoutMult=74.57, RTP=74.57%

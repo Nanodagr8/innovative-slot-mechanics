@@ -1,0 +1,16 @@
+======================================================================
+CURRENT RTP ANALYSIS (from keno_config.py)
+======================================================================
+
+--- CLASSIC (avg RTP: 97.0041%) ---
+Traceback (most recent call last):
+  File "C:\Users\Kevin Inthavong\NANOSTUDIOS\math-sdk\games\hexakeno\calibrate_rtp.py", line 151, in <module>
+    main()
+    ~~~~^^
+  File "C:\Users\Kevin Inthavong\NANOSTUDIOS\math-sdk\games\hexakeno\calibrate_rtp.py", line 124, in main
+    print(f"  Picks {picks:2d}: RTP = {rtp*100:.4f}%  {status}")
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2713' in position 28: character maps to <undefined>

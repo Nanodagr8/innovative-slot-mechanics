@@ -1,0 +1,47 @@
+replicaCount: 2
+
+image:
+  repository: uranus-spins-server
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 3000
+
+resources:
+  requests:
+    cpu: "250m"
+    memory: "512Mi"
+  limits:
+    cpu: "1"
+    memory: "1Gi"
+
+env:
+  PORT: 3000
+  PGHOST: postgres
+  PGUSER: uranus
+  PGPASSWORD: super_secure_password_here
+  PGDATABASE: uranus
+  PGPORT: 5432
+  REDIS_URL: redis://redis:6379
+  HMAC_SECRET: super_secret
+  JACKPOT_POOL_PCT: 0.005
+  FIRE_RATE_CAP: 6
+  BURST_LIMIT: 200
+
+hpa:
+  enabled: true
+  minReplicas: 2
+  maxReplicas: 5
+  targetCPUUtilizationPercentage: 50
+
+ingress:
+  enabled: true
+  annotations:
+    kubernetes.io/ingress.class: nginx
+  hosts:
+    - host: uranus-spins.example.com
+      paths:
+        - path: /
+          pathType: Prefix

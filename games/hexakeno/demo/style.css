@@ -1,0 +1,2129 @@
+:root {
+  --bg-body: #0a131a;
+  --bg-sidebar: #0f212e;
+  --accent: #39ff14; /* Neon Electric Green */
+  --super: #bf7fff; /* Amethyst Purple */
+  --turbo: #ff4d4d;
+  --text-main: #b1bad3;
+  --text-white: #ffffff;
+  --hex-idle: rgba(47, 69, 83, 0.4); /* Translucent ice */
+  --hex-hover: rgba(85, 112, 134, 0.6);
+  --radius: 4px;
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation; /* Disables double-tap zoom */
+}
+
+body {
+  background: var(--bg-body);
+  color: var(--text-main);
+  font-family:
+    "Rajdhani",
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    sans-serif;
+  margin: 0;
+  display: flex;
+  justify-content: flex-start;
+  min-height: 100vh;
+  overflow-y: auto;
+  position: relative;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background:
+    radial-gradient(
+      circle at center,
+      rgba(15, 25, 33, 0.1),
+      rgba(10, 19, 26, 0.3)
+    ),
+    url("assets/images/anime_crystal_scenery_bg.png") center/cover no-repeat;
+  opacity: 1;
+  z-index: -1;
+  transition:
+    transform 0.6s cubic-bezier(0.25, 1, 0.5, 1),
+    filter 0.6s ease;
+}
+
+body.high-energy::before {
+  transform: scale(1.08);
+  filter: brightness(1.6) contrast(1.1) saturate(1.4);
+}
+
+.app-layout {
+  display: flex;
+  width: 100%;
+  max-width: 1300px;
+  background: rgba(
+    10,
+    19,
+    26,
+    0.3
+  ); /* Decreased from 0.6 for more BG visibility */
+  min-height: 100vh;
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
+  margin: 0 !important;
+  margin-left: 0 !important;
+  justify-content: flex-start;
+}
+
+/* ... (Existing Sidebar Styles skipped for brevity if unchanged) ... */
+
+/* Duplicated grid styles removed */
+
+@keyframes hitPop {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.4);
+  }
+  100% {
+    transform: scale(1.15);
+  }
+}
+
+/* SIDEBAR */
+.sidebar {
+  width: 280px;
+  background-color: rgba(15, 33, 46, 0.85); /* Reduced from 0.95 */
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border-right: 1px solid rgba(255, 255, 255, 0.05);
+  flex-shrink: 0;
+  z-index: 100;
+  overflow-y: auto;
+}
+
+.sidebar-hero {
+  width: 100%;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.sidebar-hero img {
+  width: 140px;
+  height: 140px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 20px rgba(191, 127, 255, 0.4));
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes numPop {
+  0% {
+    transform: scale(1);
+    color: var(--accent);
+  }
+  50% {
+    transform: scale(1.15);
+    color: white;
+  }
+  100% {
+    transform: scale(1);
+    color: var(--text-white);
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes screenShake {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  10%,
+  90% {
+    transform: translate(-4px, -4px);
+  }
+  20%,
+  80% {
+    transform: translate(4px, 4px);
+  }
+  30%,
+  50%,
+  70% {
+    transform: translate(-8px, 4px);
+  }
+  40%,
+  60% {
+    transform: translate(8px, -4px);
+  }
+}
+
+.shake {
+  animation: screenShake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+.tabs {
+  display: flex;
+  background: #2f4553;
+  padding: 4px;
+  border-radius: 20px;
+  margin-bottom: 5px;
+}
+
+.tab {
+  flex: 1;
+  text-align: center;
+  padding: 8px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-main);
+  cursor: pointer;
+  border-radius: 16px;
+  transition: 0.2s;
+}
+
+.tab.active {
+  background: #0f212e;
+  color: white;
+}
+
+/* STAGE (Stable Layout) */
+.stage {
+  flex: 1;
+  background: radial-gradient(
+    circle at 50% 30%,
+    rgba(26, 44, 56, 0.4) 0%,
+    rgba(10, 19, 26, 0.7) 90%
+  );
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; /* Vertically center to avoid scrollbars */
+  padding: 12px;
+  position: relative;
+  overflow: hidden; /* No scrollbars */
+  min-width: 0;
+}
+
+.logo {
+  font-weight: 900;
+  font-size: 1.2rem;
+  color: white;
+  margin-bottom: 5px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.logo span {
+  color: var(--super);
+}
+
+/* INPUTS */
+.input-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #87909f;
+  margin-bottom: 3px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.input-box {
+  background: #0f212e;
+  border: 2px solid #2f4553;
+  border-radius: var(--radius);
+  padding: 0 10px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.bet-multiplier-btn {
+  background: rgba(47, 69, 83, 0.8);
+  border: 1px solid rgba(0, 242, 255, 0.25);
+  color: #b1bad3;
+  font-weight: 800;
+  font-size: 0.72rem;
+  padding: 3px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.15s;
+  white-space: nowrap;
+  flex-shrink: 0;
+  margin-left: 4px;
+}
+
+.bet-multiplier-btn:hover {
+  background: rgba(0, 242, 255, 0.15);
+  color: #fff;
+  border-color: rgba(0, 242, 255, 0.5);
+}
+
+.bet-multiplier-btn:active {
+  transform: scale(0.92);
+}
+
+.input-box input {
+  background: transparent;
+  border: none;
+  width: 100%;
+  color: white;
+  font-weight: 700;
+  outline: none;
+  font-size: 0.85rem;
+}
+
+/* Custom Select Dropdown */
+.custom-select {
+  position: relative;
+  width: 100%;
+}
+
+.select-trigger {
+  background-color: #0f212e;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 700;
+  font-size: 0.85rem;
+  border: 1px solid transparent;
+  transition: border-color 0.2s;
+}
+
+.select-trigger:hover {
+  border-color: #31424b;
+}
+
+.select-trigger .arrow {
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid white;
+}
+
+.custom-options {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background-color: #1a2c38;
+  border-radius: 4px;
+  margin-top: 4px;
+  z-index: 1000;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  display: none;
+}
+
+.custom-options.show {
+  display: block;
+}
+
+.custom-option {
+  padding: 10px 12px;
+  color: white;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.85rem;
+  transition: background-color 0.2s;
+}
+
+.custom-option:hover {
+  background-color: #007bff;
+}
+
+.custom-option.selected {
+  background-color: #0f212e;
+  border-left: 2px solid #007bff;
+}
+
+.input-box select {
+  display: none !important; /* Hide native select */
+}
+
+.strategy-row {
+  display: flex;
+  gap: 5px;
+  margin-bottom: 8px;
+}
+.strat-col {
+  flex: 1;
+}
+
+/* TOGGLES */
+.opt-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #0f212e;
+  padding: 7px 9px;
+  border-radius: 4px;
+  border: 2px solid #2f4553;
+  cursor: pointer;
+  margin-top: 2px;
+  transition: 0.2s;
+}
+
+.active-super {
+  border-color: var(--super);
+  background: rgba(255, 191, 0, 0.05);
+}
+.active-turbo {
+  border-color: var(--turbo);
+  background: rgba(255, 77, 77, 0.05);
+}
+
+.indicator {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #2f4553;
+  transition: 0.3s;
+}
+
+.active-super .indicator {
+  background: var(--super);
+  box-shadow: 0 0 8px var(--super);
+}
+.active-turbo .indicator {
+  background: var(--turbo);
+  box-shadow: 0 0 8px var(--turbo);
+}
+
+/* BUTTONS */
+.bet-btn {
+  width: 100%;
+  height: 58px;
+  background: linear-gradient(135deg, #00e5ff 0%, #008cff 100%);
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.2s cubic-bezier(0.25, 1, 0.5, 1);
+  box-shadow: 0 4px 20px rgba(0, 229, 255, 0.4);
+  margin-top: 14px;
+  position: relative;
+  z-index: 5;
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #fff;
+}
+
+.bet-btn span {
+  font-family: "Rajdhani", sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #fff;
+  text-shadow: 0 0 5px rgba(0, 242, 255, 0.8);
+  letter-spacing: 2px;
+  font-size: 1.35rem;
+}
+
+.bet-btn .cost-info {
+  font-size: 0.8rem;
+  color: #b1bad3;
+  margin-top: 1px;
+  font-weight: 500;
+  text-shadow: none;
+}
+
+.bet-btn:hover {
+  transform: scale(1.05); /* Pulse effect */
+  filter: drop-shadow(0 0 20px rgba(0, 242, 255, 0.6)) brightness(1.2);
+}
+
+.bet-btn:active {
+  transform: scale(0.95);
+  filter: drop-shadow(0 0 5px rgba(0, 242, 255, 0.8)) brightness(0.9);
+}
+
+.bet-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  filter: grayscale(1);
+  transform: none;
+}
+
+.bet-btn.is-super {
+  background: linear-gradient(135deg, #bf7fff 0%, #7f00ff 100%);
+  box-shadow: 0 4px 15px rgba(191, 127, 255, 0.4);
+}
+
+.bet-btn.is-stop {
+  background: linear-gradient(135deg, #ff4d4d 0%, #cc0000 100%);
+  box-shadow: 0 4px 15px rgba(255, 77, 77, 0.4);
+}
+
+.text-btn {
+  background: rgba(47, 69, 83, 0.6);
+  border: 1px solid rgba(0, 242, 255, 0.3);
+  color: #fff;
+  padding: 6px 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: "Rajdhani", sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  transition: all 0.2s;
+}
+
+.text-btn:hover {
+  background: rgba(0, 242, 255, 0.1);
+  color: #fff;
+  border-color: rgba(0, 242, 255, 0.6);
+  box-shadow: 0 0 10px rgba(0, 242, 255, 0.2);
+}
+
+.sidebar-btn-row {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.sidebar-btn-row .text-btn {
+  flex: 1;
+}
+
+.btn-danger {
+  border-color: rgba(255, 77, 77, 0.3) !important;
+}
+
+.btn-danger:hover {
+  background: rgba(255, 77, 77, 0.1) !important;
+  border-color: rgba(255, 77, 77, 0.6) !important;
+  box-shadow: 0 0 10px rgba(255, 77, 77, 0.2) !important;
+}
+
+.top-hud {
+  display: flex;
+  margin-bottom: 8px;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 16px;
+  width: min(95%, 850px);
+  height: 50px;
+  background: rgba(15, 33, 46, 0.8);
+  border: 1px solid rgba(0, 242, 255, 0.3);
+  border-radius: 10px;
+  padding: 0 24px;
+  position: relative;
+  z-index: 101;
+}
+
+.stat-box {
+  background: none !important;
+  padding: 4px 8px;
+  min-width: 130px;
+  height: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  position: relative;
+  z-index: 200 !important;
+}
+
+.stat-box .label {
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: #b1bad3 !important;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+  letter-spacing: 1.5px;
+  position: relative;
+  z-index: 201 !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+.stat-val {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #39ff14 !important;
+  text-shadow: 0 0 10px rgba(57, 255, 20, 0.4);
+  position: relative;
+  z-index: 201 !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+@keyframes statBreathe {
+  0%,
+  100% {
+    transform: scale(1);
+    filter: brightness(1);
+  }
+  50% {
+    transform: scale(1.05);
+    filter: brightness(1.3);
+  }
+}
+
+/* Electric Frame FX */
+.stage {
+  width: 100%;
+  min-width: 0; /* Removed 900px hardcode — responsive breakpoints handle sizing */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* No vertical centering */
+  align-items: center; /* Center horizontally on desktop */
+  background: transparent;
+  padding: 10px;
+  border: none;
+  box-shadow: none;
+  animation: electricPulse 1.5s infinite alternate;
+  transform-origin: top center;
+  flex: 1; /* Grow to fill space */
+}
+.game-board-frame {
+  margin-top: 5px;
+  position: relative;
+  width: min(98%, 900px); /* Wider to accommodate larger hexes */
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  background: rgba(10, 19, 26, 0.4);
+  padding: 15px 10px;
+  border-radius: 20px;
+  z-index: 2;
+}
+
+/* Ensure grid sits perfectly inside the ornate frame */
+#grid {
+  transform: none;
+}
+
+@keyframes electricPulse {
+  0%,
+  100% {
+    filter: drop-shadow(0 0 10px #39ff14) brightness(1);
+    transform: scale(1);
+  }
+  50% {
+    filter: drop-shadow(0 0 25px #39ff14) drop-shadow(0 0 10px #fff)
+      brightness(1.6);
+    transform: scale(1.01);
+  }
+  25%,
+  75% {
+    filter: drop-shadow(0 0 15px #00ff00) brightness(1.3);
+    transform: translate(1px, -1px);
+  }
+}
+
+/* DRAWN NUMBERS (Ball Strip) */
+.drawn-strip {
+  display: flex;
+  gap: 8px;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  height: 54px;
+  min-height: 54px;
+  justify-content: space-between; /* balls left/center, history pills right */
+  align-items: center;
+  perspective: 1000px;
+  background: rgba(15, 33, 46, 0.95);
+  border-radius: 35px;
+  padding: 5px 16px;
+  border: 2px solid rgba(0, 242, 255, 0.4);
+  width: min(95%, 850px);
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  z-index: 90;
+  box-shadow:
+    0 4px 25px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+/* Ensure balls are visible */
+.drawn-icon {
+  width: 40px;
+  height: 40px;
+  background: radial-gradient(circle at 30% 30%, #b0ffff, #00f2ff);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #000;
+  font-weight: 800;
+  font-size: 1.1rem;
+  box-shadow: 0 0 10px #00f2ff;
+  border: 2px solid white;
+  animation: ballPop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+/* Specific styles for Hit/Miss/Super in the strip if needed */
+.drawn-icon.hit {
+  background: radial-gradient(circle at 30% 30%, #b0ffff, #00f2ff);
+  box-shadow: 0 0 15px #00f2ff;
+}
+
+.drawn-icon.super-hit {
+  background: radial-gradient(circle at 30% 30%, #eecbff, #bf7fff);
+  box-shadow: 0 0 15px #bf7fff;
+}
+
+.drawn-icon.miss {
+  background: radial-gradient(circle at 30% 30%, #555, #222);
+  color: #aaa;
+  border-color: #555;
+  box-shadow: none;
+}
+
+/* PAYTABLE VISIBILITY */
+.payout-strip {
+  display: flex;
+  flex-direction: row; /* strictly horizontal */
+  flex-wrap: wrap;
+  gap: 8px;
+  width: 100%;
+  margin-top: 15px;
+  justify-content: center;
+  z-index: 100;
+}
+
+.payout-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 4px 12px;
+  min-width: 50px;
+  height: 44px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  color: #87909c;
+  font-family: "Rajdhani", sans-serif;
+  font-weight: 600;
+  font-size: 0.8rem;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.payout-card strong {
+  font-size: 0.9rem;
+  color: white;
+}
+
+.payout-card.win {
+  background: rgba(0, 242, 255, 0.2);
+  border-color: #00f2ff;
+  color: white;
+  box-shadow: 0 0 15px rgba(0, 242, 255, 0.4);
+  transform: scale(1.1);
+}
+
+.payout-card.super-win {
+  background: rgba(191, 127, 255, 0.3);
+  border-color: #bf7fff;
+  color: #fff;
+  box-shadow: 0 0 20px rgba(191, 127, 255, 0.6);
+  transform: scale(1.15);
+}
+
+/* GRID CONTAINER (Clean, Hex-Centric) */
+.grid-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  margin: 10px 0 30px;
+  position: relative;
+  z-index: 10;
+}
+
+@keyframes electricFlow {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes electricPulse {
+  0%,
+  100% {
+    box-shadow:
+      0 0 20px rgba(0, 242, 255, 0.3),
+      0 0 40px rgba(0, 242, 255, 0.2),
+      inset 0 0 30px rgba(0, 242, 255, 0.05);
+  }
+  50% {
+    box-shadow:
+      0 0 30px rgba(0, 242, 255, 0.5),
+      0 0 60px rgba(0, 242, 255, 0.3),
+      0 0 80px rgba(191, 127, 255, 0.2),
+      inset 0 0 40px rgba(0, 242, 255, 0.08);
+  }
+}
+
+@keyframes cornerPulse {
+  0% {
+    opacity: 0.3;
+  }
+  100% {
+    opacity: 0.8;
+  }
+}
+
+/* Crystal Orb Fade Out Animation */
+.crystal-orb.fade-out {
+  animation: crystalFadeOut 0.5s ease-out forwards;
+}
+
+@keyframes crystalFadeOut {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.5);
+  }
+}
+
+/* HEX GRID SPRITES */
+.hex-row {
+  display: flex;
+  justify-content: center;
+  margin-top: -20px; /* Tight honeycomb: 25% of hex height (80px) */
+}
+
+.hex {
+  width: 69px;
+  height: 80px;
+  margin: 0 2px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 800;
+  font-size: 1.25rem;
+  color: #b1bad3;
+  cursor: pointer;
+  transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1);
+  -webkit-user-select: none;
+  user-select: none;
+  position: relative;
+  will-change: transform, filter, box-shadow;
+  transform: translateZ(0);
+  z-index: 1;
+}
+
+/* Base Hexagon Image (Rotated to match grid) */
+.hex::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url("assets/images/anime_hex_tile.png") no-repeat center/contain;
+  filter: brightness(1.2) contrast(0.9);
+  z-index: -1;
+  transform: rotate(90deg) scale(1.2); /* Scale up slightly to fill hex fully */
+}
+
+/* HEX GRID SPRITE ANIMATIONS (4x4 Sheets) */
+/* LOOPING (Spin, Super) - Returns to frame 1 */
+@keyframes spriteSheetLoop {
+  0% {
+    background-position: 0% 0%;
+  }
+  6.25% {
+    background-position: 33.33% 0%;
+  }
+  12.5% {
+    background-position: 66.66% 0%;
+  }
+  18.75% {
+    background-position: 100% 0%;
+  }
+  25% {
+    background-position: 0% 33.33%;
+  }
+  31.25% {
+    background-position: 33.33% 33.33%;
+  }
+  37.5% {
+    background-position: 66.66% 33.33%;
+  }
+  43.75% {
+    background-position: 100% 33.33%;
+  }
+  50% {
+    background-position: 0% 66.66%;
+  }
+  56.25% {
+    background-position: 33.33% 66.66%;
+  }
+  62.5% {
+    background-position: 66.66% 66.66%;
+  }
+  68.75% {
+    background-position: 100% 66.66%;
+  }
+  75% {
+    background-position: 0% 100%;
+  }
+  81.25% {
+    background-position: 33.33% 100%;
+  }
+  87.5% {
+    background-position: 66.66% 100%;
+  }
+  93.75% {
+    background-position: 100% 100%;
+  }
+  100% {
+    background-position: 0% 0%;
+  }
+}
+
+/* ONE-SHOT (Hit, Miss) - Stays on last frame */
+@keyframes spriteSheetOneShot {
+  0% {
+    background-position: 0% 0%;
+  }
+  6.25% {
+    background-position: 33.33% 0%;
+  }
+  12.5% {
+    background-position: 66.66% 0%;
+  }
+  18.75% {
+    background-position: 100% 0%;
+  }
+  25% {
+    background-position: 0% 33.33%;
+  }
+  31.25% {
+    background-position: 33.33% 33.33%;
+  }
+  37.5% {
+    background-position: 66.66% 33.33%;
+  }
+  43.75% {
+    background-position: 100% 33.33%;
+  }
+  50% {
+    background-position: 0% 66.66%;
+  }
+  56.25% {
+    background-position: 33.33% 66.66%;
+  }
+  62.5% {
+    background-position: 66.66% 66.66%;
+  }
+  68.75% {
+    background-position: 100% 66.66%;
+  }
+  75% {
+    background-position: 0% 100%;
+  }
+  81.25% {
+    background-position: 33.33% 100%;
+  }
+  87.5% {
+    background-position: 66.66% 100%;
+  }
+  93.75% {
+    background-position: 100% 100%;
+  }
+  100% {
+    background-position: 100% 100%;
+  }
+}
+
+.hex::before {
+  content: "";
+  position: absolute;
+  inset: -5px;
+  background: transparent;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s;
+  will-change: opacity, transform;
+}
+
+/* SELECTED: Spinning Animation (Purple Overlay, Dimmed) */
+.hex.selected::before {
+  opacity: 1;
+  background: url("assets/images/anime_hex_spin_sheet.png") no-repeat;
+  background-size: 400% 400%;
+  animation: spriteSheetLoop 0.8s steps(1) infinite;
+  /* Added brightness(0.75) to dim by 25% */
+  filter: sepia(1) hue-rotate(230deg) saturate(3) drop-shadow(0 0 8px #a855f7)
+    brightness(0.75);
+  transform: scale(1.25) rotate(90deg); /* Reverted to 1.25 */
+}
+
+/* HIT: Crystal Shatter Explosion + GREEN WINNING GLOW */
+.hex.hit::before {
+  opacity: 1;
+  background: url("assets/images/crystal_hit_sheet_v2.png") no-repeat;
+  background-size: 400% 400%;
+  animation: spriteSheetOneShot 0.8s steps(1) forwards;
+  filter: url(#remove-black) brightness(1.5) contrast(1.2) hue-rotate(60deg);
+  transform: scale(2);
+  z-index: 15;
+}
+
+/* HIT BASE: Green background and border for winning hex */
+.hex.hit {
+  background: rgba(57, 255, 20, 0.25) !important;
+  border: 3px solid #39ff14 !important;
+  border-radius: 10px;
+  box-shadow:
+    0 0 20px rgba(57, 255, 20, 0.6),
+    0 0 40px rgba(57, 255, 20, 0.3),
+    inset 0 0 15px rgba(57, 255, 20, 0.3) !important;
+  color: #39ff14 !important;
+  text-shadow: 0 0 15px rgba(57, 255, 20, 0.8);
+  animation: winPulse 1.5s infinite ease-in-out;
+  transform: translateZ(0) scale(1.05); /* Hardware acceleration */
+  z-index: 10;
+}
+
+/* WIN HIGHLIGHT: Persistent Green Glow (for after round ends) */
+.hex.win-highlight {
+  background: rgba(57, 255, 20, 0.2) !important;
+  border: 3px solid #39ff14 !important;
+  border-radius: 10px;
+  box-shadow:
+    0 0 15px rgba(57, 255, 20, 0.5),
+    0 0 30px rgba(57, 255, 20, 0.3),
+    inset 0 0 10px rgba(57, 255, 20, 0.2) !important;
+  color: #39ff14 !important;
+  text-shadow: 0 0 10px rgba(57, 255, 20, 0.6);
+  animation: winPulse 2s infinite ease-in-out;
+}
+
+@keyframes winPulse {
+  0%,
+  100% {
+    box-shadow:
+      0 0 15px rgba(57, 255, 20, 0.5),
+      0 0 30px rgba(57, 255, 20, 0.2);
+    filter: brightness(1);
+  }
+  50% {
+    box-shadow:
+      0 0 25px rgba(57, 255, 20, 0.8),
+      0 0 50px rgba(57, 255, 20, 0.4);
+    filter: brightness(1.3);
+  }
+}
+
+/* SUPER HIT: Massive Energy */
+.hex.super-hit::before {
+  opacity: 1;
+  background: url("assets/images/anime_hex_super_sheet.png") no-repeat;
+  background-size: 400% 400%;
+  animation: spriteSheetLoop 0.8s steps(1) infinite; /* Loop for super hit */
+  filter: drop-shadow(0 0 20px #bf7fff) drop-shadow(0 0 40px #ffd700);
+  transform: scale(1.6) rotate(90deg); /* Reverted to 1.6 */
+  z-index: 20;
+}
+
+/* MISS: Glitch Fade */
+/* MISS: Glitch Fade (Pushed In & Idling & Red Overlay) */
+.hex.miss::before {
+  opacity: 1;
+  background: url("assets/images/anime_hex_miss_sheet.png") no-repeat;
+  background-size: 400% 400%;
+  animation: spriteSheetLoop 1.5s steps(1) infinite;
+  /* Red Overlay Filter: Tint it red and dark */
+  filter: sepia(1) hue-rotate(-50deg) saturate(4) brightness(0.6);
+  transform: scale(1.05) rotate(90deg); /* Reverted to 1.05 */
+  /* Inner red glow/shadow */
+  box-shadow: inset 0 0 20px rgba(255, 0, 0, 0.7);
+}
+
+/* DRAWN: Neutral drawn state (Cyan/Blue) */
+.hex.drawn::before {
+  opacity: 1;
+  background: transparent; /* No specific sprite for neutral, or reuse selection ring? */
+  border-radius: 50%;
+  box-shadow:
+    0 0 10px cyan,
+    inset 0 0 10px cyan;
+}
+.hex.drawn {
+  z-index: 2;
+  text-shadow: 0 0 10px cyan;
+  color: #fff;
+}
+
+/* HOVER: Slight Pulse */
+.hex:hover::before {
+  opacity: 0.3;
+  background: url("assets/images/anime_hex_spin_sheet.png") no-repeat;
+  background-size: 400% 400%;
+  background-position: 0% 0%; /* Static frame 1 */
+  filter: drop-shadow(0 0 5px #00f2ff);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   CRYSTAL ORB 3D ANIMATION SYSTEM (ANIME SPRITE HYBRID)
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* 3D Crystal Orb Container */
+.crystal-orb {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 90px;
+  height: 90px;
+  transform: translate(-50%, -50%) translateZ(0); /* Hardware Acceleration */
+  will-change: transform, opacity;
+  pointer-events: none;
+  z-index: 100;
+  filter: drop-shadow(0 0 15px rgba(0, 242, 255, 0.4));
+}
+
+.crystal-orb-inner {
+  width: 100%;
+  height: 100%;
+  /* Anime Sprite Sheet: 4x4 Grid */
+  background: url("assets/images/anime_crystal_sheet.png") no-repeat;
+  background-size: 400% 400%; /* Zoom in to one frame */
+  background-position: 0 0;
+
+  /* Play 4x4 Sprite Animation */
+  animation:
+    spriteSheetLoop 1.2s steps(1) infinite,
+    /* The frame animation */ orbFloat 3s ease-in-out infinite; /* Gentle floating */
+}
+
+/* 4x4 Grid Sprite Animation Keyframes */
+/* Jumps to each frame in the 4x4 grid sequentially */
+@keyframes spriteSheet4x4 {
+  0% {
+    background-position: 0% 0%;
+  }
+  6.25% {
+    background-position: 33.333% 0%;
+  }
+  12.5% {
+    background-position: 66.666% 0%;
+  }
+  18.75% {
+    background-position: 100% 0%;
+  }
+
+  25% {
+    background-position: 0% 33.333%;
+  }
+  31.25% {
+    background-position: 33.333% 33.333%;
+  }
+  37.5% {
+    background-position: 66.666% 33.333%;
+  }
+  43.75% {
+    background-position: 100% 33.333%;
+  }
+
+  50% {
+    background-position: 0% 66.666%;
+  }
+  56.25% {
+    background-position: 33.333% 66.666%;
+  }
+  62.5% {
+    background-position: 66.666% 66.666%;
+  }
+  68.75% {
+    background-position: 100% 66.666%;
+  }
+
+  75% {
+    background-position: 0% 100%;
+  }
+  81.25% {
+    background-position: 33.333% 100%;
+  }
+  87.5% {
+    background-position: 66.666% 100%;
+  }
+  93.75% {
+    background-position: 100% 100%;
+  }
+}
+
+@keyframes orbFloat {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-10px) scale(1.05);
+  }
+}
+
+/* Entry Animation */
+@keyframes crystalSpawn {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0) rotate(-180deg);
+  }
+  60% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.2) rotate(10deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1) rotate(0deg);
+  }
+}
+
+.crystal-orb.spawn {
+  animation: crystalSpawn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+/* Lightning Bolt Effect */
+.crystal-orb::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 120%;
+  height: 120%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(
+    ellipse at center,
+    rgba(0, 242, 255, 0.3) 0%,
+    rgba(191, 127, 255, 0.2) 30%,
+    transparent 70%
+  );
+  animation: lightningFlash 0.8s ease-in-out infinite;
+  pointer-events: none;
+  border-radius: 50%;
+}
+
+@keyframes lightningFlash {
+  0%,
+  100% {
+    opacity: 0.5;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  25% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.2);
+  }
+  50% {
+    opacity: 0.3;
+    transform: translate(-50%, -50%) scale(0.9);
+  }
+  75% {
+    opacity: 0.8;
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+}
+
+/* Super Hit Orb Variant - Anime Super Electric Orb */
+.crystal-orb.super {
+  width: 110px;
+  height: 110px;
+  filter: drop-shadow(0 0 20px rgba(255, 200, 50, 0.6));
+}
+
+.crystal-orb.super .crystal-orb-inner {
+  background: url("assets/images/anime_gold_super_sheet.png") no-repeat;
+  background-size: 400% 400%;
+  animation:
+    spriteSheetLoop 0.8s steps(1) infinite,
+    /* Faster framerate for energy */ orbFloat 2s ease-in-out infinite,
+    superGlow 1s ease-in-out infinite alternate;
+}
+
+@keyframes superGlow {
+  0% {
+    filter: brightness(1);
+  }
+  100% {
+    filter: brightness(1.3) drop-shadow(0 0 10px gold);
+  }
+}
+
+/* Removed duplicate .top-hud to fix overlap */
+
+.stat-box {
+  background: #071016;
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 1px solid #2f4553;
+}
+
+.stat-val {
+  color: white;
+  margin-left: 5px;
+}
+
+/* Cleaned redundant sections */
+
+/* HISTORY LOG — horizontal row inside drawn-strip */
+.history-sidebar {
+  display: flex;
+  flex-direction: row;
+  gap: 4px;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: nowrap;
+  overflow: hidden;
+  max-width: 220px;
+  flex-shrink: 0;
+}
+
+.hist-pill {
+  padding: 3px 7px;
+  border-radius: 20px;
+  background: #2f4553;
+  color: #87909f;
+  font-size: 0.65rem;
+  font-weight: 800;
+  text-align: center;
+  white-space: nowrap;
+  animation: slideIn 0.2s ease-out;
+  flex-shrink: 0;
+}
+
+.hist-pill.win {
+  background: rgba(0, 231, 1, 0.2);
+  color: var(--accent);
+  border: 1px solid var(--accent);
+}
+.hist-pill.super {
+  background: rgba(255, 191, 0, 0.2);
+  color: var(--super);
+  border: 1px solid var(--super);
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* FAIRNESS */
+.fairness-panel {
+  background: #0f212e;
+  border: 1px solid #2f4553;
+  padding: 15px;
+  border-radius: 8px;
+  margin-top: 10px;
+  display: none;
+}
+.fairness-input {
+  background: #1a2c38;
+  border: 1px solid #2f4553;
+  color: white;
+  width: 100%;
+  padding: 8px;
+  margin: 5px 0;
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 0.7rem;
+}
+
+/* REMOVED FOOTER */
+.kb-hints {
+  font-size: 0.55rem;
+  color: #557086;
+  text-align: center;
+  margin-top: 8px;
+}
+
+/* SUPERBALL ANIMATION */
+.flying-ball {
+  width: 100px;
+  height: 100px;
+  background: url("assets/images/anime_gold_super_sheet.png") no-repeat;
+  background-size: 400% 400%;
+  animation: spriteSheetLoop 0.4s steps(1) infinite;
+  position: absolute;
+  z-index: 100;
+  pointer-events: none;
+  filter: url(#remove-black) drop-shadow(0 0 15px rgba(255, 215, 0, 0.8));
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 900;
+  color: #ffffff;
+  text-shadow: 0 0 4px #000;
+  font-size: 1.2rem;
+  pointer-events: none;
+  mix-blend-mode: screen; /* Hides black background on sprite */
+  transition:
+    transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1),
+    top 0.6s cubic-bezier(0.5, 0, 0.75, 0),
+    left 0.6s linear;
+}
+
+@keyframes superBounce {
+  0% {
+    transform: scale(1.2);
+  }
+  50% {
+    transform: scale(1.5);
+  }
+  70% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.2);
+  }
+}
+
+/* ==========================================================================
+   RESPONSIVE OVERRIDES — ALL TARGET RESOLUTIONS
+   Desktop  1200×675 | Laptop 1024×576 | PopoutL 800×450 | PopoutS 400×225
+   MobileL  425×812  | MobileM 375×667 | MobileS 320×568
+   ========================================================================== */
+
+/* ── Base stage fix: remove hardcoded min-width so it can shrink ── */
+.stage {
+  min-width: 0 !important;
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   DESKTOP  1200×675  (default styles apply, minor tune-ups)
+   ══════════════════════════════════════════════════════════════════ */
+@media (min-width: 1100px) {
+  .sidebar {
+    width: 260px;
+  }
+  .top-hud {
+    width: min(95%, 820px);
+  }
+  .game-board-frame {
+    width: min(95%, 820px);
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   LAPTOP  1024×576
+   ══════════════════════════════════════════════════════════════════ */
+@media (max-width: 1099px) and (min-width: 851px) {
+  .sidebar {
+    width: 220px;
+    padding: 10px;
+    gap: 6px;
+  }
+  .sidebar-hero {
+    display: none;
+  }
+  .top-hud {
+    width: min(95vw, 720px);
+    padding: 0 16px;
+    gap: 10px;
+  }
+  .stat-box {
+    min-width: 120px;
+  }
+  .game-board-frame {
+    width: min(95vw, 720px);
+  }
+  .hex {
+    width: 55px;
+    height: 64px;
+    font-size: 1.05rem;
+  }
+  .hex-row {
+    margin-top: -16px;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   POPOUT LARGE  800×450  (landscape, sidebar stays on left but narrow)
+   ══════════════════════════════════════════════════════════════════ */
+@media (max-width: 850px) and (min-height: 400px) {
+  .app-layout {
+    flex-direction: row;
+    height: 100vh;
+    overflow: hidden;
+  }
+  .sidebar {
+    width: 200px;
+    min-width: 200px;
+    height: 100vh;
+    padding: 8px;
+    gap: 5px;
+    overflow-y: auto;
+    order: 1;
+  }
+  .sidebar-hero {
+    display: none;
+  }
+  .stage {
+    order: 2;
+    flex: 1;
+    min-width: 0;
+    padding: 6px;
+    overflow-y: auto;
+    align-items: center;
+  }
+  .top-hud {
+    width: 100%;
+    height: 44px;
+    padding: 0 10px;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+  .stat-box {
+    min-width: 80px;
+    padding: 2px 6px;
+    height: 44px;
+  }
+  .stat-val {
+    font-size: 1rem;
+  }
+  .stat-box .label {
+    font-size: 0.6rem;
+  }
+  .game-board-frame {
+    width: 100%;
+    padding: 6px;
+    margin-top: 4px;
+  }
+  .hex {
+    width: 48px;
+    height: 55px;
+    font-size: 0.9rem;
+  }
+  .hex-row {
+    margin-top: -14px;
+  }
+  .logo {
+    display: none;
+  }
+  .drawn-strip {
+    padding: 4px 8px;
+    gap: 4px;
+  }
+  .drawn-icon {
+    width: 28px;
+    height: 28px;
+    font-size: 0.8rem;
+  }
+  .payout-bar {
+    display: none;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   POPOUT SMALL  400×225  (ultra-compact landscape)
+   ══════════════════════════════════════════════════════════════════ */
+@media (max-height: 399px) {
+  .app-layout {
+    flex-direction: row;
+    height: 100vh;
+    overflow: hidden;
+  }
+  .sidebar {
+    width: 160px;
+    min-width: 160px;
+    height: 100vh;
+    padding: 6px;
+    gap: 4px;
+    overflow-y: auto;
+    order: 1;
+  }
+  .sidebar-hero,
+  .tabs,
+  .sidebar-btn-row,
+  .kb-hints,
+  .fairness-panel,
+  .opt-box:not(:first-of-type) {
+    display: none;
+  }
+  .bet-btn {
+    height: 44px;
+    margin-top: 6px;
+    font-size: 0.9rem;
+  }
+  .bet-btn span {
+    font-size: 1rem;
+  }
+  .stage {
+    order: 2;
+    flex: 1;
+    min-width: 0;
+    padding: 4px;
+    overflow: hidden;
+    justify-content: center;
+  }
+  .top-hud {
+    width: 100%;
+    height: 36px;
+    padding: 0 6px;
+    gap: 4px;
+    margin-bottom: 4px;
+    border-radius: 6px;
+  }
+  .stat-box {
+    min-width: 60px;
+    padding: 1px 4px;
+    height: 36px;
+  }
+  .stat-val {
+    font-size: 0.75rem;
+  }
+  .stat-box .label {
+    font-size: 0.5rem;
+    letter-spacing: 0.5px;
+  }
+  .game-board-frame {
+    width: 100%;
+    padding: 2px;
+    margin-top: 2px;
+    transform: scale(0.72);
+    transform-origin: top center;
+    margin-bottom: -60px;
+  }
+  .logo {
+    display: none;
+  }
+  .drawn-strip {
+    display: none;
+  }
+  .payout-bar {
+    display: none;
+  }
+  .game-footer {
+    display: none;
+  }
+  .history-sidebar {
+    display: none;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   MOBILE PORTRAIT — shared base for all mobile widths ≤ 450px
+   ══════════════════════════════════════════════════════════════════ */
+@media (max-width: 450px) and (min-height: 400px) {
+  body {
+    overflow-y: auto;
+  }
+  .app-layout {
+    flex-direction: column;
+    min-height: 100vh;
+    height: auto;
+  }
+  .stage {
+    order: 1;
+    width: 100%;
+    min-width: 0;
+    padding: 8px 6px;
+    overflow-y: visible;
+    align-items: center;
+  }
+  .sidebar {
+    order: 2;
+    width: 100%;
+    height: auto;
+    padding: 10px 12px;
+    border-right: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    overflow-y: visible;
+  }
+  .sidebar-hero {
+    display: none;
+  }
+  .top-hud {
+    width: 100%;
+    height: auto;
+    min-height: 48px;
+    padding: 6px 8px;
+    gap: 4px;
+    flex-wrap: wrap;
+    border-radius: 8px;
+    margin-bottom: 8px;
+  }
+  .stat-box {
+    min-width: 0;
+    flex: 1;
+    padding: 3px 6px;
+    height: auto;
+  }
+  .stat-val {
+    font-size: 0.9rem;
+  }
+  .stat-box .label {
+    font-size: 0.55rem;
+  }
+  .game-board-frame {
+    width: 100%;
+    padding: 4px;
+    margin-top: 4px;
+    transform: none;
+  }
+  .drawn-strip {
+    padding: 4px 6px;
+    gap: 3px;
+  }
+  .drawn-icon {
+    width: 26px;
+    height: 26px;
+    font-size: 0.75rem;
+  }
+  .payout-bar {
+    overflow-x: auto;
+  }
+  .payout-card {
+    min-width: 38px;
+    height: 34px;
+    font-size: 0.6rem;
+  }
+  .payout-card strong {
+    font-size: 0.7rem;
+  }
+  .history-sidebar {
+    display: none;
+  }
+  .game-footer {
+    position: relative;
+    bottom: auto;
+    margin-top: 8px;
+  }
+}
+
+/* ── MobileL  425×812 ── */
+@media (max-width: 440px) and (min-height: 400px) {
+  .hex {
+    width: 52px;
+    height: 60px;
+    font-size: 1.1rem;
+  }
+  .hex-row {
+    margin-top: -15px;
+  }
+}
+
+/* ── MobileM  375×667 ── */
+@media (max-width: 390px) and (min-height: 400px) {
+  .hex {
+    width: 46px;
+    height: 53px;
+    font-size: 1rem;
+  }
+  .hex-row {
+    margin-top: -13px;
+  }
+  .top-hud {
+    gap: 2px;
+  }
+  .stat-val {
+    font-size: 0.82rem;
+  }
+}
+
+/* ── MobileS  320×568 ── */
+@media (max-width: 340px) and (min-height: 400px) {
+  .hex {
+    width: 40px;
+    height: 46px;
+    font-size: 0.88rem;
+  }
+  .hex-row {
+    margin-top: -11px;
+  }
+  .drawn-icon {
+    width: 22px;
+    height: 22px;
+    font-size: 0.65rem;
+  }
+  .stat-val {
+    font-size: 0.72rem;
+  }
+  .sidebar {
+    padding: 8px;
+  }
+  .input-box {
+    height: 34px;
+  }
+  .bet-btn {
+    height: 52px;
+  }
+}
+
+/* UTILITIES (Moved from Inline) */
+.hidden {
+  display: none;
+}
+.text-center {
+  text-align: center;
+}
+.mt-auto {
+  margin-top: auto;
+}
+.mt-10 {
+  margin-top: 10px;
+}
+.font-08-bold-white {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: white;
+}
+.font-06-gray {
+  font-size: 0.6rem;
+  color: #87909f;
+}
+.cost-info {
+  font-size: 0.65rem;
+  opacity: 0.8;
+}
+
+.fairness-link {
+  color: #557086;
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.fairness-link:hover {
+  color: #fff;
+}
+
+.fairness-link-container {
+  margin-top: auto;
+  text-align: center;
+}
+
+.game-footer {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  text-align: center;
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.5);
+  pointer-events: none;
+  z-index: 1000;
+  letter-spacing: 0.05em;
+  padding: 0 20px;
+}
+
+/* ================ BIG WIN BANNER ================ */
+/* ================ PREMIUM WIN BANNER ================ */
+.win-banner {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(
+    circle at center,
+    rgba(15, 33, 46, 0.4) 0%,
+    rgba(0, 0, 0, 0.95) 100%
+  );
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+  perspective: 1000px;
+}
+
+.win-banner.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.win-banner-content {
+  position: relative;
+  width: min(90vw, 600px);
+  height: min(90vw, 600px);
+  background: url("assets/images/anime_big_win_frame.png") no-repeat
+    center/contain;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  animation: winBannerReveal 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+  filter: drop-shadow(0 0 30px rgba(0, 242, 255, 0.4));
+}
+
+.win-banner-title {
+  font-size: min(8vw, 2.5rem);
+  font-weight: 900;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  text-shadow:
+    0 0 20px rgba(0, 242, 255, 0.8),
+    0 0 40px rgba(0, 242, 255, 0.4);
+  margin-bottom: 5px;
+  line-height: 1;
+}
+
+.win-banner-amount {
+  font-size: min(15vw, 5rem);
+  font-weight: 900;
+  color: #fff;
+  margin-bottom: 10px;
+  font-family: "Rajdhani", sans-serif;
+  text-shadow: 0 0 30px rgba(191, 127, 255, 0.8);
+  line-height: 1;
+}
+
+.win-banner-multiplier {
+  font-size: min(5vw, 1.5rem);
+  font-weight: 800;
+  color: #ffbf00;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 6px 20px;
+  border-radius: 100px;
+  border: 1px solid rgba(255, 191, 0, 0.5);
+  display: inline-block;
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+
+@keyframes winBannerReveal {
+  0% {
+    transform: scale(0.6) rotateX(-30deg);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1) rotateX(0deg);
+    opacity: 1;
+  }
+}
+
+@keyframes bannerRotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+#vfxCanvas {
+  z-index: 1000 !important; /* Ensure mascot is visible globally */
+}
+.text-dim {
+  color: #557086;
+}
+/* Info Button & Modal */
+.info-btn {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: var(--text-main);
+  font-family: "Midorima", sans-serif;
+  font-size: 20px;
+  cursor: pointer;
+  z-index: 100;
+  transition: all 0.3s ease;
+}
+.info-btn:hover {
+  background: var(--neon-cyan);
+  color: #000;
+  box-shadow: 0 0 15px var(--neon-cyan);
+}
+
+.info-panel {
+  background: rgba(10, 15, 30, 0.95);
+  border: 1px solid var(--border-light);
+  border-radius: 12px;
+  padding: 30px;
+  max-width: 600px;
+  width: 90%;
+  position: relative;
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.8);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 10px;
+}
+.modal-header h2 {
+  color: var(--neon-cyan);
+  margin: 0;
+  font-size: 24px;
+  letter-spacing: 2px;
+}
+.close-btn {
+  background: none;
+  border: none;
+  color: var(--text-dim);
+  font-size: 32px;
+  cursor: pointer;
+}
+.close-btn:hover {
+  color: var(--text-main);
+}
+
+.info-section {
+  margin-bottom: 25px;
+}
+.info-section h3 {
+  color: var(--text-gold);
+  font-size: 16px;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+.info-section ul {
+  padding-left: 20px;
+  color: var(--text-dim);
+  line-height: 1.6;
+}
+.info-section li {
+  margin-bottom: 5px;
+}
+
+.simple-paytable {
+  width: 100%;
+  border-collapse: collapse;
+  color: var(--text-dim);
+}
+.simple-paytable th {
+  text-align: left;
+  color: var(--text-main);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 5px;
+}
+.simple-paytable td {
+  padding: 5px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   SCREEN SHAKE EFFECTS (UI / CAMERA FEEDBACK)
+   ═══════════════════════════════════════════════════════════ */
+
+@keyframes shakeHeavy {
+  0% {
+    transform: translate(1px, 1px) rotate(0deg);
+  }
+  10% {
+    transform: translate(-3px, -4px) rotate(-1deg);
+  }
+  20% {
+    transform: translate(-4px, 0px) rotate(1deg);
+  }
+  30% {
+    transform: translate(3px, 4px) rotate(0deg);
+  }
+  40% {
+    transform: translate(2px, -3px) rotate(1deg);
+  }
+  50% {
+    transform: translate(-3px, 2px) rotate(-1deg);
+  }
+  60% {
+    transform: translate(-4px, 1px) rotate(0deg);
+  }
+  70% {
+    transform: translate(3px, 1px) rotate(-1deg);
+  }
+  80% {
+    transform: translate(-2px, -2px) rotate(1deg);
+  }
+  90% {
+    transform: translate(1px, 2px) rotate(0deg);
+  }
+  100% {
+    transform: translate(0px, 0px) rotate(0deg);
+  }
+}
+
+@keyframes shakeLight {
+  0% {
+    transform: translate(1px, 1px) rotate(0deg);
+  }
+  25% {
+    transform: translate(-2px, -1px) rotate(-0.5deg);
+  }
+  50% {
+    transform: translate(1px, 2px) rotate(0.5deg);
+  }
+  75% {
+    transform: translate(-1px, 1px) rotate(-0.5deg);
+  }
+  100% {
+    transform: translate(0px, 0px) rotate(0deg);
+  }
+}
+
+.shake-heavy {
+  animation: shakeHeavy 0.3s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+  transform-origin: center center;
+  will-change: transform;
+}
+
+.shake-light {
+  animation: shakeLight 0.2s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+  transform-origin: center center;
+  will-change: transform;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   UTILITY CLASSES (WEBHOOK/LINTER COMPLIANCE)
+   ═══════════════════════════════════════════════════════════ */
+
+.hidden {
+  display: none !important;
+}
+
+.color-gold {
+  color: var(--text-gold);
+}
+
+.color-cyan {
+  color: var(--neon-cyan);
+}
+
+.color-payout-high {
+  color: var(--payout-high);
+}

@@ -1,0 +1,11 @@
+VERIFYING HIGH RISK RTP:
+Picks  1: RTP = 0.9600, Max Win =     3.84
+Picks  2: RTP = 0.9602, Max Win =    15.97
+Picks  3: RTP = 0.9597, Max Win =    69.19
+Picks  4: RTP = 0.9602, Max Win =   234.07
+Picks  5: RTP = 0.9597, Max Win =   562.65
+Picks  6: RTP = 0.9601, Max Win =  1526.71
+Picks  7: RTP = 0.9597, Max Win =  4842.01
+Picks  8: RTP = 0.9607, Max Win =  7551.05
+Picks  9: RTP = 0.9607, Max Win = 10000.00
+Picks 10: RTP = 0.9606, Max Win = 10000.00

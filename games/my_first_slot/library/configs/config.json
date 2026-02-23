@@ -1,0 +1,43 @@
+{
+    "workingName": "classic_3x3",
+    "frontendConfig": {
+        "file": "fe_config.json",
+        "sha256": "3a60b8c80a3462f72eb804bf5ce77e470a0d184d2c8d79b4a071e3ad70200abd"
+    },
+    "gameID": "my_first_slot",
+    "rtp": 96.0,
+    "betDenomination": 1000,
+    "minDenomination": 10,
+    "providerNumber": 1,
+    "standardForceFile": {
+        "file": "force.json",
+        "sha256": "16f5967958fb4c5794e1638172d12c93e0dc8da3dbecba3b91e54b9d896c7b2a"
+    },
+    "bookShelfConfig": [
+        {
+            "name": "base",
+            "tables": [
+                {
+                    "file": "lookUpTable_base_0.csv",
+                    "sha256": "ce6371fc188ec83e038603c09d4fbbf828818576f928511d890bfb0e4385b43d"
+                }
+            ],
+            "cost": 1.0,
+            "rtp": 0.96,
+            "std": 1.0,
+            "bookLength": 100,
+            "feature": true,
+            "autoEndRoundDisabled": false,
+            "buyBonus": false,
+            "maxWin": 500,
+            "booksFile": {
+                "file": "books_base.jsonl.zst",
+                "sha256": "fc24f37801f63fd2da01c1f3c458042cf5f20fb00f9e0e7453550301688c68a0"
+            },
+            "forceFile": {
+                "file": "force_record_base.json",
+                "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+            }
+        }
+    ]
+}

@@ -1,0 +1,54 @@
+crystal-mascot.png
+size: 1024, 1024
+format: RGBA8888
+filter: Linear, Linear
+repeat: none
+body
+  rotate: false
+  xy: 256, 128
+  size: 512, 768
+  orig: 512, 768
+  offset: 0, 0
+  index: -1
+left_arm
+  rotate: false
+  xy: 128, 384
+  size: 128, 192
+  orig: 128, 192
+  offset: 0, 0
+  index: -1
+right_arm
+  rotate: false
+  xy: 768, 384
+  size: 128, 192
+  orig: 128, 192
+  offset: 0, 0
+  index: -1
+left_leg
+  rotate: false
+  xy: 320, 64
+  size: 96, 128
+  orig: 96, 128
+  offset: 0, 0
+  index: -1
+right_leg
+  rotate: false
+  xy: 608, 64
+  size: 96, 128
+  orig: 96, 128
+  offset: 0, 0
+  index: -1
+sparkle1
+  rotate: false
+  xy: 0, 768
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+sparkle2
+  rotate: false
+  xy: 64, 768
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1

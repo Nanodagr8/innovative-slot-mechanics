@@ -1,0 +1,28 @@
+{
+  "modes": [
+    {
+      "name": "classic",
+      "cost": 1.0,
+      "events": "books_classic.jsonl.zst",
+      "weights": "lookUpTable_classic.csv"
+    },
+    {
+      "name": "low",
+      "cost": 1.0,
+      "events": "books_low.jsonl.zst",
+      "weights": "lookUpTable_low.csv"
+    },
+    {
+      "name": "medium",
+      "cost": 1.0,
+      "events": "books_medium.jsonl.zst",
+      "weights": "lookUpTable_medium.csv"
+    },
+    {
+      "name": "high",
+      "cost": 1.0,
+      "events": "books_high.jsonl.zst",
+      "weights": "lookUpTable_high.csv"
+    }
+  ]
+}

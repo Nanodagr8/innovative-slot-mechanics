@@ -1,0 +1,115 @@
+{
+  "frames": {
+    "enemy_cyan_1": {
+      "frame": { "x": 8, "y": 8, "w": 80, "h": 80 },
+      "sourceSize": { "w": 80, "h": 80 },
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 80, "h": 80 }
+    },
+    "enemy_cyan_2": {
+      "frame": { "x": 96, "y": 8, "w": 80, "h": 80 },
+      "sourceSize": { "w": 80, "h": 80 },
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 80, "h": 80 }
+    },
+    "enemy_purple_1": {
+      "frame": { "x": 184, "y": 8, "w": 80, "h": 80 },
+      "sourceSize": { "w": 80, "h": 80 },
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 80, "h": 80 }
+    },
+    "enemy_purple_2": {
+      "frame": { "x": 8, "y": 96, "w": 80, "h": 80 },
+      "sourceSize": { "w": 80, "h": 80 },
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 80, "h": 80 }
+    },
+    "enemy_gold_1": {
+      "frame": { "x": 8, "y": 184, "w": 128, "h": 96 },
+      "sourceSize": { "w": 128, "h": 96 },
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 128, "h": 96 }
+    },
+    "enemy_gold_2": {
+      "frame": { "x": 144, "y": 184, "w": 128, "h": 96 },
+      "sourceSize": { "w": 128, "h": 96 },
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 128, "h": 96 }
+    },
+    "player_ship": {
+      "frame": { "x": 8, "y": 320, "w": 160, "h": 160 },
+      "sourceSize": { "w": 160, "h": 160 },
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 160, "h": 160 }
+    },
+    "player_engine_cylinder": {
+      "frame": { "x": 8, "y": 488, "w": 80, "h": 48 },
+      "sourceSize": { "w": 80, "h": 48 },
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 80, "h": 48 }
+    },
+    "player_engine_flame": {
+      "frame": { "x": 96, "y": 488, "w": 48, "h": 64 },
+      "sourceSize": { "w": 48, "h": 64 },
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 64 }
+    },
+    "hit_flash_small": {
+      "frame": { "x": 288, "y": 320, "w": 64, "h": 64 },
+      "sourceSize": { "w": 64, "h": 64 },
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 64, "h": 64 }
+    },
+    "hit_spark_directional": {
+      "frame": { "x": 360, "y": 320, "w": 80, "h": 80 },
+      "sourceSize": { "w": 80, "h": 80 },
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 80, "h": 80 }
+    },
+    "hit_energy_ring": {
+      "frame": { "x": 288, "y": 408, "w": 192, "h": 80 },
+      "sourceSize": { "w": 192, "h": 80 },
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 192, "h": 80 }
+    },
+    "explosion_core": {
+      "frame": { "x": 8, "y": 576, "w": 128, "h": 128 },
+      "sourceSize": { "w": 128, "h": 128 },
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 128, "h": 128 }
+    },
+    "explosion_smoke_soft": {
+      "frame": { "x": 8, "y": 712, "w": 256, "h": 96 },
+      "sourceSize": { "w": 256, "h": 96 },
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 256, "h": 96 }
+    },
+    "player_bullet": {
+      "frame": { "x": 288, "y": 576, "w": 128, "h": 24 },
+      "sourceSize": { "w": 128, "h": 24 },
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 128, "h": 24 }
+    },
+    "enemy_bullet": {
+      "frame": { "x": 288, "y": 608, "w": 128, "h": 24 },
+      "sourceSize": { "w": 128, "h": 24 },
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 128, "h": 24 }
+    },
+    "laser_beam_segment": {
+      "frame": { "x": 288, "y": 640, "w": 192, "h": 32 },
+      "sourceSize": { "w": 192, "h": 32 },
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 192, "h": 32 }
+    },
+    "win_ring_pulse": {
+      "frame": { "x": 8, "y": 832, "w": 128, "h": 128 },
+      "sourceSize": { "w": 128, "h": 128 },
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 128, "h": 128 }
+    },
+    "win_glow_overlay": {
+      "frame": { "x": 8, "y": 968, "w": 256, "h": 80 },
+      "sourceSize": { "w": 256, "h": 80 },
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 256, "h": 80 }
+    },
+    "boss_head": {
+      "frame": { "x": 288, "y": 832, "w": 192, "h": 160 },
+      "sourceSize": { "w": 192, "h": 160 },
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 192, "h": 160 }
+    },
+    "boss_shield_ring": {
+      "frame": { "x": 288, "y": 1000, "w": 192, "h": 64 },
+      "sourceSize": { "w": 192, "h": 64 },
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 192, "h": 64 }
+    }
+  },
+  "meta": {
+    "image": "game_atlas.png",
+    "format": "RGBA8888",
+    "size": { "w": 512, "h": 1152 },
+    "scale": "1"
+  }
+}

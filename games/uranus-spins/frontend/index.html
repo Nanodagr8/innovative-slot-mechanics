@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>URANUS SPINS - Arcade Slot</title>
+    <link rel="stylesheet" href="style.css" />
+    <!-- External Libraries -->
+    <script src="pixi.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+  </head>
+  <body>
+    <div id="game-container">
+      <canvas id="game-canvas"></canvas>
+      <!-- CRT Overlay for Aesthetic -->
+      <div class="crt-overlay"></div>
+      <div class="scanlines"></div>
+
+      <div id="ui-layer">
+        <div id="logo-container">
+          <h1 class="game-logo">URANUS<br /><span>SPINS</span></h1>
+        </div>
+        <div class="hud">
+          <div class="bet-info">
+            BET: <span id="bet-display">1.00</span>
+            <button onclick="changeBet(-0.1)">-</button>
+            <button onclick="changeBet(0.1)">+</button>
+            <button onclick="toggleAudio()" id="audio-btn">SOUND: OFF</button>
+            <button onclick="toggleHelp()">INFO</button>
+          </div>
+          <div class="score-info">
+            SCORE: <span id="score-display">0</span>
+            <span id="combo-display">x1</span>
+          </div>
+          <div class="balance-info">
+            CREDITS: <span id="balance-display">1000.00</span>
+            <span class="highscore-wrap"
+              >HI: <span id="highscore-display">0</span></span
+            >
+          </div>
+        </div>
+
+        <div id="jackpot-ticker">
+          MEGA: <span class="gold" id="jackpot-mega">2000.00</span> | MAJOR:
+          <span class="purple" id="jackpot-major">500.00</span> | MINI:
+          <span class="cyan" id="jackpot-mini">100.00</span>
+        </div>
+
+        <div id="win-banner" class="hidden">
+          <div class="win-amount">WIN 0.00</div>
+          <div class="win-type">ELITE KILL!</div>
+        </div>
+
+        <div id="help-modal" class="hidden">
+          <div class="modal-content">
+            <h2>HOW TO PLAY - URANUS SPINS</h2>
+            <div class="rules-section">
+              <p>
+                1. <strong>Fire to Bet</strong>: Every shot fired is a wager of
+                your current bet.
+              </p>
+              <p>
+                2. <strong>RNG Resolved Hits</strong>: Every hit on an enemy
+                resolved by server-side RNG.
+              </p>
+              <p>
+                3. <strong>Elite Kills</strong>: High-tier enemies trigger Big
+                Wins and Time Dilation.
+              </p>
+              <p>
+                4. <strong>Jackpots</strong>: Mega, Major, and Mini jackpots are
+                randomly awarded on significant enemy kills.
+              </p>
+            </div>
+            <table>
+              <tr>
+                <th>Outcome</th>
+                <th>Avg Multiplier</th>
+              </tr>
+              <tr class="gold">
+                <td>JACKPOT</td>
+                <td>x170+</td>
+              </tr>
+              <tr class="purple">
+                <td>SPECIAL</td>
+                <td>x45</td>
+              </tr>
+              <tr class="cyan">
+                <td>HIGH</td>
+                <td>x11</td>
+              </tr>
+              <tr class="blue">
+                <td>MID</td>
+                <td>x3.2</td>
+              </tr>
+            </table>
+            <button onclick="toggleHelp()">CLOSE MISSION LOG</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="pixi-spine.js"></script>
+    <script src="audio.js"></script>
+    <script src="adapter.js"></script>
+    <script src="game.js"></script>
+    <script>
+      let bgmStarted = false;
+      function toggleAudio() {
+        if (!bgmStarted) {
+          window.audio.resume();
+          window.audio.playBGM();
+          bgmStarted = true;
+          document.getElementById("audio-btn").innerText = "SOUND: ON";
+        }
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,12 @@
+{
+  "code": "hexa-keno-super-ball",
+  "name": "Hexa Keno Super Ball",
+  "version": 13,
+  "changed": true,
+  "message": "Strict RGS API Alignment (Nonce/Slug/Metadata)",
+  "vendor": "nanostudios",
+  "platform": "stake-engine",
+  "type": "game",
+  "rating": 5,
+  "templates": ["us_standard"]
+}

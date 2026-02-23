@@ -1,0 +1,4 @@
+classic: 5500000 rounds, RTP=97.0262%
+low: 10000000 rounds, RTP=96.8131%
+medium: 10000000 rounds, RTP=97.0522%
+high: 10000000 rounds, RTP=98.1232%

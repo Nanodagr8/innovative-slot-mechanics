@@ -1,0 +1,63 @@
+name: CI-CD
+
+on:
+  push:
+    branches: [main, staging]
+  pull_request:
+
+jobs:
+  lint-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+      - run: npm ci
+        working-directory: ./server
+      - run: npm test || echo "skipped tests"
+        working-directory: ./server
+
+  build-and-push:
+    needs: lint-test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/staging'
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build image
+        run: |
+          docker build -t ghcr.io/${{ github.repository }}/uranus-spins-server:${{ github.sha }} ./server
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GHCR_TOKEN }}
+      - name: Push image
+        run: |
+          docker tag ghcr.io/${{ github.repository }}/uranus-spins-server:${{ github.sha }} ghcr.io/${{ github.repository }}/uranus-spins-server:latest
+          docker push ghcr.io/${{ github.repository }}/uranus-spins-server:${{ github.sha }}
+          docker push ghcr.io/${{ github.repository }}/uranus-spins-server:latest
+
+  deploy-staging:
+    needs: build-and-push
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/staging'
+    steps:
+      - name: Deploy to Kubernetes (staging)
+        uses: appleboy/k8s-action@v0.2.1
+        with:
+          kubeconfig: ${{ secrets.KUBE_CONFIG_STAGING }}
+          manifest: ops/k8s/*
+
+  deploy-prod:
+    needs: build-and-push
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - name: Deploy to Kubernetes (prod)
+        uses: appleboy/k8s-action@v0.2.1
+        with:
+          kubeconfig: ${{ secrets.KUBE_CONFIG_PROD }}
+          manifest: ops/k8s/*

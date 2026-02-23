@@ -1,0 +1,11 @@
+{
+    "winInfo": {
+        "type": "winInfo",
+        "numberRolled": 1,
+        "totalWin": 200
+    },
+    "finalWin": {
+        "type": "finalWin",
+        "amount": 200
+    }
+}

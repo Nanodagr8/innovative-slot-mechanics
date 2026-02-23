@@ -1,0 +1,50 @@
+{
+  "frames": {
+    "boss_head_phase1": {
+      "frame": { "x": 8, "y": 8, "w": 240, "h": 96 },
+      "sourceSize": { "w": 240, "h": 96 },
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 240, "h": 96 }
+    },
+    "boss_cannons": {
+      "frame": { "x": 256, "y": 8, "w": 240, "h": 48 },
+      "sourceSize": { "w": 240, "h": 48 },
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 240, "h": 48 }
+    },
+    "boss_shield_ring": {
+      "frame": { "x": 256, "y": 64, "w": 192, "h": 192 },
+      "sourceSize": { "w": 192, "h": 192 },
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 192, "h": 192 }
+    },
+    "boss_head_phase2": {
+      "frame": { "x": 8, "y": 112, "w": 240, "h": 128 },
+      "sourceSize": { "w": 240, "h": 128 },
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 240, "h": 128 }
+    },
+    "boss_cannon_left": {
+      "frame": { "x": 8, "y": 248, "w": 112, "h": 80 },
+      "sourceSize": { "w": 112, "h": 80 },
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 112, "h": 80 }
+    },
+    "boss_cannon_right": {
+      "frame": { "x": 128, "y": 248, "w": 112, "h": 80 },
+      "sourceSize": { "w": 112, "h": 80 },
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 112, "h": 80 }
+    },
+    "boss_head_rage": {
+      "frame": { "x": 256, "y": 264, "w": 224, "h": 128 },
+      "sourceSize": { "w": 224, "h": 128 },
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 224, "h": 128 }
+    },
+    "boss_head_final": {
+      "frame": { "x": 8, "y": 336, "w": 480, "h": 144 },
+      "sourceSize": { "w": 480, "h": 144 },
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 480, "h": 144 }
+    }
+  },
+  "meta": {
+    "image": "boss.png",
+    "format": "RGBA8888",
+    "size": { "w": 512, "h": 512 },
+    "scale": "1"
+  }
+}

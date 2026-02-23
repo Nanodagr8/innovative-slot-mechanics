@@ -1,0 +1,68 @@
+{
+    "workingName": "sample ways game",
+    "frontendConfig": {
+        "file": "fe_config.json",
+        "sha256": "19f186f7562b12272845351ea006ba057d29fb4ae481cf0ce594c98cbcfba9ff"
+    },
+    "gameID": "0_0_ways",
+    "rtp": 97.0,
+    "betDenomination": 1000,
+    "minDenomination": 10,
+    "providerNumber": 0,
+    "standardForceFile": {
+        "file": "force.json",
+        "sha256": "f58777c1f97aed4d19ad6f04ec8e43f74b7871735e42ea247bc8b7bd77da1f4c"
+    },
+    "bookShelfConfig": [
+        {
+            "name": "base",
+            "tables": [
+                {
+                    "file": "lookUpTable_base_0.csv",
+                    "sha256": "482193079f1e7740a22f2d687523bcd87ad5438e33467be0b4042f90688833fb"
+                }
+            ],
+            "cost": 1.0,
+            "rtp": 0.97,
+            "std": 187.41,
+            "bookLength": 10000,
+            "feature": true,
+            "autoEndRoundDisabled": false,
+            "buyBonus": false,
+            "maxWin": 5000,
+            "booksFile": {
+                "file": "books_base.jsonl.zst",
+                "sha256": "58a931fbdd2bb64e9903a8696538b4f80b87c729e319a854d832c5f59cbf803a"
+            },
+            "forceFile": {
+                "file": "force_record_base.json",
+                "sha256": "14db98db08d6b9bc19911fee1e5d8f71ce1414810da3e6a3253791328b61e61a"
+            }
+        },
+        {
+            "name": "bonus",
+            "tables": [
+                {
+                    "file": "lookUpTable_bonus_0.csv",
+                    "sha256": "e7a875c677c74effbb776eacea8d16afbeef598e23672539d07f230f572267d7"
+                }
+            ],
+            "cost": 100.0,
+            "rtp": 0.97,
+            "std": 8.35,
+            "bookLength": 10000,
+            "feature": false,
+            "autoEndRoundDisabled": false,
+            "buyBonus": true,
+            "maxWin": 5000,
+            "booksFile": {
+                "file": "books_bonus.jsonl.zst",
+                "sha256": "f61550b66e80767d318454f9771e2b32c36a6c096de2f6303148406ec96b9494"
+            },
+            "forceFile": {
+                "file": "force_record_bonus.json",
+                "sha256": "2bb17c6c9b5ed1cc0f50bde650d3e2ca2deb6f57a7cd36b3bd7767e4763f00a4"
+            }
+        }
+    ]
+}

@@ -1,0 +1,4 @@
+{
+  "required_animations": ["idle", "hit", "death"],
+  "required_events": ["on_fire", "spawn_explosion_small"]
+}

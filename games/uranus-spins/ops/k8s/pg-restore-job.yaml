@@ -1,0 +1,41 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: postgres-restore
+  namespace: uranus-spins
+spec:
+  template:
+    spec:
+      containers:
+        - name: restore
+          image: bitnami/postgresql:15
+          env:
+            - name: PGPASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-credentials
+                  key: POSTGRES_PASSWORD
+            - name: AWS_ACCESS_KEY_ID
+              valueFrom:
+                secretKeyRef:
+                  name: aws-credentials
+                  key: AWS_ACCESS_KEY_ID
+            - name: AWS_SECRET_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: aws-credentials
+                  key: AWS_SECRET_ACCESS_KEY
+            - name: AWS_DEFAULT_REGION
+              valueFrom:
+                secretKeyRef:
+                  name: aws-credentials
+                  key: AWS_DEFAULT_REGION
+          command:
+            - /bin/sh
+            - -c
+            - |
+              aws s3 cp s3://uranus-backups/<date>/<file>.sql.gz /tmp/restore.sql.gz
+              gzip -d /tmp/restore.sql.gz
+              psql -h postgres -U uranus -d uranus -f /tmp/restore.sql
+      restartPolicy: Never
+  backoffLimit: 1

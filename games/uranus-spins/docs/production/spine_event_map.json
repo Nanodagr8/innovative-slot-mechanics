@@ -1,0 +1,48 @@
+{
+  "events": {
+    "fire": {
+      "id": "fire",
+      "description": "Triggered when player or enemy gun fires. Hooks: bullet spawn, muzzle flash FX, shot sfx.",
+      "params": ["origin_bone", "projectile_type"]
+    },
+    "hit": {
+      "id": "hit",
+      "description": "Triggered on impact. Hooks: hit spark FX, silhouette flash, haptic feedback.",
+      "params": ["impact_bone"]
+    },
+    "explode": {
+      "id": "explode",
+      "description": "Triggered at the peak of the death animation. Hooks: explosion particle burst, screen shake, kill sfx.",
+      "params": ["shake_intensity"]
+    },
+    "shake_small": {
+      "id": "shake_small",
+      "description": "Minor camera shake for small hits or near misses.",
+      "params": []
+    },
+    "shake_big": {
+      "id": "shake_big",
+      "description": "Major camera shake for Boss hits or Big Wins.",
+      "params": []
+    },
+    "spawn_fx": {
+      "id": "spawn_fx",
+      "description": "Generic hook to spawn a separate Spine FX at a bone location.",
+      "params": ["fx_name", "target_bone"]
+    }
+  },
+  "mappings": {
+    "player": {
+      "fire": ["muzzle_L", "muzzle_R"],
+      "hit": ["body_main"]
+    },
+    "enemyA": {
+      "hit": ["core"],
+      "explode": ["root"]
+    },
+    "boss": {
+      "fire": ["cannon_L", "cannon_R"],
+      "shake_big": ["hit_heavy"]
+    }
+  }
+}

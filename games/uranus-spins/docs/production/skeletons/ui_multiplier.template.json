@@ -1,0 +1,54 @@
+{
+  "skeleton": { "hash": "URANUS_UI_MULTIPLIER", "spine": "4.1" },
+  "bones": [
+    { "name": "root" },
+    { "name": "target", "parent": "root" },
+    { "name": "ring", "parent": "target" },
+    { "name": "orb", "parent": "target" },
+    { "name": "number", "parent": "target", "y": 20 }
+  ],
+  "slots": [
+    {
+      "name": "bg_glow",
+      "bone": "target",
+      "attachment": "win_glow_overlay",
+      "blend": "additive"
+    },
+    {
+      "name": "ring",
+      "bone": "ring",
+      "attachment": "win_ring_pulse",
+      "blend": "additive"
+    },
+    {
+      "name": "orb",
+      "bone": "orb",
+      "attachment": "energy_burst",
+      "blend": "additive"
+    },
+    { "name": "number", "bone": "number", "attachment": "x2_label" }
+  ],
+  "animations": {
+    "teaser_pulse": {
+      "bones": {
+        "target": {
+          "scale": [
+            { "time": 0, "x": 1, "y": 1, "curve": "easeOut" },
+            { "time": 0.12, "x": 1.15, "y": 1.15 },
+            { "time": 0.48, "x": 1, "y": 1 }
+          ]
+        }
+      }
+    },
+    "trigger": {
+      "bones": {
+        "orb": {
+          "scale": [
+            { "time": 0, "x": 0.5, "y": 0.5 },
+            { "time": 0.2, "x": 2, "y": 2 }
+          ]
+        }
+      }
+    }
+  }
+}

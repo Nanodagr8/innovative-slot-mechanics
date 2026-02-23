@@ -1,0 +1,46 @@
+{
+  "skeleton": {
+    "hash": "URANUS_FX_HIT",
+    "spine": "4.1",
+    "images": "./assets/fx/"
+  },
+  "bones": [
+    { "name": "root" },
+    { "name": "ring", "parent": "root" },
+    { "name": "spark", "parent": "root" }
+  ],
+  "slots": [
+    {
+      "name": "ring",
+      "bone": "ring",
+      "attachment": "hit_energy_ring",
+      "blend": "additive"
+    },
+    {
+      "name": "spark",
+      "bone": "spark",
+      "attachment": "hit_spark_directional",
+      "blend": "additive"
+    }
+  ],
+  "animations": {
+    "hit_small": {
+      "bones": {
+        "ring": {
+          "scale": [
+            { "time": 0, "x": 0.6, "y": 0.6 },
+            { "time": 0.16, "x": 1.1, "y": 1.1 }
+          ]
+        }
+      },
+      "slots": {
+        "ring": {
+          "color": [
+            { "time": 0.06, "color": "ffffffff" },
+            { "time": 0.16, "color": "ffffff00" }
+          ]
+        }
+      }
+    }
+  }
+}

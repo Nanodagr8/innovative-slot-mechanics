@@ -1,0 +1,64 @@
+{
+  "skeleton": {
+    "hash": "URANUS_ENEMY_A",
+    "spine": "4.1",
+    "x": -128,
+    "y": -128,
+    "width": 256,
+    "height": 256,
+    "images": "./assets/enemyA/"
+  },
+  "bones": [
+    { "name": "root" },
+    { "name": "body", "parent": "root" },
+    { "name": "fin_L", "parent": "body", "x": -40, "y": 10 },
+    { "name": "fin_R", "parent": "body", "x": 40, "y": 10 },
+    { "name": "core", "parent": "body", "y": 5 }
+  ],
+  "slots": [
+    { "name": "body", "bone": "body", "attachment": "enemyA_body" },
+    { "name": "fin_L", "bone": "fin_L", "attachment": "enemyA_fin_L" },
+    { "name": "fin_R", "bone": "fin_R", "attachment": "enemyA_fin_R" },
+    {
+      "name": "eye_glow",
+      "bone": "core",
+      "attachment": "enemyA_eye_glow",
+      "blend": "additive"
+    },
+    {
+      "name": "hit_flash",
+      "bone": "body",
+      "attachment": null,
+      "blend": "additive"
+    }
+  ],
+  "skins": [
+    {
+      "name": "default",
+      "attachments": { "body": { "enemyA_body": { "path": "enemyA_body" } } }
+    },
+    {
+      "name": "gold",
+      "attachments": {
+        "body": { "enemyA_body": { "path": "enemyA_body_gold" } }
+      }
+    }
+  ],
+  "events": {
+    "hit": {},
+    "spawn_explosion_small": {}
+  },
+  "animations": {
+    "hit": {
+      "events": [{ "time": 0, "name": "hit" }],
+      "slots": {
+        "hit_flash": {
+          "attachment": [
+            { "time": 0, "name": "enemyA_hit_flash" },
+            { "time": 0.12, "name": null }
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{
+    "workingName": "hexakeno",
+    "frontendConfig": {
+        "file": "fe_config.json",
+        "sha256": "10fe22e4ea363167a37bb50e5ba41e8341727425fe83bb3462c03c69d344041a"
+    },
+    "gameID": "hexakeno",
+    "rtp": 95.0,
+    "betDenomination": 1000,
+    "minDenomination": 10,
+    "providerNumber": 1,
+    "standardForceFile": {
+        "file": "force.json",
+        "sha256": "16f5967958fb4c5794e1638172d12c93e0dc8da3dbecba3b91e54b9d896c7b2a"
+    },
+    "bookShelfConfig": [
+        {
+            "name": "base",
+            "tables": [
+                {
+                    "file": "lookUpTable_base_0.csv",
+                    "sha256": "71a623666462c0455da704a0c9e73da9ee0bf6ccb07286c6ba834b8e04ab7147"
+                }
+            ],
+            "cost": 1.0,
+            "rtp": 0.95,
+            "std": 8.22,
+            "bookLength": 100000,
+            "feature": true,
+            "autoEndRoundDisabled": false,
+            "buyBonus": false,
+            "maxWin": 1000000,
+            "booksFile": {
+                "file": "books_base.jsonl.zst",
+                "sha256": "1b2b63d74c71ac04cd9492e4aed5374ae1674babb71167bc1e7a3acb0efd4cfd"
+            },
+            "forceFile": {
+                "file": "force_record_base.json",
+                "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+            }
+        }
+    ]
+}

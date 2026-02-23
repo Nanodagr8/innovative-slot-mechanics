@@ -1,0 +1,44 @@
+{
+    "winInfo": {
+        "type": "winInfo",
+        "numberRolled": 75001,
+        "totalWin": 0,
+        "custom_data": {
+            "risk": "high",
+            "picks": [
+                28,
+                21,
+                20,
+                7,
+                2,
+                24,
+                35,
+                10,
+                4,
+                38
+            ],
+            "draw": [
+                8,
+                1,
+                7,
+                13,
+                16,
+                11,
+                20,
+                38,
+                40,
+                19
+            ],
+            "hits": [
+                20,
+                7,
+                38
+            ],
+            "super": false
+        }
+    },
+    "finalWin": {
+        "type": "finalWin",
+        "amount": 0
+    }
+}

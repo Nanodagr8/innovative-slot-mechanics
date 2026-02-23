@@ -1,0 +1,17 @@
+{
+  "name": "uranus-spins-server",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "pg": "^8.10.0",
+    "ioredis": "^5.3.2",
+    "socket.io": "^4.7.5",
+    "uuid": "^9.0.1",
+    "dotenv": "^16.3.1"
+  }
+}

@@ -1,0 +1,43 @@
+{
+    "workingName": "fifty_fifty",
+    "frontendConfig": {
+        "file": "fe_config.json",
+        "sha256": "5aca2ce1af7d626726bf76f4484e2bce60e6c3b5d38a92f40bb5ab17be2307e8"
+    },
+    "gameID": "fifty_fifty",
+    "rtp": 0,
+    "betDenomination": 1000,
+    "minDenomination": 10,
+    "providerNumber": 1,
+    "standardForceFile": {
+        "file": "force.json",
+        "sha256": "16f5967958fb4c5794e1638172d12c93e0dc8da3dbecba3b91e54b9d896c7b2a"
+    },
+    "bookShelfConfig": [
+        {
+            "name": "base",
+            "tables": [
+                {
+                    "file": "lookUpTable_base_0.csv",
+                    "sha256": "ce6371fc188ec83e038603c09d4fbbf828818576f928511d890bfb0e4385b43d"
+                }
+            ],
+            "cost": 1.0,
+            "rtp": 0,
+            "std": 1.0,
+            "bookLength": 100,
+            "feature": true,
+            "autoEndRoundDisabled": false,
+            "buyBonus": false,
+            "maxWin": 2,
+            "booksFile": {
+                "file": "books_base.jsonl.zst",
+                "sha256": "f4b1682e317719863ce6c4af9e5e6308d8715354fb3b7d460add2978c198cfe4"
+            },
+            "forceFile": {
+                "file": "force_record_base.json",
+                "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+            }
+        }
+    ]
+}

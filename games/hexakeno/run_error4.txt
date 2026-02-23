@@ -1,0 +1,85 @@
+Process Process-2:
+Traceback (most recent call last):
+  File "C:\Python314\Lib\multiprocessing\process.py", line 320, in _bootstrap
+    self.run()
+    ~~~~~~~~^^
+  File "C:\Python314\Lib\multiprocessing\process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Kevin Inthavong\NANOSTUDIOS\math-sdk\src\stakeengine\src\state\state.py", line 242, in run_sims
+    self.run_spin(sim)
+    ~~~~~~~~~~~~~^^^^^
+  File "C:\Users\Kevin Inthavong\NANOSTUDIOS\math-sdk\games\hexakeno\gamestate.py", line 47, in run_spin
+    "super": use_super
+             ^^^^^^^^^
+NameError: name 'use_super' is not defined
+Process Process-3:
+Traceback (most recent call last):
+  File "C:\Python314\Lib\multiprocessing\process.py", line 320, in _bootstrap
+    self.run()
+    ~~~~~~~~^^
+  File "C:\Python314\Lib\multiprocessing\process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Kevin Inthavong\NANOSTUDIOS\math-sdk\src\stakeengine\src\state\state.py", line 242, in run_sims
+    self.run_spin(sim)
+    ~~~~~~~~~~~~~^^^^^
+  File "C:\Users\Kevin Inthavong\NANOSTUDIOS\math-sdk\games\hexakeno\gamestate.py", line 47, in run_spin
+    "super": use_super
+             ^^^^^^^^^
+NameError: name 'use_super' is not defined
+Process Process-4:
+Traceback (most recent call last):
+  File "C:\Python314\Lib\multiprocessing\process.py", line 320, in _bootstrap
+    self.run()
+    ~~~~~~~~^^
+  File "C:\Python314\Lib\multiprocessing\process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Kevin Inthavong\NANOSTUDIOS\math-sdk\src\stakeengine\src\state\state.py", line 242, in run_sims
+    self.run_spin(sim)
+    ~~~~~~~~~~~~~^^^^^
+  File "C:\Users\Kevin Inthavong\NANOSTUDIOS\math-sdk\games\hexakeno\gamestate.py", line 47, in run_spin
+    "super": use_super
+             ^^^^^^^^^
+NameError: name 'use_super' is not defined
+Process Process-5:
+Traceback (most recent call last):
+  File "C:\Python314\Lib\multiprocessing\process.py", line 320, in _bootstrap
+    self.run()
+    ~~~~~~~~^^
+  File "C:\Python314\Lib\multiprocessing\process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Kevin Inthavong\NANOSTUDIOS\math-sdk\src\stakeengine\src\state\state.py", line 242, in run_sims
+    self.run_spin(sim)
+    ~~~~~~~~~~~~~^^^^^
+  File "C:\Users\Kevin Inthavong\NANOSTUDIOS\math-sdk\games\hexakeno\gamestate.py", line 47, in run_spin
+    "super": use_super
+             ^^^^^^^^^
+NameError: name 'use_super' is not defined
+Traceback (most recent call last):
+  File "C:\Users\Kevin Inthavong\NANOSTUDIOS\math-sdk\games\hexakeno\run.py", line 29, in <module>
+    create_books(
+    ~~~~~~~~~~~~^
+        gamestate,
+        ^^^^^^^^^^
+    ...<5 lines>...
+        profiling,
+        ^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Kevin Inthavong\NANOSTUDIOS\math-sdk\src\stakeengine\src\state\run_sims.py", line 52, in create_books
+    output_lookup_and_force_files(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        threads,
+        ^^^^^^^^
+    ...<5 lines>...
+        compress=compress,
+        ^^^^^^^^^^^^^^^^^^
+    )  # , write_event_list=config.write_event_list)
+    ^
+  File "C:\Users\Kevin Inthavong\NANOSTUDIOS\math-sdk\src\stakeengine\src\write_data\write_data.py", line 151, in output_lookup_and_force_files
+    with open(fname, "rb") as infile:
+         ~~~~^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\Kevin Inthavong\\NANOSTUDIOS\\math-sdk\\src\\stakeengine\\games\\hexakeno\\library\\temp_multi_threaded_files\\books_classic_0_0.jsonl.zst'

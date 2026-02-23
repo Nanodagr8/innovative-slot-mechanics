@@ -1,0 +1,19 @@
+{
+  "symbols": {
+    "SHIP": {
+      "skeleton": "player",
+      "animations": {
+        "idle": "idle",
+        "fire": "on_fire",
+        "hit": "hit"
+      }
+    },
+    "ENEMY_BUG": {
+      "skeleton": "enemies",
+      "animations": {
+        "idle": "idle",
+        "death": "death"
+      }
+    }
+  }
+}

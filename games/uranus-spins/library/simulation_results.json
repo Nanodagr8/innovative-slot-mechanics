@@ -1,0 +1,62 @@
+{
+  "game_id": "uranus_spins",
+  "simulation": {
+    "iterations": 1000000,
+    "total_wagered": 1000000.0,
+    "total_won": 977419.359996793,
+    "actual_rtp": 0.97742,
+    "target_rtp": 0.973,
+    "rtp_delta": 0.00442,
+    "hit_rate": 0.2799,
+    "outcome_distribution": {
+      "miss": 720061,
+      "small": 200017,
+      "mid": 59814,
+      "high": 15122,
+      "special": 4483,
+      "jackpot": 503
+    }
+  },
+  "config": {
+    "rtp": 0.973,
+    "wincap": 170,
+    "probabilities": {
+      "miss": 0.72,
+      "small": 0.2,
+      "mid": 0.06,
+      "high": 0.015,
+      "special": 0.0045,
+      "jackpot": 0.0005
+    },
+    "multipliers": {
+      "miss": 0.0,
+      "small": 1.48,
+      "mid": 4.35,
+      "high": 11.4,
+      "special": 32.5,
+      "jackpot": 205.0
+    },
+    "jackpot": {
+      "pool_contribution_pct": 0.01,
+      "tiers": {
+        "mini": {
+          "contribution": 0.003,
+          "seed": 100.0
+        },
+        "major": {
+          "contribution": 0.005,
+          "seed": 500.0
+        },
+        "mega": {
+          "contribution": 0.002,
+          "seed": 2000.0
+        }
+      }
+    },
+    "boss": {
+      "spawn_rate": 0.0002,
+      "jackpot_weight_multiplier": 10,
+      "health_multiplier": 5
+    }
+  }
+}

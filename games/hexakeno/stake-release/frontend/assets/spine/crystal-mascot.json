@@ -1,0 +1,158 @@
+{
+  "skeleton": {
+    "hash": "crystalmascot2026",
+    "spine": "4.2.0",
+    "x": -256,
+    "y": 0,
+    "width": 512,
+    "height": 768,
+    "images": "./",
+    "audio": ""
+  },
+  "bones": [
+    { "name": "root" },
+    { "name": "body", "parent": "root", "y": 384 },
+    { "name": "left_arm", "parent": "body", "x": -192, "y": 64 },
+    { "name": "right_arm", "parent": "body", "x": 192, "y": 64 },
+    { "name": "left_leg", "parent": "body", "x": -64, "y": -256 },
+    { "name": "right_leg", "parent": "body", "x": 64, "y": -256 }
+  ],
+  "slots": [
+    { "name": "left_leg", "bone": "left_leg", "attachment": "left_leg" },
+    { "name": "right_leg", "bone": "right_leg", "attachment": "right_leg" },
+    { "name": "body", "bone": "body", "attachment": "body" },
+    { "name": "left_arm", "bone": "left_arm", "attachment": "left_arm" },
+    { "name": "right_arm", "bone": "right_arm", "attachment": "right_arm" }
+  ],
+  "skins": [
+    {
+      "name": "default",
+      "attachments": {
+        "body": {
+          "body": { "x": 0, "y": 0, "width": 512, "height": 768 }
+        },
+        "left_arm": {
+          "left_arm": { "x": 0, "y": 0, "width": 128, "height": 192 }
+        },
+        "right_arm": {
+          "right_arm": { "x": 0, "y": 0, "width": 128, "height": 192 }
+        },
+        "left_leg": {
+          "left_leg": { "x": 0, "y": 0, "width": 96, "height": 128 }
+        },
+        "right_leg": {
+          "right_leg": { "x": 0, "y": 0, "width": 96, "height": 128 }
+        }
+      }
+    }
+  ],
+  "animations": {
+    "idle": {
+      "bones": {
+        "body": {
+          "translate": [
+            { "time": 0, "x": 0, "y": 0 },
+            { "time": 0.5, "x": 0, "y": 10 },
+            { "time": 1, "x": 0, "y": 0 }
+          ]
+        },
+        "left_arm": {
+          "rotate": [
+            { "time": 0, "angle": 0 },
+            { "time": 0.5, "angle": -5 },
+            { "time": 1, "angle": 0 }
+          ]
+        },
+        "right_arm": {
+          "rotate": [
+            { "time": 0, "angle": 0 },
+            { "time": 0.5, "angle": 5 },
+            { "time": 1, "angle": 0 }
+          ]
+        }
+      }
+    },
+    "run": {
+      "bones": {
+        "body": {
+          "translate": [
+            { "time": 0, "x": 0, "y": 0 },
+            { "time": 0.15, "x": 0, "y": 15 },
+            { "time": 0.3, "x": 0, "y": 0 }
+          ]
+        },
+        "left_arm": {
+          "rotate": [
+            { "time": 0, "angle": -20 },
+            { "time": 0.15, "angle": 20 },
+            { "time": 0.3, "angle": -20 }
+          ]
+        },
+        "right_arm": {
+          "rotate": [
+            { "time": 0, "angle": 20 },
+            { "time": 0.15, "angle": -20 },
+            { "time": 0.3, "angle": 20 }
+          ]
+        },
+        "left_leg": {
+          "rotate": [
+            { "time": 0, "angle": 15 },
+            { "time": 0.15, "angle": -15 },
+            { "time": 0.3, "angle": 15 }
+          ]
+        },
+        "right_leg": {
+          "rotate": [
+            { "time": 0, "angle": -15 },
+            { "time": 0.15, "angle": 15 },
+            { "time": 0.3, "angle": -15 }
+          ]
+        }
+      }
+    },
+    "jump": {
+      "bones": {
+        "body": {
+          "translate": [
+            { "time": 0, "x": 0, "y": 0 },
+            { "time": 0.2, "x": 0, "y": 50 },
+            { "time": 0.5, "x": 0, "y": 0 }
+          ]
+        },
+        "left_arm": {
+          "rotate": [
+            { "time": 0, "angle": 0 },
+            { "time": 0.2, "angle": -45 },
+            { "time": 0.5, "angle": 0 }
+          ]
+        },
+        "right_arm": {
+          "rotate": [
+            { "time": 0, "angle": 0 },
+            { "time": 0.2, "angle": 45 },
+            { "time": 0.5, "angle": 0 }
+          ]
+        }
+      }
+    },
+    "shoot": {
+      "bones": {
+        "body": {
+          "scale": [
+            { "time": 0, "x": 1, "y": 1 },
+            { "time": 0.1, "x": 1.1, "y": 1.1 },
+            { "time": 0.3, "x": 1, "y": 1 }
+          ]
+        },
+        "right_arm": {
+          "rotate": [
+            { "time": 0, "angle": 0 },
+            { "time": 0.1, "angle": -90 },
+            { "time": 0.3, "angle": 0 }
+          ]
+        }
+      }
+    }
+  }
+}

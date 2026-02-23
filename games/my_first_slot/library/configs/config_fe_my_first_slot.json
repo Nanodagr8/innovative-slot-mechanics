@@ -1,0 +1,78 @@
+{
+    "providerName": "sample_provider",
+    "gameName": "sample_lines",
+    "gameID": "my_first_slot",
+    "rtp": 0.96,
+    "numReels": 3,
+    "numRows": [
+        3,
+        3,
+        3
+    ],
+    "betModes": {
+        "base": {
+            "cost": 1.0,
+            "feature": true,
+            "buyBonus": false,
+            "rtp": 0.96,
+            "max_win": 500
+        }
+    },
+    "symbols": [
+        {
+            "4": {
+                "paytable": [
+                    {
+                        "3": 15
+                    }
+                ]
+            }
+        },
+        {
+            "5": {
+                "paytable": [
+                    {
+                        "3": 40
+                    }
+                ]
+            }
+        },
+        {
+            "2": {
+                "paytable": [
+                    {
+                        "3": 4
+                    }
+                ]
+            }
+        },
+        {
+            "3": {
+                "paytable": [
+                    {
+                        "3": 8
+                    }
+                ]
+            }
+        },
+        {
+            "0": {
+                "paytable": [
+                    {
+                        "3": 1
+                    }
+                ]
+            }
+        },
+        {
+            "1": {
+                "paytable": [
+                    {
+                        "3": 2
+                    }
+                ]
+            }
+        }
+    ],
+    "paddingReels": {}
+}
