@@ -50,6 +50,58 @@ const STAKE_DATA = {
     }
 };
 
+/* --- SUPERBALL PAYOUT DATA (RTP-TUNED for 2.5x cost + 7x conditional) --- */
+const SUPERBALL_DATA = {
+    classic: {
+        1: [0.00, 6.06],
+        2: [0.00, 2.65, 6.28],
+        3: [0.00, 1.22, 3.78, 12.66],
+        4: [0.00, 0.91, 2.04, 5.65, 25.42],
+        5: [0.00, 0.24, 1.34, 3.94, 15.86, 34.60],
+        6: [0.00, 0.00, 0.89, 3.28, 6.24, 14.71, 35.66],
+        7: [0.00, 0.00, 0.39, 2.50, 3.74, 11.64, 25.78, 49.90],
+        8: [0.00, 0.00, 0.00, 1.66, 3.02, 9.82, 16.61, 41.53, 52.85],
+        9: [0.00, 0.00, 0.00, 1.13, 2.19, 5.85, 10.96, 32.16, 43.86, 62.13],
+        10: [0.00, 0.00, 0.00, 1.02, 1.64, 3.29, 5.84, 12.41, 36.50, 58.40, 73.00]
+    },
+    low: {
+        1: [2.28, 6.06],
+        2: [0.00, 2.83, 5.38],
+        3: [0.00, 1.29, 1.61, 30.38],
+        4: [0.00, 0.00, 2.04, 7.34, 83.63],
+        5: [0.00, 0.00, 1.33, 3.73, 11.54, 266.34],
+        6: [0.00, 0.00, 0.91, 1.64, 5.08, 82.01, 574.10],
+        7: [0.00, 0.00, 0.92, 1.34, 2.93, 12.55, 188.28, 585.74],
+        8: [0.00, 0.00, 0.95, 1.29, 1.72, 4.73, 33.54, 86.00, 688.04],
+        9: [0.00, 0.00, 0.95, 1.12, 1.46, 2.16, 6.47, 43.11, 215.53, 862.11],
+        10: [0.00, 0.00, 0.94, 1.03, 1.11, 1.54, 3.00, 11.13, 42.79, 213.96, 855.83]
+    },
+    medium: {
+        1: [0.87, 6.06],
+        2: [0.00, 2.49, 7.05],
+        3: [0.00, 0.00, 2.67, 47.68],
+        4: [0.00, 0.00, 1.53, 9.03, 90.34],
+        5: [0.00, 0.00, 1.21, 3.47, 12.15, 338.46],
+        6: [0.00, 0.00, 0.00, 2.15, 6.44, 128.71, 507.71],
+        7: [0.00, 0.00, 0.00, 1.41, 4.95, 21.21, 282.77, 565.54],
+        8: [0.00, 0.00, 0.00, 1.46, 2.93, 8.05, 49.01, 292.62, 658.40],
+        9: [0.00, 0.00, 0.00, 1.50, 1.88, 3.76, 11.28, 75.23, 376.13, 752.26],
+        10: [0.00, 0.00, 0.00, 1.18, 1.48, 2.95, 5.17, 19.20, 73.85, 369.27, 738.54]
+    },
+    high: {
+        1: [0.00, 6.06],
+        2: [0.00, 0.00, 19.11],
+        3: [0.00, 0.00, 0.00, 71.31],
+        4: [0.00, 0.00, 0.73, 18.87],
+        5: [0.00, 0.00, 0.00, 3.36, 35.80, 335.62],
+        6: [0.00, 0.00, 0.00, 0.00, 6.97, 221.83, 449.99],
+        7: [0.00, 0.00, 0.00, 0.00, 4.40, 56.63, 251.71, 503.42],
+        8: [0.00, 0.00, 0.00, 0.00, 3.06, 12.24, 165.30, 367.34, 551.02],
+        9: [0.00, 0.00, 0.00, 0.00, 2.47, 6.80, 34.62, 309.12, 494.59, 618.24],
+        10: [0.00, 0.00, 0.00, 0.00, 2.25, 5.15, 8.36, 40.53, 321.68, 514.69, 670.16]
+    }
+};
+
 /* --- AUDIO ENGINE (Web Audio API) --- */
 const AudioContext = window.AudioContext || window.webkitAudioContext;
 const audioCtx = new AudioContext();
@@ -915,17 +967,18 @@ function renderPayouts(hits = -1, isSuperWin = false) {
     }
 
     const risk = DOM.riskLevel.value;
-    const table = STAKE_DATA[risk][game.picks.length];
+    // Use Superball-specific paytable when Superball is active
+    const activeTable = game.super ? SUPERBALL_DATA : STAKE_DATA;
+    const table = activeTable[risk][game.picks.length];
 
     bar.innerHTML = '';
     const fragment = document.createDocumentFragment();
 
     table.forEach((m, i) => {
-        const display = isSuperWin ? m * 7 : m;
         const card = document.createElement('div');
         card.className = 'payout-card';
         if (hits === i) card.classList.add(isSuperWin ? 'super-win' : 'win');
-        card.innerHTML = `<strong>${display.toFixed(2)}x</strong>${i}`;
+        card.innerHTML = `<strong>${m.toFixed(2)}x</strong>${i}`;
         fragment.appendChild(card);
     });
     bar.appendChild(fragment);
@@ -1274,13 +1327,16 @@ function animateSuperBall(num, targetEl) {
 
 async function finalize(hits, sHitNum, currentBet) {
     const risk = DOM.riskLevel.value;
-    const table = STAKE_DATA[risk][game.picks.length];
+
+    // Use Superball paytable when Superball is active, otherwise base paytable
+    const activeTable = game.super ? SUPERBALL_DATA : STAKE_DATA;
+    const table = activeTable[risk][game.picks.length];
     const baseM = table[hits];
 
     // Win Logic
     let winM = 0;
     if (baseM > 0) {
-        if (sHitNum && game.super) winM = baseM * 7; // Fixed 7x multiplier
+        if (sHitNum && game.super) winM = baseM * 7; // 7x when last ball is a Superball hit
         else winM = baseM;
     }
 
@@ -1585,4 +1641,4 @@ function updateClock() {
 setInterval(updateClock, 1000);
 updateClock();
 
-console.log('[HexaKeno] Version 1.0.46 Loaded (Stake Release)');
+console.log('[HexaKeno] Version 1.0.47 Loaded (Stake Release)');
