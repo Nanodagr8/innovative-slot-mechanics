@@ -254,7 +254,10 @@ class StakeEngineAdapter {
             // Stake Engine Standard Request Schema
             const response = await this.rgsClient.Play({
                 amount: Math.round(snappedAmount * API_MULTIPLIER),
-                mode: risk
+                mode: risk,
+                picks: metadata.picks,
+                superball: metadata.superball,
+                use_superball: metadata.superball
             });
 
             // Verify connection and response
@@ -312,6 +315,12 @@ class StakeEngineAdapter {
     async endRound() {
         if (!this.rgsClient || !this.currentRoundId) {
             return { success: true, mock: true };
+        }
+
+        // Keno rounds usually automatically close on the server. Do not send redundant HTTP 400 Bad Requests
+        if (this.roundActive === false) {
+            this.currentRoundId = null;
+            return { success: true, alreadyClosed: true };
         }
 
         try {

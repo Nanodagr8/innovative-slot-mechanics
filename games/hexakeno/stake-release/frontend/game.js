@@ -1588,4 +1588,4 @@ function updateClock() {
 setInterval(updateClock, 1000);
 updateClock();
 
-console.log('[HexaKeno] Version 1.0.43 Loaded (Stake Release)');
+console.log('[HexaKeno] Version 1.0.44 Loaded (Stake Release)');
