@@ -1,0 +1,367 @@
+====================================================================================================
+  BET-ADJUSTED MAX-WIN ACHIEVABILITY AUDIT
+  Rule: Advertised max-win must be achievable at >= 1-in-20,000,000
+====================================================================================================
+
+
+### DOLLAR CAP: $100,000 ###
+----------------------------------------------------------------------------------------------------
+
+  --- CLASSIC ---
+  9-pick (raw max: 81.60x at 9 hits, freq=1-in-27,343,888):
+    bet=$    0.10 -> cap=   1000000x -> max=   81.60x (9h) -> $        8.16 freq=1-in-  27,343,888 [FAIL]
+    bet=$    1.00 -> cap=    100000x -> max=   81.60x (9h) -> $       81.60 freq=1-in-  27,343,888 [FAIL]
+    bet=$   10.00 -> cap=     10000x -> max=   81.60x (9h) -> $      816.00 freq=1-in-  27,343,888 [FAIL]
+    bet=$  100.00 -> cap=      1000x -> max=   81.60x (9h) -> $    8,160.00 freq=1-in-  27,343,888 [FAIL]
+    bet=$  500.00 -> cap=       200x -> max=   81.60x (9h) -> $   40,800.00 freq=1-in-  27,343,888 [FAIL]
+    bet=$ 1000.00 -> cap=       100x -> max=   81.60x (9h) -> $   81,600.00 freq=1-in-  27,343,888 [FAIL]
+  10-pick (raw max: 96.00x at 10 hits, freq=1-in-847,660,528):
+    bet=$    0.10 -> cap=   1000000x -> max=   96.00x (10h) -> $        9.60 freq=1-in- 847,660,528 [FAIL]
+    bet=$    1.00 -> cap=    100000x -> max=   96.00x (10h) -> $       96.00 freq=1-in- 847,660,528 [FAIL]
+    bet=$   10.00 -> cap=     10000x -> max=   96.00x (10h) -> $      960.00 freq=1-in- 847,660,528 [FAIL]
+    bet=$  100.00 -> cap=      1000x -> max=   96.00x (10h) -> $    9,600.00 freq=1-in- 847,660,528 [FAIL]
+    bet=$  500.00 -> cap=       200x -> max=   96.00x (10h) -> $   48,000.00 freq=1-in- 847,660,528 [FAIL]
+    bet=$ 1000.00 -> cap=       100x -> max=   96.00x (10h) -> $   96,000.00 freq=1-in- 847,660,528 [FAIL]
+
+  --- LOW ---
+  9-pick (raw max: 960.00x at 9 hits, freq=1-in-27,343,888):
+    bet=$    0.10 -> cap=   1000000x -> max=  960.00x (9h) -> $       96.00 freq=1-in-  27,343,888 [FAIL]
+    bet=$    1.00 -> cap=    100000x -> max=  960.00x (9h) -> $      960.00 freq=1-in-  27,343,888 [FAIL]
+    bet=$   10.00 -> cap=     10000x -> max=  960.00x (9h) -> $    9,600.00 freq=1-in-  27,343,888 [FAIL]
+    bet=$  100.00 -> cap=      1000x -> max=  960.00x (9h) -> $   96,000.00 freq=1-in-  27,343,888 [FAIL]
+    bet=$  500.00 -> cap=       200x -> max=   48.00x (7h) -> $   24,000.00 freq=1-in-       5,238 [ok]
+    bet=$ 1000.00 -> cap=       100x -> max=   48.00x (7h) -> $   48,000.00 freq=1-in-       5,238 [ok]
+  10-pick (raw max: 960.00x at 10 hits, freq=1-in-847,660,528):
+    bet=$    0.10 -> cap=   1000000x -> max=  960.00x (10h) -> $       96.00 freq=1-in- 847,660,528 [FAIL]
+    bet=$    1.00 -> cap=    100000x -> max=  960.00x (10h) -> $      960.00 freq=1-in- 847,660,528 [FAIL]
+    bet=$   10.00 -> cap=     10000x -> max=  960.00x (10h) -> $    9,600.00 freq=1-in- 847,660,528 [FAIL]
+    bet=$  100.00 -> cap=      1000x -> max=  960.00x (10h) -> $   96,000.00 freq=1-in- 847,660,528 [FAIL]
+    bet=$  500.00 -> cap=       200x -> max=   48.00x (8h) -> $   24,000.00 freq=1-in-      43,303 [ok]
+    bet=$ 1000.00 -> cap=       100x -> max=   48.00x (8h) -> $   48,000.00 freq=1-in-      43,303 [ok]
+
+  --- MEDIUM ---
+  9-pick (raw max: 960.00x at 9 hits, freq=1-in-27,343,888):
+    bet=$    0.10 -> cap=   1000000x -> max=  960.00x (9h) -> $       96.00 freq=1-in-  27,343,888 [FAIL]
+    bet=$    1.00 -> cap=    100000x -> max=  960.00x (9h) -> $      960.00 freq=1-in-  27,343,888 [FAIL]
+    bet=$   10.00 -> cap=     10000x -> max=  960.00x (9h) -> $    9,600.00 freq=1-in-  27,343,888 [FAIL]
+    bet=$  100.00 -> cap=      1000x -> max=  960.00x (9h) -> $   96,000.00 freq=1-in-  27,343,888 [FAIL]
+    bet=$  500.00 -> cap=       200x -> max=   96.00x (7h) -> $   48,000.00 freq=1-in-       5,238 [ok]
+    bet=$ 1000.00 -> cap=       100x -> max=   96.00x (7h) -> $   96,000.00 freq=1-in-       5,238 [ok]
+  10-pick (raw max: 960.00x at 10 hits, freq=1-in-847,660,528):
+    bet=$    0.10 -> cap=   1000000x -> max=  960.00x (10h) -> $       96.00 freq=1-in- 847,660,528 [FAIL]
+    bet=$    1.00 -> cap=    100000x -> max=  960.00x (10h) -> $      960.00 freq=1-in- 847,660,528 [FAIL]
+    bet=$   10.00 -> cap=     10000x -> max=  960.00x (10h) -> $    9,600.00 freq=1-in- 847,660,528 [FAIL]
+    bet=$  100.00 -> cap=      1000x -> max=  960.00x (10h) -> $   96,000.00 freq=1-in- 847,660,528 [FAIL]
+    bet=$  500.00 -> cap=       200x -> max=   96.00x (8h) -> $   48,000.00 freq=1-in-      43,303 [ok]
+    bet=$ 1000.00 -> cap=       100x -> max=   96.00x (8h) -> $   96,000.00 freq=1-in-      43,303 [ok]
+
+  --- HIGH ---
+  9-pick (raw max: 960.00x at 9 hits, freq=1-in-27,343,888):
+    bet=$    0.10 -> cap=   1000000x -> max=  960.00x (9h) -> $       96.00 freq=1-in-  27,343,888 [FAIL]
+    bet=$    1.00 -> cap=    100000x -> max=  960.00x (9h) -> $      960.00 freq=1-in-  27,343,888 [FAIL]
+    bet=$   10.00 -> cap=     10000x -> max=  960.00x (9h) -> $    9,600.00 freq=1-in-  27,343,888 [FAIL]
+    bet=$  100.00 -> cap=      1000x -> max=  960.00x (9h) -> $   96,000.00 freq=1-in-  27,343,888 [FAIL]
+    bet=$  500.00 -> cap=       200x -> max=   53.76x (6h) -> $   26,880.00 freq=1-in-         320 [ok]
+    bet=$ 1000.00 -> cap=       100x -> max=   53.76x (6h) -> $   53,760.00 freq=1-in-         320 [ok]
+  10-pick (raw max: 1000.00x at 10 hits, freq=1-in-847,660,528):
+    bet=$    0.10 -> cap=   1000000x -> max= 1000.00x (10h) -> $      100.00 freq=1-in- 847,660,528 [FAIL]
+    bet=$    1.00 -> cap=    100000x -> max= 1000.00x (10h) -> $    1,000.00 freq=1-in- 847,660,528 [FAIL]
+    bet=$   10.00 -> cap=     10000x -> max= 1000.00x (10h) -> $   10,000.00 freq=1-in- 847,660,528 [FAIL]
+    bet=$  100.00 -> cap=      1000x -> max= 1000.00x (10h) -> $  100,000.00 freq=1-in- 847,660,528 [FAIL]
+    bet=$  500.00 -> cap=       200x -> max=   60.48x (7h) -> $   30,240.00 freq=1-in-       1,739 [ok]
+    bet=$ 1000.00 -> cap=       100x -> max=   60.48x (7h) -> $   60,480.00 freq=1-in-       1,739 [ok]
+
+  FAILURES at $100,000 cap: 36
+    classic 9-pick at $0.10: 81.60x, 1-in-27,343,888
+    classic 9-pick at $1.00: 81.60x, 1-in-27,343,888
+    classic 9-pick at $10.00: 81.60x, 1-in-27,343,888
+    classic 9-pick at $100.00: 81.60x, 1-in-27,343,888
+    classic 9-pick at $500.00: 81.60x, 1-in-27,343,888
+    classic 9-pick at $1000.00: 81.60x, 1-in-27,343,888
+    classic 10-pick at $0.10: 96.00x, 1-in-847,660,528
+    classic 10-pick at $1.00: 96.00x, 1-in-847,660,528
+    classic 10-pick at $10.00: 96.00x, 1-in-847,660,528
+    classic 10-pick at $100.00: 96.00x, 1-in-847,660,528
+    classic 10-pick at $500.00: 96.00x, 1-in-847,660,528
+    classic 10-pick at $1000.00: 96.00x, 1-in-847,660,528
+    low 9-pick at $0.10: 960.00x, 1-in-27,343,888
+    low 9-pick at $1.00: 960.00x, 1-in-27,343,888
+    low 9-pick at $10.00: 960.00x, 1-in-27,343,888
+    low 9-pick at $100.00: 960.00x, 1-in-27,343,888
+    low 10-pick at $0.10: 960.00x, 1-in-847,660,528
+    low 10-pick at $1.00: 960.00x, 1-in-847,660,528
+    low 10-pick at $10.00: 960.00x, 1-in-847,660,528
+    low 10-pick at $100.00: 960.00x, 1-in-847,660,528
+    medium 9-pick at $0.10: 960.00x, 1-in-27,343,888
+    medium 9-pick at $1.00: 960.00x, 1-in-27,343,888
+    medium 9-pick at $10.00: 960.00x, 1-in-27,343,888
+    medium 9-pick at $100.00: 960.00x, 1-in-27,343,888
+    medium 10-pick at $0.10: 960.00x, 1-in-847,660,528
+    medium 10-pick at $1.00: 960.00x, 1-in-847,660,528
+    medium 10-pick at $10.00: 960.00x, 1-in-847,660,528
+    medium 10-pick at $100.00: 960.00x, 1-in-847,660,528
+    high 9-pick at $0.10: 960.00x, 1-in-27,343,888
+    high 9-pick at $1.00: 960.00x, 1-in-27,343,888
+    high 9-pick at $10.00: 960.00x, 1-in-27,343,888
+    high 9-pick at $100.00: 960.00x, 1-in-27,343,888
+    high 10-pick at $0.10: 1000.00x, 1-in-847,660,528
+    high 10-pick at $1.00: 1000.00x, 1-in-847,660,528
+    high 10-pick at $10.00: 1000.00x, 1-in-847,660,528
+    high 10-pick at $100.00: 1000.00x, 1-in-847,660,528
+
+
+### DOLLAR CAP: $250,000 ###
+----------------------------------------------------------------------------------------------------
+
+  --- CLASSIC ---
+  9-pick (raw max: 81.60x at 9 hits, freq=1-in-27,343,888):
+    bet=$    0.10 -> cap=   2500000x -> max=   81.60x (9h) -> $        8.16 freq=1-in-  27,343,888 [FAIL]
+    bet=$    1.00 -> cap=    250000x -> max=   81.60x (9h) -> $       81.60 freq=1-in-  27,343,888 [FAIL]
+    bet=$   10.00 -> cap=     25000x -> max=   81.60x (9h) -> $      816.00 freq=1-in-  27,343,888 [FAIL]
+    bet=$  100.00 -> cap=      2500x -> max=   81.60x (9h) -> $    8,160.00 freq=1-in-  27,343,888 [FAIL]
+    bet=$  500.00 -> cap=       500x -> max=   81.60x (9h) -> $   40,800.00 freq=1-in-  27,343,888 [FAIL]
+    bet=$ 1000.00 -> cap=       250x -> max=   81.60x (9h) -> $   81,600.00 freq=1-in-  27,343,888 [FAIL]
+  10-pick (raw max: 96.00x at 10 hits, freq=1-in-847,660,528):
+    bet=$    0.10 -> cap=   2500000x -> max=   96.00x (10h) -> $        9.60 freq=1-in- 847,660,528 [FAIL]
+    bet=$    1.00 -> cap=    250000x -> max=   96.00x (10h) -> $       96.00 freq=1-in- 847,660,528 [FAIL]
+    bet=$   10.00 -> cap=     25000x -> max=   96.00x (10h) -> $      960.00 freq=1-in- 847,660,528 [FAIL]
+    bet=$  100.00 -> cap=      2500x -> max=   96.00x (10h) -> $    9,600.00 freq=1-in- 847,660,528 [FAIL]
+    bet=$  500.00 -> cap=       500x -> max=   96.00x (10h) -> $   48,000.00 freq=1-in- 847,660,528 [FAIL]
+    bet=$ 1000.00 -> cap=       250x -> max=   96.00x (10h) -> $   96,000.00 freq=1-in- 847,660,528 [FAIL]
+
+  --- LOW ---
+  9-pick (raw max: 960.00x at 9 hits, freq=1-in-27,343,888):
+    bet=$    0.10 -> cap=   2500000x -> max=  960.00x (9h) -> $       96.00 freq=1-in-  27,343,888 [FAIL]
+    bet=$    1.00 -> cap=    250000x -> max=  960.00x (9h) -> $      960.00 freq=1-in-  27,343,888 [FAIL]
+    bet=$   10.00 -> cap=     25000x -> max=  960.00x (9h) -> $    9,600.00 freq=1-in-  27,343,888 [FAIL]
+    bet=$  100.00 -> cap=      2500x -> max=  960.00x (9h) -> $   96,000.00 freq=1-in-  27,343,888 [FAIL]
+    bet=$  500.00 -> cap=       500x -> max=  240.00x (8h) -> $  120,000.00 freq=1-in-     202,547 [ok]
+    bet=$ 1000.00 -> cap=       250x -> max=  240.00x (8h) -> $  240,000.00 freq=1-in-     202,547 [ok]
+  10-pick (raw max: 960.00x at 10 hits, freq=1-in-847,660,528):
+    bet=$    0.10 -> cap=   2500000x -> max=  960.00x (10h) -> $       96.00 freq=1-in- 847,660,528 [FAIL]
+    bet=$    1.00 -> cap=    250000x -> max=  960.00x (10h) -> $      960.00 freq=1-in- 847,660,528 [FAIL]
+    bet=$   10.00 -> cap=     25000x -> max=  960.00x (10h) -> $    9,600.00 freq=1-in- 847,660,528 [FAIL]
+    bet=$  100.00 -> cap=      2500x -> max=  960.00x (10h) -> $   96,000.00 freq=1-in- 847,660,528 [FAIL]
+    bet=$  500.00 -> cap=       500x -> max=  240.00x (9h) -> $  120,000.00 freq=1-in-   2,825,535 [ok]
+    bet=$ 1000.00 -> cap=       250x -> max=  240.00x (9h) -> $  240,000.00 freq=1-in-   2,825,535 [ok]
+
+  --- MEDIUM ---
+  9-pick (raw max: 960.00x at 9 hits, freq=1-in-27,343,888):
+    bet=$    0.10 -> cap=   2500000x -> max=  960.00x (9h) -> $       96.00 freq=1-in-  27,343,888 [FAIL]
+    bet=$    1.00 -> cap=    250000x -> max=  960.00x (9h) -> $      960.00 freq=1-in-  27,343,888 [FAIL]
+    bet=$   10.00 -> cap=     25000x -> max=  960.00x (9h) -> $    9,600.00 freq=1-in-  27,343,888 [FAIL]
+    bet=$  100.00 -> cap=      2500x -> max=  960.00x (9h) -> $   96,000.00 freq=1-in-  27,343,888 [FAIL]
+    bet=$  500.00 -> cap=       500x -> max=  480.00x (8h) -> $  240,000.00 freq=1-in-     202,547 [ok]
+    bet=$ 1000.00 -> cap=       250x -> max=   96.00x (7h) -> $   96,000.00 freq=1-in-       5,238 [ok]
+  10-pick (raw max: 960.00x at 10 hits, freq=1-in-847,660,528):
+    bet=$    0.10 -> cap=   2500000x -> max=  960.00x (10h) -> $       96.00 freq=1-in- 847,660,528 [FAIL]
+    bet=$    1.00 -> cap=    250000x -> max=  960.00x (10h) -> $      960.00 freq=1-in- 847,660,528 [FAIL]
+    bet=$   10.00 -> cap=     25000x -> max=  960.00x (10h) -> $    9,600.00 freq=1-in- 847,660,528 [FAIL]
+    bet=$  100.00 -> cap=      2500x -> max=  960.00x (10h) -> $   96,000.00 freq=1-in- 847,660,528 [FAIL]
+    bet=$  500.00 -> cap=       500x -> max=  480.00x (9h) -> $  240,000.00 freq=1-in-   2,825,535 [ok]
+    bet=$ 1000.00 -> cap=       250x -> max=   96.00x (8h) -> $   96,000.00 freq=1-in-      43,303 [ok]
+
+  --- HIGH ---
+  9-pick (raw max: 960.00x at 9 hits, freq=1-in-27,343,888):
+    bet=$    0.10 -> cap=   2500000x -> max=  960.00x (9h) -> $       96.00 freq=1-in-  27,343,888 [FAIL]
+    bet=$    1.00 -> cap=    250000x -> max=  960.00x (9h) -> $      960.00 freq=1-in-  27,343,888 [FAIL]
+    bet=$   10.00 -> cap=     25000x -> max=  960.00x (9h) -> $    9,600.00 freq=1-in-  27,343,888 [FAIL]
+    bet=$  100.00 -> cap=      2500x -> max=  960.00x (9h) -> $   96,000.00 freq=1-in-  27,343,888 [FAIL]
+    bet=$  500.00 -> cap=       500x -> max=  480.00x (7h) -> $  240,000.00 freq=1-in-       5,238 [ok]
+    bet=$ 1000.00 -> cap=       250x -> max=   53.76x (6h) -> $   53,760.00 freq=1-in-         320 [ok]
+  10-pick (raw max: 1000.00x at 10 hits, freq=1-in-847,660,528):
+    bet=$    0.10 -> cap=   2500000x -> max= 1000.00x (10h) -> $      100.00 freq=1-in- 847,660,528 [FAIL]
+    bet=$    1.00 -> cap=    250000x -> max= 1000.00x (10h) -> $    1,000.00 freq=1-in- 847,660,528 [FAIL]
+    bet=$   10.00 -> cap=     25000x -> max= 1000.00x (10h) -> $   10,000.00 freq=1-in- 847,660,528 [FAIL]
+    bet=$  100.00 -> cap=      2500x -> max= 1000.00x (10h) -> $  100,000.00 freq=1-in- 847,660,528 [FAIL]
+    bet=$  500.00 -> cap=       500x -> max=  480.00x (8h) -> $  240,000.00 freq=1-in-      43,303 [ok]
+    bet=$ 1000.00 -> cap=       250x -> max=   60.48x (7h) -> $   60,480.00 freq=1-in-       1,739 [ok]
+
+  FAILURES at $250,000 cap: 36
+    classic 9-pick at $0.10: 81.60x, 1-in-27,343,888
+    classic 9-pick at $1.00: 81.60x, 1-in-27,343,888
+    classic 9-pick at $10.00: 81.60x, 1-in-27,343,888
+    classic 9-pick at $100.00: 81.60x, 1-in-27,343,888
+    classic 9-pick at $500.00: 81.60x, 1-in-27,343,888
+    classic 9-pick at $1000.00: 81.60x, 1-in-27,343,888
+    classic 10-pick at $0.10: 96.00x, 1-in-847,660,528
+    classic 10-pick at $1.00: 96.00x, 1-in-847,660,528
+    classic 10-pick at $10.00: 96.00x, 1-in-847,660,528
+    classic 10-pick at $100.00: 96.00x, 1-in-847,660,528
+    classic 10-pick at $500.00: 96.00x, 1-in-847,660,528
+    classic 10-pick at $1000.00: 96.00x, 1-in-847,660,528
+    low 9-pick at $0.10: 960.00x, 1-in-27,343,888
+    low 9-pick at $1.00: 960.00x, 1-in-27,343,888
+    low 9-pick at $10.00: 960.00x, 1-in-27,343,888
+    low 9-pick at $100.00: 960.00x, 1-in-27,343,888
+    low 10-pick at $0.10: 960.00x, 1-in-847,660,528
+    low 10-pick at $1.00: 960.00x, 1-in-847,660,528
+    low 10-pick at $10.00: 960.00x, 1-in-847,660,528
+    low 10-pick at $100.00: 960.00x, 1-in-847,660,528
+    medium 9-pick at $0.10: 960.00x, 1-in-27,343,888
+    medium 9-pick at $1.00: 960.00x, 1-in-27,343,888
+    medium 9-pick at $10.00: 960.00x, 1-in-27,343,888
+    medium 9-pick at $100.00: 960.00x, 1-in-27,343,888
+    medium 10-pick at $0.10: 960.00x, 1-in-847,660,528
+    medium 10-pick at $1.00: 960.00x, 1-in-847,660,528
+    medium 10-pick at $10.00: 960.00x, 1-in-847,660,528
+    medium 10-pick at $100.00: 960.00x, 1-in-847,660,528
+    high 9-pick at $0.10: 960.00x, 1-in-27,343,888
+    high 9-pick at $1.00: 960.00x, 1-in-27,343,888
+    high 9-pick at $10.00: 960.00x, 1-in-27,343,888
+    high 9-pick at $100.00: 960.00x, 1-in-27,343,888
+    high 10-pick at $0.10: 1000.00x, 1-in-847,660,528
+    high 10-pick at $1.00: 1000.00x, 1-in-847,660,528
+    high 10-pick at $10.00: 1000.00x, 1-in-847,660,528
+    high 10-pick at $100.00: 1000.00x, 1-in-847,660,528
+
+
+### DOLLAR CAP: $500,000 ###
+----------------------------------------------------------------------------------------------------
+
+  --- CLASSIC ---
+  9-pick (raw max: 81.60x at 9 hits, freq=1-in-27,343,888):
+    bet=$    0.10 -> cap=   5000000x -> max=   81.60x (9h) -> $        8.16 freq=1-in-  27,343,888 [FAIL]
+    bet=$    1.00 -> cap=    500000x -> max=   81.60x (9h) -> $       81.60 freq=1-in-  27,343,888 [FAIL]
+    bet=$   10.00 -> cap=     50000x -> max=   81.60x (9h) -> $      816.00 freq=1-in-  27,343,888 [FAIL]
+    bet=$  100.00 -> cap=      5000x -> max=   81.60x (9h) -> $    8,160.00 freq=1-in-  27,343,888 [FAIL]
+    bet=$  500.00 -> cap=      1000x -> max=   81.60x (9h) -> $   40,800.00 freq=1-in-  27,343,888 [FAIL]
+    bet=$ 1000.00 -> cap=       500x -> max=   81.60x (9h) -> $   81,600.00 freq=1-in-  27,343,888 [FAIL]
+  10-pick (raw max: 96.00x at 10 hits, freq=1-in-847,660,528):
+    bet=$    0.10 -> cap=   5000000x -> max=   96.00x (10h) -> $        9.60 freq=1-in- 847,660,528 [FAIL]
+    bet=$    1.00 -> cap=    500000x -> max=   96.00x (10h) -> $       96.00 freq=1-in- 847,660,528 [FAIL]
+    bet=$   10.00 -> cap=     50000x -> max=   96.00x (10h) -> $      960.00 freq=1-in- 847,660,528 [FAIL]
+    bet=$  100.00 -> cap=      5000x -> max=   96.00x (10h) -> $    9,600.00 freq=1-in- 847,660,528 [FAIL]
+    bet=$  500.00 -> cap=      1000x -> max=   96.00x (10h) -> $   48,000.00 freq=1-in- 847,660,528 [FAIL]
+    bet=$ 1000.00 -> cap=       500x -> max=   96.00x (10h) -> $   96,000.00 freq=1-in- 847,660,528 [FAIL]
+
+  --- LOW ---
+  9-pick (raw max: 960.00x at 9 hits, freq=1-in-27,343,888):
+    bet=$    0.10 -> cap=   5000000x -> max=  960.00x (9h) -> $       96.00 freq=1-in-  27,343,888 [FAIL]
+    bet=$    1.00 -> cap=    500000x -> max=  960.00x (9h) -> $      960.00 freq=1-in-  27,343,888 [FAIL]
+    bet=$   10.00 -> cap=     50000x -> max=  960.00x (9h) -> $    9,600.00 freq=1-in-  27,343,888 [FAIL]
+    bet=$  100.00 -> cap=      5000x -> max=  960.00x (9h) -> $   96,000.00 freq=1-in-  27,343,888 [FAIL]
+    bet=$  500.00 -> cap=      1000x -> max=  960.00x (9h) -> $  480,000.00 freq=1-in-  27,343,888 [FAIL]
+    bet=$ 1000.00 -> cap=       500x -> max=  240.00x (8h) -> $  240,000.00 freq=1-in-     202,547 [ok]
+  10-pick (raw max: 960.00x at 10 hits, freq=1-in-847,660,528):
+    bet=$    0.10 -> cap=   5000000x -> max=  960.00x (10h) -> $       96.00 freq=1-in- 847,660,528 [FAIL]
+    bet=$    1.00 -> cap=    500000x -> max=  960.00x (10h) -> $      960.00 freq=1-in- 847,660,528 [FAIL]
+    bet=$   10.00 -> cap=     50000x -> max=  960.00x (10h) -> $    9,600.00 freq=1-in- 847,660,528 [FAIL]
+    bet=$  100.00 -> cap=      5000x -> max=  960.00x (10h) -> $   96,000.00 freq=1-in- 847,660,528 [FAIL]
+    bet=$  500.00 -> cap=      1000x -> max=  960.00x (10h) -> $  480,000.00 freq=1-in- 847,660,528 [FAIL]
+    bet=$ 1000.00 -> cap=       500x -> max=  240.00x (9h) -> $  240,000.00 freq=1-in-   2,825,535 [ok]
+
+  --- MEDIUM ---
+  9-pick (raw max: 960.00x at 9 hits, freq=1-in-27,343,888):
+    bet=$    0.10 -> cap=   5000000x -> max=  960.00x (9h) -> $       96.00 freq=1-in-  27,343,888 [FAIL]
+    bet=$    1.00 -> cap=    500000x -> max=  960.00x (9h) -> $      960.00 freq=1-in-  27,343,888 [FAIL]
+    bet=$   10.00 -> cap=     50000x -> max=  960.00x (9h) -> $    9,600.00 freq=1-in-  27,343,888 [FAIL]
+    bet=$  100.00 -> cap=      5000x -> max=  960.00x (9h) -> $   96,000.00 freq=1-in-  27,343,888 [FAIL]
+    bet=$  500.00 -> cap=      1000x -> max=  960.00x (9h) -> $  480,000.00 freq=1-in-  27,343,888 [FAIL]
+    bet=$ 1000.00 -> cap=       500x -> max=  480.00x (8h) -> $  480,000.00 freq=1-in-     202,547 [ok]
+  10-pick (raw max: 960.00x at 10 hits, freq=1-in-847,660,528):
+    bet=$    0.10 -> cap=   5000000x -> max=  960.00x (10h) -> $       96.00 freq=1-in- 847,660,528 [FAIL]
+    bet=$    1.00 -> cap=    500000x -> max=  960.00x (10h) -> $      960.00 freq=1-in- 847,660,528 [FAIL]
+    bet=$   10.00 -> cap=     50000x -> max=  960.00x (10h) -> $    9,600.00 freq=1-in- 847,660,528 [FAIL]
+    bet=$  100.00 -> cap=      5000x -> max=  960.00x (10h) -> $   96,000.00 freq=1-in- 847,660,528 [FAIL]
+    bet=$  500.00 -> cap=      1000x -> max=  960.00x (10h) -> $  480,000.00 freq=1-in- 847,660,528 [FAIL]
+    bet=$ 1000.00 -> cap=       500x -> max=  480.00x (9h) -> $  480,000.00 freq=1-in-   2,825,535 [ok]
+
+  --- HIGH ---
+  9-pick (raw max: 960.00x at 9 hits, freq=1-in-27,343,888):
+    bet=$    0.10 -> cap=   5000000x -> max=  960.00x (9h) -> $       96.00 freq=1-in-  27,343,888 [FAIL]
+    bet=$    1.00 -> cap=    500000x -> max=  960.00x (9h) -> $      960.00 freq=1-in-  27,343,888 [FAIL]
+    bet=$   10.00 -> cap=     50000x -> max=  960.00x (9h) -> $    9,600.00 freq=1-in-  27,343,888 [FAIL]
+    bet=$  100.00 -> cap=      5000x -> max=  960.00x (9h) -> $   96,000.00 freq=1-in-  27,343,888 [FAIL]
+    bet=$  500.00 -> cap=      1000x -> max=  960.00x (9h) -> $  480,000.00 freq=1-in-  27,343,888 [FAIL]
+    bet=$ 1000.00 -> cap=       500x -> max=  480.00x (7h) -> $  480,000.00 freq=1-in-       5,238 [ok]
+  10-pick (raw max: 1000.00x at 10 hits, freq=1-in-847,660,528):
+    bet=$    0.10 -> cap=   5000000x -> max= 1000.00x (10h) -> $      100.00 freq=1-in- 847,660,528 [FAIL]
+    bet=$    1.00 -> cap=    500000x -> max= 1000.00x (10h) -> $    1,000.00 freq=1-in- 847,660,528 [FAIL]
+    bet=$   10.00 -> cap=     50000x -> max= 1000.00x (10h) -> $   10,000.00 freq=1-in- 847,660,528 [FAIL]
+    bet=$  100.00 -> cap=      5000x -> max= 1000.00x (10h) -> $  100,000.00 freq=1-in- 847,660,528 [FAIL]
+    bet=$  500.00 -> cap=      1000x -> max= 1000.00x (10h) -> $  500,000.00 freq=1-in- 847,660,528 [FAIL]
+    bet=$ 1000.00 -> cap=       500x -> max=  480.00x (8h) -> $  480,000.00 freq=1-in-      43,303 [ok]
+
+  FAILURES at $500,000 cap: 42
+    classic 9-pick at $0.10: 81.60x, 1-in-27,343,888
+    classic 9-pick at $1.00: 81.60x, 1-in-27,343,888
+    classic 9-pick at $10.00: 81.60x, 1-in-27,343,888
+    classic 9-pick at $100.00: 81.60x, 1-in-27,343,888
+    classic 9-pick at $500.00: 81.60x, 1-in-27,343,888
+    classic 9-pick at $1000.00: 81.60x, 1-in-27,343,888
+    classic 10-pick at $0.10: 96.00x, 1-in-847,660,528
+    classic 10-pick at $1.00: 96.00x, 1-in-847,660,528
+    classic 10-pick at $10.00: 96.00x, 1-in-847,660,528
+    classic 10-pick at $100.00: 96.00x, 1-in-847,660,528
+    classic 10-pick at $500.00: 96.00x, 1-in-847,660,528
+    classic 10-pick at $1000.00: 96.00x, 1-in-847,660,528
+    low 9-pick at $0.10: 960.00x, 1-in-27,343,888
+    low 9-pick at $1.00: 960.00x, 1-in-27,343,888
+    low 9-pick at $10.00: 960.00x, 1-in-27,343,888
+    low 9-pick at $100.00: 960.00x, 1-in-27,343,888
+    low 9-pick at $500.00: 960.00x, 1-in-27,343,888
+    low 10-pick at $0.10: 960.00x, 1-in-847,660,528
+    low 10-pick at $1.00: 960.00x, 1-in-847,660,528
+    low 10-pick at $10.00: 960.00x, 1-in-847,660,528
+    low 10-pick at $100.00: 960.00x, 1-in-847,660,528
+    low 10-pick at $500.00: 960.00x, 1-in-847,660,528
+    medium 9-pick at $0.10: 960.00x, 1-in-27,343,888
+    medium 9-pick at $1.00: 960.00x, 1-in-27,343,888
+    medium 9-pick at $10.00: 960.00x, 1-in-27,343,888
+    medium 9-pick at $100.00: 960.00x, 1-in-27,343,888
+    medium 9-pick at $500.00: 960.00x, 1-in-27,343,888
+    medium 10-pick at $0.10: 960.00x, 1-in-847,660,528
+    medium 10-pick at $1.00: 960.00x, 1-in-847,660,528
+    medium 10-pick at $10.00: 960.00x, 1-in-847,660,528
+    medium 10-pick at $100.00: 960.00x, 1-in-847,660,528
+    medium 10-pick at $500.00: 960.00x, 1-in-847,660,528
+    high 9-pick at $0.10: 960.00x, 1-in-27,343,888
+    high 9-pick at $1.00: 960.00x, 1-in-27,343,888
+    high 9-pick at $10.00: 960.00x, 1-in-27,343,888
+    high 9-pick at $100.00: 960.00x, 1-in-27,343,888
+    high 9-pick at $500.00: 960.00x, 1-in-27,343,888
+    high 10-pick at $0.10: 1000.00x, 1-in-847,660,528
+    high 10-pick at $1.00: 1000.00x, 1-in-847,660,528
+    high 10-pick at $10.00: 1000.00x, 1-in-847,660,528
+    high 10-pick at $100.00: 1000.00x, 1-in-847,660,528
+    high 10-pick at $500.00: 1000.00x, 1-in-847,660,528
+
+
+### NO DOLLAR CAP (current config: wincap=1,000,000x) ###
+----------------------------------------------------------------------------------------------------
+In this scenario, the max-win is always the full paytable max regardless of bet.
+This is the raw probability scenario from the previous audit.
+9-pick and 10-pick FAIL at 1-in-27M and 1-in-848M respectively.
+
+RECOMMENDATION: Set a reasonable dollar cap (e.g., $100,000-$500,000)
+to make the 'advertised max win' achievable at all bet levels.
+
+
+### MINIMUM DOLLAR CAP ANALYSIS ###
+What max dollar cap makes 9-pick and 10-pick achievable (1-in-20M)?
+----------------------------------------------------------------------------------------------------
+  classic 9-pick: achievable max = 57.60x (8 hits)
+    At $0.10 bet: max win = $5.76
+    At $1000 bet: max win = $57,600.00
+  classic 10-pick: achievable max = 76.80x (9 hits)
+    At $0.10 bet: max win = $7.68
+    At $1000 bet: max win = $76,800.00
+  low 9-pick: achievable max = 240.00x (8 hits)
+    At $0.10 bet: max win = $24.00
+    At $1000 bet: max win = $240,000.00
+  low 10-pick: achievable max = 240.00x (9 hits)
+    At $0.10 bet: max win = $24.00
+    At $1000 bet: max win = $240,000.00
+  medium 9-pick: achievable max = 480.00x (8 hits)
+    At $0.10 bet: max win = $48.00
+    At $1000 bet: max win = $480,000.00
+  medium 10-pick: achievable max = 480.00x (9 hits)
+    At $0.10 bet: max win = $48.00
+    At $1000 bet: max win = $480,000.00
+  high 9-pick: achievable max = 768.00x (8 hits)
+    At $0.10 bet: max win = $76.80
+    At $1000 bet: max win = $768,000.00
+  high 10-pick: achievable max = 768.00x (9 hits)
+    At $0.10 bet: max win = $76.80
+    At $1000 bet: max win = $768,000.00
