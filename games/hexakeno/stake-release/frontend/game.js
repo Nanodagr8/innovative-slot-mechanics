@@ -640,9 +640,13 @@ async function init() {
 
     // Note: Clock is initialized once at the bottom of the file via updateClock()
 
+    DOM.betAmountDisplay = document.getElementById('betAmountDisplay');
+    DOM.betSlider = document.getElementById('betSlider');
+
     initGrid();
     updateSeeds();
     renderPayouts();
+    if (typeof updateBetDisplay === 'function') updateBetDisplay();
 
     // RGS Initialization
     await adapter.init();
@@ -1037,30 +1041,49 @@ function snapBetToLevel(amount) {
     return closest;
 }
 
-function doubleBet() {
-    if (!DOM.betAmount) return;
-    const current = parseFloat(DOM.betAmount.value) || RGS_BET_LEVELS[0];
-    const doubled = current * 2;
-    const snapped = snapBetToLevel(Math.min(doubled, RGS_BET_LEVELS[RGS_BET_LEVELS.length - 1]));
-    DOM.betAmount.value = snapped.toFixed(2);
+let currentBetIndex = 5; // Default index 5 corresponds to 1.00
+
+function updateBetDisplay() {
+    if (!DOM.betAmount || !DOM.betAmountDisplay) return;
+    const val = RGS_BET_LEVELS[currentBetIndex];
+    DOM.betAmount.value = val.toFixed(2);
+
+    // Check if adapter currency is available
+    let currencySymbol = '$';
+    if (window.adapter && window.adapter.balance && window.adapter.balance.currency) {
+        // e.g. use proper symbol based on currency if needed, but sticking mapping logic simple for now
+    }
+    DOM.betAmountDisplay.innerText = currencySymbol + val.toFixed(2);
+
+    if (DOM.betSlider) DOM.betSlider.value = currentBetIndex;
     updateBtn();
+
+    if (typeof saveState === 'function') saveState();
 }
 
-function halveBet() {
-    if (!DOM.betAmount) return;
-    const current = parseFloat(DOM.betAmount.value) || RGS_BET_LEVELS[0];
-    const halved = current / 2;
-    const snapped = snapBetToLevel(Math.max(halved, RGS_BET_LEVELS[0]));
-    DOM.betAmount.value = snapped.toFixed(2);
-    updateBtn();
+function increaseBet() {
+    if (currentBetIndex < RGS_BET_LEVELS.length - 1) {
+        currentBetIndex++;
+        updateBetDisplay();
+    }
+}
+
+function decreaseBet() {
+    if (currentBetIndex > 0) {
+        currentBetIndex--;
+        updateBetDisplay();
+    }
+}
+
+function onSliderChange(val) {
+    currentBetIndex = parseInt(val, 10);
+    updateBetDisplay();
 }
 
 async function runRound() {
     if (game.running) return false;
     const rawBet = parseFloat(DOM.betAmount ? DOM.betAmount.value : 1) || 1;
     const currentBet = snapBetToLevel(rawBet);
-    // Update input to show snapped value
-    if (DOM.betAmount && currentBet !== rawBet) DOM.betAmount.value = currentBet.toFixed(2);
     const cost = game.super ? currentBet * 2.5 : currentBet;
 
     if (game.picks.length === 0) {
@@ -1555,12 +1578,14 @@ window.addEventListener('keydown', (e) => {
 /* --- PERSISTENCE --- */
 function saveState() {
     const state = {
-        bet: DOM.betAmount ? DOM.betAmount.value : 1,
+        betIndex: currentBetIndex,
         risk: DOM.riskLevel ? DOM.riskLevel.value : 'classic',
-        super: DOM.superToggle ? DOM.superToggle.checked : false,
-        turbo: DOM.turboToggle ? DOM.turboToggle.checked : false
+        super: DOM.superToggle ? DOM.superToggle.classList.contains('active-super') : false,
+        turbo: DOM.turboToggle ? DOM.turboToggle.classList.contains('active-turbo') : false
     };
-    localStorage.setItem('hk_prefs', JSON.stringify(state));
+    try {
+        localStorage.setItem('hk_prefs', JSON.stringify(state));
+    } catch (e) { }
 }
 
 function restoreState() {
@@ -1569,12 +1594,27 @@ function restoreState() {
         if (!raw) return;
         const state = JSON.parse(raw);
 
-        if (state.bet && DOM.betAmount) DOM.betAmount.value = state.bet;
-        if (state.risk && DOM.riskLevel) DOM.riskLevel.value = state.risk;
+        if (state.betIndex !== undefined) {
+            currentBetIndex = state.betIndex;
+            updateBetDisplay();
+        } else if (state.bet && DOM.betAmount) {
+            // Migration from old version
+            DOM.betAmount.value = state.bet;
+            const snapped = snapBetToLevel(parseFloat(state.bet));
+            currentBetIndex = RGS_BET_LEVELS.indexOf(snapped) !== -1 ? RGS_BET_LEVELS.indexOf(snapped) : 5;
+            updateBetDisplay();
+        }
 
-        // Use click to toggle visual checks correctly if needed, or set checked manually
-        if (state.super && !DOM.superToggle.checked) DOM.superToggle.click();
-        if (state.turbo && !DOM.turboToggle.checked) DOM.turboToggle.click();
+        if (state.risk && DOM.riskLevel) {
+            setRisk(state.risk);
+        }
+
+        if (state.super && DOM.superToggle && !DOM.superToggle.classList.contains('active-super')) {
+            DOM.superToggle.click();
+        }
+        if (state.turbo && DOM.turboToggle && !DOM.turboToggle.classList.contains('active-turbo')) {
+            DOM.turboToggle.click();
+        }
 
         console.log('[HexaKeno] State Restored:', state);
     } catch (e) {
