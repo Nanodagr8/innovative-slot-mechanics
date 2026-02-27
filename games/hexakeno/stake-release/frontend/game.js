@@ -1021,7 +1021,7 @@ async function startAuto() {
 }
 
 // Valid RGS bet levels in dollars (must match stake-adapter.js betLevels)
-const RGS_BET_LEVELS = [
+const RGS_BET_LEVELS_USD = [
     0.10, 0.20, 0.40, 0.60, 0.80,
     1.00, 1.20, 1.40, 1.60, 1.80,
     2.00, 3.00, 4.00, 5.00, 6.00, 7.00, 8.00, 9.00,
@@ -1030,6 +1030,23 @@ const RGS_BET_LEVELS = [
     100.00, 150.00, 200.00, 250.00, 300.00,
     350.00, 400.00, 450.00, 500.00, 750.00, 1000.00
 ];
+
+const RGS_BET_LEVELS_JPY = RGS_BET_LEVELS_USD.map(v => v * 100);
+
+let RGS_BET_LEVELS = RGS_BET_LEVELS_USD;
+let currentCurrencySymbol = '$';
+
+function updateCurrencyConfig() {
+    if (window.adapter && window.adapter.balance && window.adapter.balance.currency) {
+        if (window.adapter.balance.currency.toUpperCase() === 'JPY') {
+            RGS_BET_LEVELS = RGS_BET_LEVELS_JPY;
+            currentCurrencySymbol = '¥';
+        } else {
+            RGS_BET_LEVELS = RGS_BET_LEVELS_USD;
+            currentCurrencySymbol = '$';
+        }
+    }
+}
 
 function snapBetToLevel(amount) {
     let closest = RGS_BET_LEVELS[0];
@@ -1044,16 +1061,15 @@ function snapBetToLevel(amount) {
 let currentBetIndex = 5; // Default index 5 corresponds to 1.00
 
 function updateBetDisplay() {
+    updateCurrencyConfig();
     if (!DOM.betAmount || !DOM.betAmountDisplay) return;
     const val = RGS_BET_LEVELS[currentBetIndex];
-    DOM.betAmount.value = val.toFixed(2);
 
-    // Check if adapter currency is available
-    let currencySymbol = '$';
-    if (window.adapter && window.adapter.balance && window.adapter.balance.currency) {
-        // e.g. use proper symbol based on currency if needed, but sticking mapping logic simple for now
-    }
-    DOM.betAmountDisplay.innerText = currencySymbol + val.toFixed(2);
+    const isJPY = currentCurrencySymbol === '¥';
+    const displayVal = isJPY ? val.toFixed(0) : val.toFixed(2);
+
+    DOM.betAmount.value = val.toString();
+    DOM.betAmountDisplay.innerText = currentCurrencySymbol + displayVal;
 
     if (DOM.betSlider) DOM.betSlider.value = currentBetIndex;
     updateBtn();
@@ -1617,6 +1633,10 @@ function restoreState() {
         }
 
         console.log('[HexaKeno] State Restored:', state);
+
+        // Ensure currency is synced immediately after restore
+        if (typeof updateCurrencyConfig === 'function') updateCurrencyConfig();
+        if (typeof updateBetDisplay === 'function') updateBetDisplay();
     } catch (e) {
         console.warn('Failed to restore state', e);
     }
