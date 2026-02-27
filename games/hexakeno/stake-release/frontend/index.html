@@ -1,450 +1,382 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Hexa Keno Superball | Antigravity Engine</title>
-    <meta
-      http-equiv="Cache-Control"
-      content="no-cache, no-store, must-revalidate"
-    />
-    <meta http-equiv="Pragma" content="no-cache" />
-    <meta http-equiv="Expires" content="0" />
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg" />
-    <style>
-      /* Internal overrides to remove inline styles */
-      .custom-hud-top {
-        background: rgba(15, 33, 46, 0.9) !important;
-        border: 1px solid rgba(0, 242, 255, 0.4);
-        border-radius: 12px;
-      }
-      .custom-stat-box {
-        background: transparent !important;
-      }
-      .custom-label {
-        color: #b1bad3 !important;
-        font-size: 0.7rem;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-      }
-      .custom-val {
-        color: #39ff14 !important;
-        font-size: 1.4rem;
-        font-weight: 800;
-      }
-    </style>
-    <link rel="stylesheet" href="style.css?t=100030" />
-    <script src="crypto-js.min.js"></script>
-  </head>
-  <body>
-    <!-- PixiJS Loading Screen Canvas Container -->
-    <div id="bgCanvas" class="bg-canvas"></div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hexa Keno Superball | Antigravity Engine</title>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
 
-    <div class="app-layout">
-      <div class="sidebar">
-        <div class="logo">HEXA KENO <span>SUPERBALL</span></div>
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg" />
+  <style>
+    /* Internal overrides to remove inline styles */
+    .custom-hud-top {
+      background: rgba(15, 33, 46, 0.9) !important;
+      border: 1px solid rgba(0, 242, 255, 0.4);
+      border-radius: 12px;
+    }
 
-        <button id="mainBtn" class="bet-btn" onclick="handleAction()">
-          <span>PLAY</span>
-          <div class="cost-info">Total: 1.00</div>
+    .custom-stat-box {
+      background: transparent !important;
+    }
+
+    .custom-label {
+      color: #b1bad3 !important;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .custom-val {
+      color: #39ff14 !important;
+      font-size: 1.4rem;
+      font-weight: 800;
+    }
+  </style>
+  <link rel="stylesheet" href="style.css?t=100030" />
+  <script src="crypto-js.min.js"></script>
+</head>
+
+<body>
+  <!-- PixiJS Loading Screen Canvas Container -->
+  <div id="bgCanvas" class="bg-canvas"></div>
+
+  <div class="app-layout">
+    <div class="sidebar">
+      <div class="logo">HEXA KENO <span>SUPERBALL</span></div>
+
+      <button id="mainBtn" class="bet-btn" onclick="handleAction()">
+        <span>PLAY</span>
+        <div class="cost-info">Total: 1.00</div>
+      </button>
+
+      <div class="sidebar-btn-row">
+        <button onclick="autoPick()" class="text-btn">Auto Pick</button>
+        <button onclick="clearPicks()" class="text-btn btn-danger">
+          Clear
         </button>
+      </div>
 
-        <div class="sidebar-btn-row">
-          <button onclick="autoPick()" class="text-btn">Auto Pick</button>
-          <button onclick="clearPicks()" class="text-btn btn-danger">
-            Clear
+      <div class="tabs">
+        <div class="tab active" id="tabManual" onclick="switchMode('manual')">
+          Manual
+        </div>
+        <div class="tab" id="tabAuto" onclick="switchMode('auto')">Auto</div>
+      </div>
+
+      <div id="betSettings">
+        <div class="input-label">Amount</div>
+        <div class="input-box">
+          <input type="number" id="betAmount" value="1.00" step="0.01" aria-label="Amount" oninput="updateBtn()" />
+          <button class="bet-multiplier-btn" onclick="halveBet()" title="Halve bet">
+            ½
+          </button>
+          <button class="bet-multiplier-btn" onclick="doubleBet()" title="Double bet">
+            2×
           </button>
         </div>
 
-        <div class="tabs">
-          <div class="tab active" id="tabManual" onclick="switchMode('manual')">
-            Manual
+        <div class="input-label">Risk Level</div>
+        <div class="input-box">
+          <div class="custom-select" id="riskSelectWrapper">
+            <div class="select-trigger" onclick="toggleRiskDropdown(event)">
+              <span id="riskValueLabel">High</span>
+              <div class="arrow"></div>
+            </div>
+            <div class="custom-options" id="riskOptions">
+              <div class="custom-option" onclick="setRisk('classic')">
+                Classic
+              </div>
+              <div class="custom-option" onclick="setRisk('low')">Low</div>
+              <div class="custom-option" onclick="setRisk('medium')">
+                Medium
+              </div>
+              <div class="custom-option selected" onclick="setRisk('high')">
+                High
+              </div>
+            </div>
           </div>
-          <div class="tab" id="tabAuto" onclick="switchMode('auto')">Auto</div>
+          <select id="riskLevel" aria-label="Risk Level" onchange="renderPayouts()">
+            <option value="classic">Classic</option>
+            <option value="low">Low</option>
+            <option value="medium">Medium</option>
+            <option value="high" selected>High</option>
+          </select>
         </div>
 
-        <div id="betSettings">
-          <div class="input-label">Amount</div>
+        <div id="autoOnly" class="hidden">
+          <div class="input-label">Number of Rounds (0=∞)</div>
           <div class="input-box">
-            <input
-              type="number"
-              id="betAmount"
-              value="1.00"
-              step="0.01"
-              aria-label="Amount"
-              oninput="updateBtn()"
-            />
-            <button
-              class="bet-multiplier-btn"
-              onclick="halveBet()"
-              title="Halve bet"
-            >
-              ½
-            </button>
-            <button
-              class="bet-multiplier-btn"
-              onclick="doubleBet()"
-              title="Double bet"
-            >
-              2×
-            </button>
+            <input type="number" id="autoCount" aria-label="Number of automated rounds" value="0" />
           </div>
 
-          <div class="input-label">Risk Level</div>
-          <div class="input-box">
-            <div class="custom-select" id="riskSelectWrapper">
-              <div class="select-trigger" onclick="toggleRiskDropdown(event)">
-                <span id="riskValueLabel">High</span>
-                <div class="arrow"></div>
-              </div>
-              <div class="custom-options" id="riskOptions">
-                <div class="custom-option" onclick="setRisk('classic')">
-                  Classic
-                </div>
-                <div class="custom-option" onclick="setRisk('low')">Low</div>
-                <div class="custom-option" onclick="setRisk('medium')">
-                  Medium
-                </div>
-                <div class="custom-option selected" onclick="setRisk('high')">
-                  High
-                </div>
+          <div class="strategy-row">
+            <div class="strat-col">
+              <div class="input-label">On Win (+%)</div>
+              <div class="input-box">
+                <input type="number" id="onWinInc" aria-label="Increase amount on win percentage" value="0" />
               </div>
             </div>
-            <select
-              id="riskLevel"
-              aria-label="Risk Level"
-              onchange="renderPayouts()"
-            >
-              <option value="classic">Classic</option>
-              <option value="low">Low</option>
-              <option value="medium">Medium</option>
-              <option value="high" selected>High</option>
-            </select>
-          </div>
-
-          <div id="autoOnly" class="hidden">
-            <div class="input-label">Number of Rounds (0=∞)</div>
-            <div class="input-box">
-              <input
-                type="number"
-                id="autoCount"
-                aria-label="Number of automated rounds"
-                value="0"
-              />
-            </div>
-
-            <div class="strategy-row">
-              <div class="strat-col">
-                <div class="input-label">On Win (+%)</div>
-                <div class="input-box">
-                  <input
-                    type="number"
-                    id="onWinInc"
-                    aria-label="Increase amount on win percentage"
-                    value="0"
-                  />
-                </div>
-              </div>
-              <div class="strat-col">
-                <div class="input-label">On Loss (+%)</div>
-                <div class="input-box">
-                  <input
-                    type="number"
-                    id="onLossInc"
-                    aria-label="Increase amount on loss percentage"
-                    value="0"
-                  />
-                </div>
+            <div class="strat-col">
+              <div class="input-label">On Loss (+%)</div>
+              <div class="input-box">
+                <input type="number" id="onLossInc" aria-label="Increase amount on loss percentage" value="0" />
               </div>
             </div>
-          </div>
-
-          <div class="opt-box" id="superToggle" onclick="toggleSuper()">
-            <div>
-              <div class="font-08-bold-white">⚡ Superball</div>
-              <div class="font-06-gray">Cost 2.5x | Hit = 7x Win</div>
-            </div>
-            <div class="indicator"></div>
-          </div>
-
-          <div class="opt-box" id="turboToggle" onclick="toggleTurbo()">
-            <div>
-              <div class="font-08-bold-white">🚀 Turbo Mode</div>
-              <div class="font-06-gray">Instant results</div>
-            </div>
-            <div class="indicator"></div>
-          </div>
-
-          <div class="opt-box" id="soundToggle" onclick="toggleSound()">
-            <div>
-              <div class="font-08-bold-white">🔊 Sound</div>
-              <div class="font-06-gray">On/Off</div>
-            </div>
-            <div class="indicator active-sound"></div>
-          </div>
-
-          <div class="kb-hints">
-            SPACE: Play | R: Random | C: Clear | S: Superball | T: Turbo
           </div>
         </div>
 
-        <div class="fairness-link-container">
-          <a href="#" onclick="toggleRules()" class="fairness-link"
-            >GAME INFO</a
-          >
-          <span class="text-dim">|</span>
-          <a href="#" onclick="toggleFairness()" class="fairness-link"
-            >PROVABLY FAIR</a
-          >
+        <div class="opt-box" id="superToggle" onclick="toggleSuper()">
+          <div>
+            <div class="font-08-bold-white">⚡ Superball</div>
+            <div class="font-06-gray">Cost 2.5x | Hit = 7x Win</div>
+          </div>
+          <div class="indicator"></div>
         </div>
-        <div id="fairPanel" class="fairness-panel">
-          <div class="input-label">Server Seed (Hashed)</div>
-          <input
-            class="fairness-input"
-            id="hashedServerSeed"
-            aria-label="Server Seed Hashed"
-            readonly
-          />
-          <div class="input-label mt-10">Client Seed</div>
-          <input
-            class="fairness-input"
-            id="clientSeed"
-            value="AntigravityUser"
-            aria-label="Client Seed"
-            oninput="updateSeeds()"
-          />
-          <div class="input-label mt-10">Nonce</div>
-          <input
-            class="fairness-input"
-            id="nonceDisplay"
-            aria-label="Nonce"
-            value="0"
-            readonly
-          />
+
+        <div class="opt-box" id="turboToggle" onclick="toggleTurbo()">
+          <div>
+            <div class="font-08-bold-white">🚀 Turbo Mode</div>
+            <div class="font-06-gray">Instant results</div>
+          </div>
+          <div class="indicator"></div>
+        </div>
+
+        <div class="opt-box" id="soundToggle" onclick="toggleSound()">
+          <div>
+            <div class="font-08-bold-white">🔊 Sound</div>
+            <div class="font-06-gray">On/Off</div>
+          </div>
+          <div class="indicator active-sound"></div>
+        </div>
+
+        <div class="kb-hints">
+          SPACE: Play | R: Random | C: Clear | S: Superball | T: Turbo
         </div>
       </div>
 
-      <div class="stage">
-        <!-- Top HUD -->
-        <div class="top-hud custom-hud-top">
-          <div class="stat-box custom-stat-box">
-            <span class="label custom-label">Balance</span>
-            <span id="balance" class="stat-val custom-val">$1,000.00</span>
-          </div>
-          <div class="stat-box custom-stat-box">
-            <span class="label custom-label">Wagered</span>
-            <span id="wagered" class="stat-val custom-val">$0.00</span>
-          </div>
-          <div class="stat-box custom-stat-box">
-            <span class="label custom-label">Round ID</span>
-            <span id="roundId" class="stat-val custom-val">0</span>
-          </div>
-          <div class="stat-box custom-stat-box">
-            <span class="label custom-label">Time</span>
-            <span id="gameClock" class="stat-val custom-val">00:00:00</span>
-          </div>
-        </div>
-
-        <!-- Drawn Balls + Win History (Top of board) -->
-        <div class="drawn-strip" id="drawnBalls">
-          <div class="history-sidebar" id="winHistory"></div>
-        </div>
-
-        <div class="game-board-frame">
-          <div class="grid-container" id="grid"></div>
-        </div>
-
-        <!-- Payouts (Bottom) -->
-        <div class="payout-strip" id="payoutBar"></div>
+      <div class="fairness-link-container">
+        <a href="#" onclick="toggleRules()" class="fairness-link">GAME INFO</a>
+        <span class="text-dim">|</span>
+        <a href="#" onclick="toggleFairness()" class="fairness-link">PROVABLY FAIR</a>
+      </div>
+      <div id="fairPanel" class="fairness-panel">
+        <div class="input-label">Server Seed (Hashed)</div>
+        <input class="fairness-input" id="hashedServerSeed" aria-label="Server Seed Hashed" readonly />
+        <div class="input-label mt-10">Client Seed</div>
+        <input class="fairness-input" id="clientSeed" value="AntigravityUser" aria-label="Client Seed"
+          oninput="updateSeeds()" />
+        <div class="input-label mt-10">Nonce</div>
+        <input class="fairness-input" id="nonceDisplay" aria-label="Nonce" value="0" readonly />
       </div>
     </div>
 
-    <div class="game-footer">
-      Hexa Keno Superball | RTP: 96.0% | Max Win: 7,000x | Malfunction voids all
-      pays and plays. A consistent internet connection is required.
-      <br />TM and © 2026 Stake Engine.
+    <div class="stage">
+      <!-- Top HUD -->
+      <div class="top-hud custom-hud-top">
+        <div class="stat-box custom-stat-box">
+          <span class="label custom-label">Balance</span>
+          <span id="balance" class="stat-val custom-val">$1,000.00</span>
+        </div>
+        <div class="stat-box custom-stat-box">
+          <span class="label custom-label">Wagered</span>
+          <span id="wagered" class="stat-val custom-val">$0.00</span>
+        </div>
+        <div class="stat-box custom-stat-box">
+          <span class="label custom-label">Round ID</span>
+          <span id="roundId" class="stat-val custom-val">0</span>
+        </div>
+        <div class="stat-box custom-stat-box">
+          <span class="label custom-label">Time</span>
+          <span id="gameClock" class="stat-val custom-val">00:00:00</span>
+        </div>
+      </div>
+
+      <!-- Drawn Balls + Win History (Top of board) -->
+      <div class="drawn-strip" id="drawnBalls">
+        <div class="history-sidebar" id="winHistory"></div>
+      </div>
+
+      <div class="game-board-frame">
+        <div class="grid-container" id="grid"></div>
+      </div>
+
+      <!-- Payouts (Bottom) -->
+      <div class="payout-strip" id="payoutBar"></div>
     </div>
+  </div>
 
-    <!-- Info Button -->
-    <button
-      id="infoBtn"
-      class="info-btn"
-      onclick="document.getElementById('infoModal').classList.remove('hidden')"
-    >
-      ?
-    </button>
+  <div class="game-footer">
+    Hexa Keno Superball | RTP: 96.0% | Max Win: 7,000x | Malfunction voids all
+    pays and plays. A consistent internet connection is required.
+    <br />TM and © 2026 Stake Engine.
+  </div>
 
-    <!-- How to Play Modal -->
-    <div
-      id="infoModal"
-      class="modal-overlay hidden"
-      onclick="if (event.target === this) this.classList.add('hidden');"
-    >
-      <div class="modal-content info-panel">
-        <div class="modal-header">
-          <h2>HOW TO PLAY</h2>
-          <button
-            class="close-btn"
-            onclick="
+  <!-- Info Button -->
+  <button id="infoBtn" class="info-btn" onclick="document.getElementById('infoModal').classList.remove('hidden')">
+    ?
+  </button>
+
+  <!-- How to Play Modal -->
+  <div id="infoModal" class="modal-overlay hidden" onclick="if (event.target === this) this.classList.add('hidden');">
+    <div class="modal-content info-panel">
+      <div class="modal-header">
+        <h2>HOW TO PLAY</h2>
+        <button class="close-btn" onclick="
               document.getElementById('infoModal').classList.add('hidden')
-            "
-          >
-            ×
-          </button>
-        </div>
-        <div class="info-body">
-          <div class="info-section">
-            <h3>GAME RULES</h3>
-            <p>
-              Select up to 10 numbers from the Hex grid. 10 numbers are drawn
-              each round. Match numbers to win payouts based on your Risk Level.
-            </p>
-          </div>
-          <div class="info-section">
-            <h3>FEATURES</h3>
-            <ul>
-              <li>
-                <strong class="color-gold">SUPERBALL:</strong> If the last ball
-                drawn (10th) hits one of your numbers, your payout is multiplied
-                by 7X! (Requires Superball Toggle ON)
-              </li>
-              <li>
-                <strong class="color-cyan">TURBO:</strong> Instant results for
-                fast-paced gameplay.
-              </li>
-              <li>
-                <strong class="color-payout-high">RISK LEVELS:</strong>
-                Adjust between Classic, Medium, and High risk for different
-                volatility.
-              </li>
-            </ul>
-          </div>
-          <div class="info-section">
-            <h3>PAYTABLE (High Risk)</h3>
-            <table class="simple-paytable">
-              <tr>
-                <th>Matches</th>
-                <th>Payout</th>
-              </tr>
-              <tr>
-                <td>10</td>
-                <td>2500x</td>
-              </tr>
-              <tr>
-                <td>9</td>
-                <td>500x</td>
-              </tr>
-              <tr>
-                <td>8</td>
-                <td>100x</td>
-              </tr>
-              <tr>
-                <td>...and more</td>
-                <td></td>
-              </tr>
-            </table>
-          </div>
-        </div>
+            ">
+          ×
+        </button>
       </div>
-    </div>
-
-    <!-- Big Win Banner -->
-    <div id="winBanner" class="win-banner hidden">
-      <div class="win-banner-content">
-        <div class="win-banner-title">BIG WIN</div>
-        <div class="win-banner-amount" id="winBannerAmount">$0.00</div>
-        <div class="win-banner-multiplier" id="winBannerMultiplier">0x</div>
-      </div>
-    </div>
-
-    <!-- Rules Modal -->
-    <div id="rulesModal" class="modal-overlay hidden">
-      <div class="modal-box">
-        <div class="modal-header">
-          <h2>Game Rules</h2>
-          <button class="close-btn" onclick="toggleRules()">×</button>
-        </div>
-        <div class="modal-content">
-          <h3>How to Play</h3>
+      <div class="info-body">
+        <div class="info-section">
+          <h3>GAME RULES</h3>
           <p>
-            Select 1 to 10 numbers from the grid of 37 hexagonal tiles. 10
-            numbers will be drawn per round.
+            Select up to 10 numbers from the Hex grid. 10 numbers are drawn
+            each round. Match numbers to win payouts based on your Risk Level.
           </p>
-
-          <h3>Features</h3>
+        </div>
+        <div class="info-section">
+          <h3>FEATURES</h3>
           <ul>
-            <li class="mb-10">
-              <strong>Grid:</strong> 40 unique hexagon tiles numbered 1-40.
+            <li>
+              <strong class="color-gold">SUPERBALL:</strong> If the last ball
+              drawn (10th) hits one of your numbers, your payout is multiplied
+              by 7X! (Requires Superball Toggle ON)
             </li>
             <li>
-              <strong>Superball:</strong> 10th ball drawn is the Superball. If
-              it matches a selected number, payout is 7x. (Cost: 2.5x total).
+              <strong class="color-cyan">TURBO:</strong> Instant results for
+              fast-paced gameplay.
             </li>
             <li>
-              <strong>Turbo Mode:</strong> Skips drawing animations for instant
-              results.
+              <strong class="color-payout-high">RISK LEVELS:</strong>
+              Adjust between Classic, Medium, and High risk for different
+              volatility.
             </li>
           </ul>
-
-          <h3>RTP & Payouts</h3>
-          <p>
-            Theoretical Return to Player (RTP): <strong>96.0%</strong>. Max Win:
-            10,000x.
-          </p>
-          <p>
-            Payouts vary based on Risk Level (Classic, Low, Medium, High) and
-            amount of numbers selected.
-          </p>
+        </div>
+        <div class="info-section">
+          <h3>PAYTABLE (High Risk)</h3>
+          <table class="simple-paytable">
+            <tr>
+              <th>Matches</th>
+              <th>Payout</th>
+            </tr>
+            <tr>
+              <td>10</td>
+              <td>2500x</td>
+            </tr>
+            <tr>
+              <td>9</td>
+              <td>500x</td>
+            </tr>
+            <tr>
+              <td>8</td>
+              <td>100x</td>
+            </tr>
+            <tr>
+              <td>...and more</td>
+              <td></td>
+            </tr>
+          </table>
         </div>
       </div>
     </div>
+  </div>
 
-    <!-- Auto Play Confirmation Modal -->
-    <div id="autoConfirmModal" class="modal-overlay hidden">
-      <div class="modal-box">
-        <div class="modal-header">
-          <h2>Start Auto Play?</h2>
-        </div>
-        <div class="modal-content">
-          <p>You are about to start automated rounds.</p>
-          <div class="modal-actions">
-            <button class="text-btn btn-danger" onclick="closeAutoConfirm()">
-              Cancel
-            </button>
-            <button class="bet-btn" onclick="confirmAutoStart()">START</button>
-          </div>
+  <!-- Big Win Banner -->
+  <div id="winBanner" class="win-banner hidden">
+    <div class="win-banner-content">
+      <div class="win-banner-title">BIG WIN</div>
+      <div class="win-banner-amount" id="winBannerAmount">$0.00</div>
+      <div class="win-banner-multiplier" id="winBannerMultiplier">0x</div>
+    </div>
+  </div>
+
+  <!-- Rules Modal -->
+  <div id="rulesModal" class="modal-overlay hidden">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h2>Game Rules</h2>
+        <button class="close-btn" onclick="toggleRules()">×</button>
+      </div>
+      <div class="modal-content">
+        <h3>How to Play</h3>
+        <p>
+          Select 1 to 10 numbers from the grid of 37 hexagonal tiles. 10
+          numbers will be drawn per round.
+        </p>
+
+        <h3>Features</h3>
+        <ul>
+          <li class="mb-10">
+            <strong>Grid:</strong> 40 unique hexagon tiles numbered 1-40.
+          </li>
+          <li>
+            <strong>Superball:</strong> 10th ball drawn is the Superball. If
+            it matches a selected number, payout is 7x. (Cost: 2.5x total).
+          </li>
+          <li>
+            <strong>Turbo Mode:</strong> Skips drawing animations for instant
+            results.
+          </li>
+        </ul>
+
+        <h3>RTP & Payouts</h3>
+        <p>
+          Theoretical Return to Player (RTP): <strong>96.0%</strong>. Max Win:
+          10,000x.
+        </p>
+        <p>
+          Payouts vary based on Risk Level (Classic, Low, Medium, High) and
+          amount of numbers selected.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Auto Play Confirmation Modal -->
+  <div id="autoConfirmModal" class="modal-overlay hidden">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h2>Start Auto Play?</h2>
+      </div>
+      <div class="modal-content">
+        <p>You are about to start automated rounds.</p>
+        <div class="modal-actions">
+          <button class="text-btn btn-danger" onclick="closeAutoConfirm()">
+            Cancel
+          </button>
+          <button class="bet-btn" onclick="confirmAutoStart()">START</button>
         </div>
       </div>
     </div>
+  </div>
 
-    <!-- SVG Filters for VFX -->
-    <svg width="0" height="0" class="vfx-svg">
-      <filter id="remove-black" color-interpolation-filters="sRGB">
-        <feColorMatrix
-          type="matrix"
-          values="1 0 0 0 0 
+  <!-- SVG Filters for VFX -->
+  <svg width="0" height="0" class="vfx-svg">
+    <filter id="remove-black" color-interpolation-filters="sRGB">
+      <feColorMatrix type="matrix" values="1 0 0 0 0 
                   0 1 0 0 0 
                   0 0 1 0 0 
-                  1 1 1 0 0"
-        />
-      </filter>
-    </svg>
+                  1 1 1 0 0" />
+    </filter>
+  </svg>
 
-    <script src="stake-engine-bundle.js"></script>
-    <script src="stake-adapter.js?t=100051"></script>
-    <!-- PixiJS v8 (Global Access) -->
-    <script src="pixi.min.js"></script>
-    <script src="spine-pixi.min.js?t=100051"></script>
-    <script src="vfx.js?t=100051"></script>
-    <script src="game.js?t=100051"></script>
-  </body>
+  <script src="stake-engine-bundle.js"></script>
+  <script src="stake-adapter.js?t=100052"></script>
+  <!-- PixiJS v8 (Global Access) -->
+  <script src="pixi.min.js"></script>
+  <script src="spine-pixi.min.js?t=100052"></script>
+  <script src="vfx.js?t=100052"></script>
+  <script src="game.js?t=100052"></script>
+</body>
+
 </html>
