@@ -629,7 +629,11 @@ async function init() {
     // Preload Assets & Show Loading Screen
     await AssetLoader.init();
 
-    // RESTORE STATE
+    // RGS Initialization
+    await adapter.init();
+    await adapter.authenticate();
+
+    // RESTORE STATE (Move here so adapter.balance.currency is populated)
     restoreState();
 
     // Attach Save Listeners
@@ -638,8 +642,7 @@ async function init() {
     if (DOM.superToggle) DOM.superToggle.addEventListener('click', saveState);
     if (DOM.turboToggle) DOM.turboToggle.addEventListener('click', saveState);
 
-    // Note: Clock is initialized once at the bottom of the file via updateClock()
-
+    // Re-bind DOM caches that were accidentally removed
     DOM.betAmountDisplay = document.getElementById('betAmountDisplay');
     DOM.betSlider = document.getElementById('betSlider');
 
@@ -648,16 +651,12 @@ async function init() {
     renderPayouts();
     if (typeof updateBetDisplay === 'function') updateBetDisplay();
 
-    // RGS Initialization
-    await adapter.init();
-    await adapter.authenticate();
-    updateBtn();
-
     // Initial Balance
     if (adapter.getFloatBalance) {
         game.balance = adapter.getFloatBalance();
     }
     updateStats(true);
+    updateBtn();
 
     // Dynamic Energy Pulse
     setInterval(() => {
