@@ -1032,19 +1032,30 @@ const RGS_BET_LEVELS_USD = [
 ];
 
 const RGS_BET_LEVELS_JPY = RGS_BET_LEVELS_USD.map(v => v * 100);
+if (RGS_BET_LEVELS_JPY[RGS_BET_LEVELS_JPY.length - 1] !== 150000) RGS_BET_LEVELS_JPY.push(150000);
+
+const RGS_BET_LEVELS_MXN = RGS_BET_LEVELS_USD.map(v => v * 10);
+if (RGS_BET_LEVELS_MXN[RGS_BET_LEVELS_MXN.length - 1] !== 15000) RGS_BET_LEVELS_MXN.push(15000);
 
 let RGS_BET_LEVELS = RGS_BET_LEVELS_USD;
 let currentCurrencySymbol = '$';
 
 function updateCurrencyConfig() {
     if (window.adapter && window.adapter.balance && window.adapter.balance.currency) {
-        if (window.adapter.balance.currency.toUpperCase() === 'JPY') {
+        const cur = window.adapter.balance.currency.toUpperCase();
+        if (cur === 'JPY') {
             RGS_BET_LEVELS = RGS_BET_LEVELS_JPY;
             currentCurrencySymbol = '¥';
+        } else if (cur === 'MXN') {
+            RGS_BET_LEVELS = RGS_BET_LEVELS_MXN;
+            currentCurrencySymbol = '$';
         } else {
             RGS_BET_LEVELS = RGS_BET_LEVELS_USD;
             currentCurrencySymbol = '$';
         }
+    }
+    if (DOM.betSlider) {
+        DOM.betSlider.max = RGS_BET_LEVELS.length - 1;
     }
 }
 
@@ -1063,6 +1074,11 @@ let currentBetIndex = 5; // Default index 5 corresponds to 1.00
 function updateBetDisplay() {
     updateCurrencyConfig();
     if (!DOM.betAmount || !DOM.betAmountDisplay) return;
+
+    if (currentBetIndex >= RGS_BET_LEVELS.length) {
+        currentBetIndex = RGS_BET_LEVELS.length - 1;
+    }
+
     const val = RGS_BET_LEVELS[currentBetIndex];
 
     const isJPY = currentCurrencySymbol === '¥';
