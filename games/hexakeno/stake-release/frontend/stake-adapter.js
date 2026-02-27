@@ -50,11 +50,25 @@ class StakeEngineAdapter {
 
             console.log(`[StakeAdapter] URL Parameters - Lang: ${this.lang}, Currency: ${this.targetCurrency}`);
 
+            // Extract the generic target RGS URL for ALL modes
+            const rgsUrlParam = urlParams.get('rgs_url');
+            if (rgsUrlParam) {
+                let parsedUrl = rgsUrlParam;
+                if (!parsedUrl.startsWith('http')) {
+                    parsedUrl = `https://${parsedUrl}`;
+                }
+                // Strip trailing slash if present safely
+                if (parsedUrl.endsWith('/')) {
+                    parsedUrl = parsedUrl.slice(0, -1);
+                }
+                this.targetRgsUrl = parsedUrl;
+            } else {
+                this.targetRgsUrl = ''; // fallback to relative paths
+            }
+
             // Check for RGSClient in global scope
             if (typeof RGSClient !== 'undefined') {
-                // Extract rgs_url from query parameters (required by Stake Engine)
-                const rgsUrl = urlParams.get('rgs_url') || window.location.hostname;
-                const fullUrl = rgsUrl.startsWith('http') ? rgsUrl : `https://${rgsUrl}`;
+                const fullUrl = this.targetRgsUrl || `https://${window.location.hostname}`;
 
                 console.log('[StakeAdapter] RGSClient detected. Initializing with RGS URL:', fullUrl);
                 this.rgsClient = RGSClient({
@@ -65,6 +79,9 @@ class StakeEngineAdapter {
                 console.log('[StakeAdapter] RGSClient initialized successfully.');
             } else {
                 console.warn('[StakeAdapter] RGSClient not detected. Falling back to MOCK MODE for local development.');
+                if (this.targetRgsUrl) {
+                    console.log('[StakeAdapter] Target RGS URL applied for local fetch fallback:', this.targetRgsUrl);
+                }
                 this.balance.currency = this.targetCurrency; // Sync mock currency
             }
         } catch (e) {
@@ -201,7 +218,8 @@ class StakeEngineAdapter {
                 this.balance.amount -= betInt;
 
                 // 2. Call Server
-                const response = await fetch('/play', {
+                const endpoint = this.targetRgsUrl ? `${this.targetRgsUrl}/play` : '/play';
+                const response = await fetch(endpoint, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
