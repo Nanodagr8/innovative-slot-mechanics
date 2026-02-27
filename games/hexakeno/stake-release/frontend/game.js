@@ -442,7 +442,9 @@ const DOM = {
     clientSeed: null,
     hashedServerSeed: null,
     nonceDisplay: null,
-    winHistory: null
+    winHistory: null,
+    rtpDisplay: null,
+    maxWinDisplay: null
 };
 
 /* --- ASSET PRELOADER --- */
@@ -625,6 +627,8 @@ async function init() {
     DOM.nonceDisplay = document.getElementById('nonceDisplay');
     DOM.winHistory = document.getElementById('winHistory');
     DOM.rulesModal = document.getElementById('rulesModal');
+    DOM.rtpDisplay = document.getElementById('rtpDisplay');
+    DOM.maxWinDisplay = document.getElementById('maxWinDisplay');
 
     // Preload Assets & Show Loading Screen
     await AssetLoader.init();
@@ -977,7 +981,9 @@ function renderPayouts(hits = -1, isSuperWin = false) {
     bar.innerHTML = '';
     const fragment = document.createDocumentFragment();
 
+    let maxWin = 0;
     table.forEach((m, i) => {
+        if (m > maxWin) maxWin = m;
         const card = document.createElement('div');
         card.className = 'payout-card';
         if (hits === i) card.classList.add(isSuperWin ? 'super-win' : 'win');
@@ -985,6 +991,20 @@ function renderPayouts(hits = -1, isSuperWin = false) {
         fragment.appendChild(card);
     });
     bar.appendChild(fragment);
+
+    // Update dynamic footer for RTP and Max Win based on active mode
+    if (DOM.rtpDisplay && DOM.maxWinDisplay) {
+        // RTP mapping explicitly required by regulatory compliance
+        const RTP_DATA = {
+            classic: 97.5,
+            low: 97.0,
+            medium: 96.5,
+            high: 97.0
+        };
+        const activeRtp = RTP_DATA[risk] || 97.5;
+        DOM.rtpDisplay.innerText = `RTP: ${activeRtp.toFixed(1)}%`;
+        DOM.maxWinDisplay.innerText = `Max Win: ${maxWin.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}x`;
+    }
 }
 
 function handleAction() {
