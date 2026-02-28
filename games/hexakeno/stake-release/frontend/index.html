@@ -216,9 +216,10 @@
 
   <div class="game-footer">
     Hexa Keno Superball | <span id="rtpDisplay">RTP: 97.5%</span> | <span id="maxWinDisplay">Max Win: 49.63x</span> |
-    Malfunction voids all
-    pays and plays. A consistent internet connection is required.
-    <br />TM and © 2026 Stake Engine.
+    <span class="disclaimer-text">Malfunction voids all pays and plays. A consistent internet connection is required. In
+      the event of a disconnection, reload the game to finish any uncompleted bets. The expected return is calculated
+      over many spins. Animations are not representative of any physical device, and are for illustrative purposes only.
+      TM and © 2025 Stake Engine.</span>
   </div>
 
   <!-- Info Button -->
@@ -266,6 +267,10 @@
             <li>
               <strong class="color-cyan">TURBO:</strong> Instant results for
               fast-paced gameplay.
+            </li>
+            <li>
+              <strong class="color-payout-high">NO FREE GAMES:</strong> There are no scatter symbols, free games, or
+              bonus rounds in Hexa Keno. All payouts are awarded instantly per spin based on the paytable.
             </li>
           </ul>
         </div>
@@ -373,6 +378,28 @@
             Cancel
           </button>
           <button class="bet-btn" onclick="confirmAutoStart()">START</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Superball Confirmation Modal -->
+  <div id="superConfirmModal" class="modal-overlay hidden">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h2>Enable Superball?</h2>
+      </div>
+      <div class="modal-content">
+        <p>Activating Superball will increase the cost of your bet to <strong>2.5x</strong> your current base bet
+          amount.</p>
+        <p>If the final ball drawn (the Superball) lands on one of your selected numbers, your payout will be multiplied
+          by 7X!</p>
+        <div class="modal-actions">
+          <button class="text-btn btn-danger"
+            onclick="document.getElementById('superConfirmModal').classList.add('hidden')">
+            Cancel
+          </button>
+          <button class="bet-btn" onclick="confirmSuperball()">CONFIRM</button>
         </div>
       </div>
     </div>

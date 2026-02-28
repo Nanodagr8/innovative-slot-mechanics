@@ -904,10 +904,34 @@ function selectHex(v, el) {
 
 function toggleSuper() {
     if (game.running) return;
+
+    // If currently ON, disable immediately without confirmation
+    if (game.super) {
+        completeSuperToggle();
+        return;
+    }
+
+    // If turning ON, show confirmation modal (since it costs > 2x)
+    const modal = document.getElementById('superConfirmModal');
+    if (modal) {
+        modal.classList.remove('hidden');
+    } else {
+        completeSuperToggle(); // fallback
+    }
+}
+
+window.confirmSuperball = function () {
+    const modal = document.getElementById('superConfirmModal');
+    if (modal) modal.classList.add('hidden');
+    completeSuperToggle();
+}
+
+function completeSuperToggle() {
     game.super = !game.super;
-    if (DOM.superToggle) DOM.superToggle.classList.toggle('active-super');
+    if (DOM.superToggle) DOM.superToggle.classList.toggle('active-super', game.super);
     updateBtn();
     renderPayouts();
+    if (typeof saveState === 'function') saveState();
 }
 
 function toggleTurbo() {
